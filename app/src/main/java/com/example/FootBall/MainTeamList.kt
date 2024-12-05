@@ -1,6 +1,6 @@
 package com.example.FootBall
 
-public class MainTeamList {
+class MainTeamList {
 
     private val mainTeamList = listOf(
         Team(1, "강원FC", "Gangwon FC", "강원특별자치도", "강릉종합운동장", "강원특별자치도 강릉시 종합운동장길 69", "나르샤", "https://youtu.be/cVupOGWY6Wg?si=atfEsuVQRjiaDOWc", "K리그 1", R.drawable.team01),
@@ -31,15 +31,21 @@ public class MainTeamList {
 
     )
 
+
     fun getMainTeamList(): List<Team> {
         return mainTeamList
     }
+
+
+    // 특정 팀 이름을 찾는 find 함수 추가
 
     fun findTeamByName(teamName: String): Team? {
         return mainTeamList.firstOrNull { it.name == teamName }
     }
 
-    public fun getByPosMainTeamList(pos: Int): Team {
+
+    fun getByPosMainTeamList(pos: Int): Team {
         return mainTeamList[pos-1]
     }
+
 }
