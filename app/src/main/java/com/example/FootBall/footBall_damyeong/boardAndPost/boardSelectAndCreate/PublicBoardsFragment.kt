@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.FootBall.FireStoreConnection
+import com.example.FootBall.MyApplication
 import com.example.FootBall.R
 import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
@@ -18,19 +19,40 @@ class PublicBoardsFragment : Fragment() {
     private var _binding: FragmentPublicBoardsBinding? = null
     private val binding get() = _binding!!
 
+
     private fun refresh() {
+        val app = requireActivity().application as MyApplication
+        val user = app.currentUser
+
         FireStoreConnection.onGetCollection("publicBoards/") { documents ->
             boardList.clear() // 기존 데이터 초기화
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
                 if (board != null) {
-                    boardList.add(board)
+                    if(user!!.team=="")
+                    {
+                        boardList.add(board)
+                    }
+                    else if(board.boardName.equals(user.team))
+                    {
+                        //프로필에 등록한 팀 하나만 띄워줌.
+                        boardList.add(board)
+                    }
+
+                    if(board.boardName.equals("모두의 풋볼"))
+                    {
+                        boardList.add(0,board)
+                    }
                 }
             }
             adapter.notifyDataSetChanged()
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        refresh()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +80,6 @@ class PublicBoardsFragment : Fragment() {
             startActivity(intent)
         }
 
-        refresh()
     }
 
     override fun onDestroyView() {
