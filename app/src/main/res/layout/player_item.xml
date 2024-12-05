@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:text="선수명"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
