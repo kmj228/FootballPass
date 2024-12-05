@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- 게시판 이름 입력 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시판 이름"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="start" />
+
+    <EditText
+        android:id="@+id/boardCreate_boardName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="게시판 이름을 입력하세요"
+        android:inputType="text"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="#ffffff"
+        android:textSize="16sp" />
+
+    <!-- 게시판 설명 입력 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시판 설명"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="start" />
+
+    <EditText
+        android:id="@+id/boardCreate_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:hint="게시판 설명을 입력하세요"
+        android:inputType="textMultiLine"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:background="#ffffff"
+        android:textSize="16sp" />
+
+    <!-- 게시판 만들기 버튼 -->
+    <Button
+        android:id="@+id/boardCreate_createButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="게시판 만들기"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white"
+        android:padding="16dp" />
+
+</LinearLayout>

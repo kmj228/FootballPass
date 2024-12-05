@@ -1,0 +1,84 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#181829">
+
+    <ImageView
+        android:id="@+id/teamProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_launcher_foreground"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/teamLeague"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#C4C4C4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/teamDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#C4C4C4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/teamHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#C4C4C4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:id="@+id/teamSupporters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#C4C4C4"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp" />
+
+    <Button
+        android:id="@+id/teamCheerSongButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#222232"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal"
+        android:text="팀 응원가 듣기"
+        android:layout_marginBottom="10dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/playerListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+</LinearLayout>

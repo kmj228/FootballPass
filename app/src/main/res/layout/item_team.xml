@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_background">
+
+    <ImageView
+        android:id="@+id/teamProfile"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/teamName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="팀명"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/teamRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#C4C4C4"
+            android:text="팀 지역"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/teamLeague"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#C4C4C4"
+            android:text="팀 리그"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

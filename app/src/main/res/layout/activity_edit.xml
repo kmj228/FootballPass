@@ -1,0 +1,204 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#181829" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원정보 수정"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#ffffff" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="16dp" >
+
+            <ImageView
+                android:id="@+id/profileImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/ic_launcher_foreground"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#464964"
+            android:textColor="#FFFFFF"
+            android:text="사진 선택" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:weightSum="10" >
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/person" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="14sp"
+                android:autoSizeStepGranularity="2sp"
+                android:layout_marginTop="2dp"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="여기에 이름을 적어주세요"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#C4C4C4"
+            android:backgroundTint="#C4C4C4"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:weightSum="10" >
+
+            <LinearLayout
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/person" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="자기소개"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="10sp"
+                    android:autoSizeMaxTextSize="14sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+        <EditText
+            android:id="@+id/infoEditText"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="여기에 자기소개를 적어주세요"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#C4C4C4"
+            android:backgroundTint="#C4C4C4"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:weightSum="10" >
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/person" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="팀"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMinTextSize="10sp"
+                android:autoSizeMaxTextSize="14sp"
+                android:autoSizeStepGranularity="2sp"
+                android:layout_marginTop="2dp"
+                android:textColor="#FFFFFF" />
+
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/teamEditText"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="좋아하는 팀을 선택해주세요"
+            android:focusable="false"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#C4C4C4"
+            android:backgroundTint="#C4C4C4"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="182dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="32dp"
+        android:text="저장"
+        android:backgroundTint="#464964"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>

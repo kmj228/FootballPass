@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--민재코드-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name="com.example.FootBall.MyApplication"
+        android:requestLegacyExternalStorage="true"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FootBall"
+        tools:targetApi="31" >
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.BoardCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.UserBoardsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.PublicBoardsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.PostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.Post"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.BoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.CreatePostActivity"
+            android:exported="false" />
+
+        <!--민재코드-->
+        <activity android:name="com.example.FootBall.football_minjae.SignUpActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.TeamListActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.TeamDetailsActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.PlayerDetailsActivity" />
+        <activity android:name=".MainViewActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.EditActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name="com.example.FootBall.football_minjae.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FootBall" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

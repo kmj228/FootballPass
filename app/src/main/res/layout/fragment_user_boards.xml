@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end">
+                <Button
+                    android:id="@+id/userBoards_deleteButtun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="게시판 삭제"/>
+                <Button
+                    android:id="@+id/userBoards_createButtun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="게시판 생성"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저 게시판"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"
+                android:layout_margin="30dp"/>
+            <EditText
+                android:id="@+id/userBoards_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="게시판 검색"
+                android:layout_margin="16dp"/>
+            <Button
+                android:id="@+id/userBoards_searchButtun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색"
+                android:layout_gravity="end"
+                android:layout_margin="5dp"/>
+            <ListView
+                android:id="@+id/userBoards_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp">
+                text
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

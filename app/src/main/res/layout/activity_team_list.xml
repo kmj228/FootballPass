@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#181829">
+
+    <!-- 검색 바 -->
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint=" 팀 검색"
+        android:padding="12dp"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:layout_margin="16dp"
+        android:textColorHint="#808080" />
+
+    <!-- 팀 리스트 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginHorizontal="16dp">
+
+        <LinearLayout
+            android:id="@+id/teamListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+</LinearLayout>

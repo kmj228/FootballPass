@@ -1,0 +1,51 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#181829"
+    android:paddingBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/rounded_background">
+
+        <!-- 경기 아이콘 -->
+        <ImageView
+            android:id="@+id/imageViewMatchIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="8dp" />
+
+        <!-- 경기 이름 및 날짜 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewMatchName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Match Name"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:paddingBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textViewMatchDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Match Date"
+                android:textSize="14sp"
+                android:textColor="#C4C4C4"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

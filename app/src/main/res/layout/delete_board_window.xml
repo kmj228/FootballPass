@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#eeffff"
+    android:gravity="center">
+    <!-- 설정 창에 들어갈 UI 요소들 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시판삭제하기"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/deleteBoardWindow_EditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:hint="삭제할 게시판 이름" />
+
+    <Button
+        android:id="@+id/deleteBoardWindow_deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="삭제" />
+    <Button
+        android:id="@+id/deleteBoardWindow_cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="취소" />
+</LinearLayout>

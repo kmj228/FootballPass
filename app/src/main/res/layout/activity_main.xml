@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main_gradient"
+    android:padding="32dp">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="64dp"
+        android:src="@drawable/kleague" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- 이미지 아이콘 -->
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/mail" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 이메일"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"
+                    android:backgroundTint="#181829"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- 이미지 아이콘 -->
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/lock" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint=" 비밀번호"
+                    android:textSize="12sp"
+                    android:textColor="#F6F6F6"
+                    android:textColorHint="#F6F6F6"
+                    android:backgroundTint="#181829"
+                    android:inputType="textPassword"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="6dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:weightSum="2" >
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_gravity="start" >
+
+                    <CheckBox
+                        android:id="@+id/cbAutoLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="자동로그인"
+                        android:textColor="#C4C4C4"
+                        android:textSize="10sp"
+                        android:buttonTint="#C4C4C4"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/tvForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="비밀번호를 잊으셨나요?"
+                        android:textColor="#C4C4C4"
+                        android:layout_marginBottom="12dp"
+                        android:textSize="10sp"
+                        android:clickable="true"
+                        android:focusable="true" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
+                android:text="로그인"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="계정이 없으신가요? 회원가입"
+                android:textSize="10sp"
+                android:textColor="#C4C4C4"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
