@@ -31,12 +31,15 @@ public class MainTeamList {
 
     )
 
-    // Getter 함수 추가
-    public fun getMainTeamList(pos: Int): Team {
-        return mainTeamList[pos-1]
+    fun getMainTeamList(): List<Team> {
+        return mainTeamList
     }
 
-    fun findTeamByName(team: String): Any {
+    fun findTeamByName(teamName: String): Team? {
+        return mainTeamList.firstOrNull { it.name == teamName }
+    }
 
+    public fun getByPosMainTeamList(pos: Int): Team {
+        return mainTeamList[pos-1]
     }
 }

@@ -23,6 +23,7 @@ import org.jsoup.select.Elements
 import java.util.Calendar
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import com.example.FootBall.MainTeamList
 
 
 class FirstTabContent : Fragment() {
@@ -224,8 +225,8 @@ class FirstTabContent : Fragment() {
                     games.add(
                         GameInfo(
                             date,
-                            mainTeamList.getMainTeamList(homeTeamId),
-                            mainTeamList.getMainTeamList(awayTeamId),
+                            mainTeamList.getByPosMainTeamList(homeTeamId),
+                            mainTeamList.getByPosMainTeamList(awayTeamId),
                             homeScore,
                             awayScore,
                             gameId,
