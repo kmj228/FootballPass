@@ -2,6 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" >
 
+    <!-- 카메라 권한 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!--민재코드-->
@@ -17,6 +31,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/Theme.FootBall"
         tools:targetApi="31" >
@@ -24,10 +39,10 @@
             android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.BoardCreateActivity"
             android:exported="false" />
         <activity
-            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.UserBoardsActivity"
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.UserBoardsFragment"
             android:exported="false" />
         <activity
-            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.PublicBoardsActivity"
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.PublicBoardsFragment"
             android:exported="false" />
         <activity
             android:name=".footBall_damyeong.boardAndPost.PostActivity"
@@ -44,7 +59,6 @@
 
         <!--민재코드-->
         <activity android:name="com.example.FootBall.football_minjae.SignUpActivity" />
-        <activity android:name="com.example.FootBall.football_minjae.TeamListActivity" />
         <activity android:name="com.example.FootBall.football_minjae.TeamDetailsActivity" />
         <activity android:name="com.example.FootBall.football_minjae.PlayerDetailsActivity" />
         <activity android:name=".MainViewActivity" />
@@ -52,6 +66,10 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+        <activity
+            android:name="com.example.FootBall.football_junsik.NewActivity"
+            android:exported="false" />
 
         <activity
             android:name="com.example.FootBall.football_minjae.MainActivity"

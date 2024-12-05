@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="horizontal"
+    android:layout_margin="10dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/homeTeamImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/homeScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="32sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/playDay"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2024년 2월 2일"/>
+
+        <TextView
+            android:id="@+id/playTime"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14:30"/>
+
+        <TextView
+            android:id="@+id/playPlace"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수원월드컵경기장"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/awayScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="32sp"/>
+
+    <ImageView
+        android:id="@+id/awayTeamImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추가"
+        android:id="@+id/addPlane"/>
+</LinearLayout>

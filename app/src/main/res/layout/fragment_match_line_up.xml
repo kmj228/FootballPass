@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <!-- 왼쪽 리스트 뷰 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/leftRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#ffcccc" /> <!-- 배경 색상 조정 가능 -->
+
+    <!-- 오른쪽 리스트 뷰 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rightRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#ccffcc" /> <!-- 배경 색상 조정 가능 -->
+
+</LinearLayout>

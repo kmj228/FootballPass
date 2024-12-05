@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:src="@drawable/home"
+        android:id="@+id/noticeImage"/>
+
+    <TextView
+        android:id="@+id/noticeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/noticeImage"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/noticeImage"
+        android:text="루머) 뮬리치 재계약 X" />
+
+
+</RelativeLayout>

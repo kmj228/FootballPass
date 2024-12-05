@@ -7,6 +7,7 @@ import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.
 import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.UserBoardsFragment
 import com.example.FootBall.football_minjae.MyProfileFragment
 import com.example.FootBall.football_minjae.TeamListFragment
+import com.example.FootBall.football_junsik.FirstTabContent
 
 class MyPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
@@ -16,6 +17,7 @@ class MyPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
+            0->FirstTabContent()
             1 -> TeamListFragment()
             2 -> PublicBoardsFragment()
             3 -> UserBoardsFragment()
