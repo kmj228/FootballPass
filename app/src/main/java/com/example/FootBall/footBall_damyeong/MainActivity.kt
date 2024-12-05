@@ -1,10 +1,10 @@
 package com.example.FootBall.footBall_damyeong
 
 /*
+
 project structure에서 안드로이드 API를 35로 설정
 파이어베이스 연동 안되있으면 tools에서 firebase에서 FireStore랑 FireStorage 연동 및 sdk다운받기
 뷰바인딩 설정
-
 
 -------------------------------------중요------------------------------------------
 --파이어 스토어 경로체계
