@@ -16,13 +16,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import android.widget.Button
-import android.widget.ImageView
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
 import kotlinx.coroutines.async
 import org.jsoup.select.Elements
 import java.util.Calendar
-import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
 
 
 class FirstTabContent : Fragment() {

@@ -1,8 +1,6 @@
-package com.example.FootBall.football_junsik
+package com.example.FootBall
 
-import com.example.FootBall.R
-
-public class MainTeamList {
+class MainTeamList {
 
     private val mainTeamList = listOf(
         Team(1, "강원FC", "Gangwon FC", "강원특별자치도", "강릉종합운동장", "강원특별자치도 강릉시 종합운동장길 69", "나르샤", "https://youtu.be/cVupOGWY6Wg?si=atfEsuVQRjiaDOWc", "K리그 1", R.drawable.team01),
@@ -33,8 +31,18 @@ public class MainTeamList {
 
     )
 
-    // Getter 함수 추가
-    public fun getMainTeamList(pos: Int): Team {
+    // 특정 팀 이름을 찾는 find 함수 추가
+    fun findTeamByName(teamName: String): Team? {
+        return mainTeamList.firstOrNull { it.name == teamName }
+    }
+
+    // Getter 함수
+    fun getMainTeamList(): List<Team> {
+        return mainTeamList
+    }
+
+    fun getMainTeamList(pos: Int): Team {
         return mainTeamList[pos-1]
     }
+
 }

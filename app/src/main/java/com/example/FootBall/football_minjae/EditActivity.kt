@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.FootBall.R
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.FireStoreConnection
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.MainViewActivity
 import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser

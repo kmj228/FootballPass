@@ -1,5 +1,7 @@
 package com.example.FootBall.football_junsik
 
+import com.example.FootBall.Team
+
 
 data class GameInfo(
     val date: String,
