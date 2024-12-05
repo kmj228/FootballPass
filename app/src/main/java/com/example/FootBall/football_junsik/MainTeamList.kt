@@ -1,5 +1,7 @@
 package com.example.FootBall.football_junsik
 
+import com.example.FootBall.R
+
 public class MainTeamList {
 
     private val mainTeamList = listOf(

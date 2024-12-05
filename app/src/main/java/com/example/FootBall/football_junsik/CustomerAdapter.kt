@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.FootBall.R
 
 class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<CustomerAdapter.CustomerViewHolder>() {
 
