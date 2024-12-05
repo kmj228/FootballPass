@@ -47,6 +47,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
+        // 다른 중복 파일이 있을 경우 추가
+    }
 }
 
 dependencies {

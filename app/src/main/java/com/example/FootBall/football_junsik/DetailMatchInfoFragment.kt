@@ -11,6 +11,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
+import com.example.FootBall.R
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

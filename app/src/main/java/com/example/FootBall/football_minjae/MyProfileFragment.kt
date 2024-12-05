@@ -1,6 +1,7 @@
 package com.example.FootBall.football_minjae
 
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.FootBall.FireStorageConnection
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
+import com.example.FootBall.football_junsik.GameDBHelper
 
 class MyProfileFragment : Fragment() {
+
+    lateinit var dbHelper: GameDBHelper
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,11 +92,17 @@ class MyProfileFragment : Fragment() {
         }
 
         // 최근 방문 경기 리스트 (임의 데이터)
-        val recentMatches = listOf(
-            Match("FC 서울 vs 수원 FC", "2024-11-01", R.drawable.team12),
-            Match("전북 FC vs FC 서울", "2024-10-20", R.drawable.team06),
-            Match("전북 FC vs 수원 FC", "2024-09-15", R.drawable.team09)
-        )
+        val recentMatches = mutableListOf<Match>()
+        dbHelper = GameDBHelper(view.context)
+        val db = dbHelper.readableDatabase
+
+        var cursor: Cursor
+
+        cursor = db.rawQuery("SELECT * FROM gameDataTBL ORDER BY date DESC;", null)
+        while (cursor.moveToNext()){
+            recentMatches.add(Match(cursor.getString(1) + "VS" + cursor.getString(2), cursor.getString(0), cursor.getInt(5)))
+        }
+
 
         // 최근 방문 경기 추가
         val recentMatchesLayout = view.findViewById<LinearLayout>(R.id.layoutRecentMatches)

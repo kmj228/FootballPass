@@ -1,4 +1,4 @@
-package com.example.FootBall.football_junsik
+package com.example.FootBall
 
 public class MainTeamList {
 
@@ -34,5 +34,9 @@ public class MainTeamList {
     // Getter 함수 추가
     public fun getMainTeamList(pos: Int): Team {
         return mainTeamList[pos-1]
+    }
+
+    fun findTeamByName(team: String): Any {
+
     }
 }
