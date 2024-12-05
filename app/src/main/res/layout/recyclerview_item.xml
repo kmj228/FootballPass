@@ -39,24 +39,19 @@
 
             <TextView
                 android:id="@+id/playDay"
-                android:textColor="#FFFFFF"
                 android:layout_gravity="center"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:textColor="#FFFFFF"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 android:text="2024년 2월 2일"/>
 
             <TextView
-                android:id="@+id/playTime"
-                android:textColor="#FFFFFF"
-                android:textSize="11sp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="14:30"/>
-
-            <TextView
                 android:id="@+id/playPlace"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
                 android:textColor="#FFFFFF"
                 android:textSize="11sp"
                 android:layout_gravity="center"
