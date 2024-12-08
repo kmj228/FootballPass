@@ -4,13 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#eeffff"
+    android:background="#181829"
     android:gravity="center">
     <!-- 설정 창에 들어갈 UI 요소들 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="게시판삭제하기"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
     <EditText
@@ -18,16 +19,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:textColorHint="#808080"
         android:hint="삭제할 게시판 이름" />
 
-    <Button
-        android:id="@+id/deleteBoardWindow_deleteButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="삭제" />
-    <Button
-        android:id="@+id/deleteBoardWindow_cancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="취소" />
+        android:layout_gravity="center_vertical">
+
+        <Button
+            android:id="@+id/deleteBoardWindow_deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#464964"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="30dp"
+            android:text="삭제" />
+
+        <Button
+            android:id="@+id/deleteBoardWindow_cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#464964"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:textColor="#FFFFFF"
+            android:text="취소" />
+
+    </LinearLayout>
+
 </LinearLayout>

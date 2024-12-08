@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#181829" >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,6 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="유저 게시판"
+                    android:textColor="#FFFFFF"
                     android:layout_gravity="center_vertical"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -37,6 +39,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_height="wrap_content"
                     android:textSize="11sp"
+                    android:backgroundTint="#464964"
+                    android:textColor="#FFFFFF"
                     android:layout_margin="8dp"
                     android:text="게시판 삭제"/>
                 <Button
@@ -45,6 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="8dp"
+                    android:backgroundTint="#464964"
+                    android:textColor="#FFFFFF"
                     android:textSize="11sp"
                     android:text="게시판 생성"/>
             </LinearLayout>
@@ -65,6 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="검색"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
                 android:layout_gravity="end"
                 android:layout_margin="5dp"/>
             <ListView
@@ -78,7 +86,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp">
-                text
             </LinearLayout>
         </LinearLayout>
 

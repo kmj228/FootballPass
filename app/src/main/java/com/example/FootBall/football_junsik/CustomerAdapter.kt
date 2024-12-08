@@ -20,7 +20,6 @@ class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<Cus
 
     inner class CustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateTextView: TextView = itemView.findViewById(R.id.playDay)
-        val timeTextView: TextView = itemView.findViewById(R.id.playTime)
         val placeTextView: TextView = itemView.findViewById(R.id.playPlace)
         val homeTeamImageView: ImageView = itemView.findViewById(R.id.homeTeamImage)
         val awayTeamImageView: ImageView = itemView.findViewById(R.id.awayTeamImage)
@@ -54,7 +53,6 @@ class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<Cus
 
         fun bind(item: Customer) {
             dateTextView.text = item.date
-            timeTextView.text = item.time
             placeTextView.text = item.place
             homeTeamImageView.setImageResource(item.homeDraw) // 실제 이미지로 변경 필요
             awayTeamImageView.setImageResource(item.awayDraw) // 실제 이미지로 변경 필요

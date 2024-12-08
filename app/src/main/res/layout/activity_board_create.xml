@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="32dp"
+    android:background="#181829">
 
     <!-- 게시판 이름 입력 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="게시판 이름"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"
         android:layout_gravity="start" />
@@ -22,8 +23,10 @@
         android:hint="게시판 이름을 입력하세요"
         android:inputType="text"
         android:padding="12dp"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:textColorHint="#808080"
         android:layout_marginBottom="16dp"
-        android:background="#ffffff"
         android:textSize="16sp" />
 
     <!-- 게시판 설명 입력 -->
@@ -31,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="게시판 설명"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"
         android:layout_gravity="start" />
@@ -42,8 +46,10 @@
         android:hint="게시판 설명을 입력하세요"
         android:inputType="textMultiLine"
         android:padding="12dp"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:textColorHint="#808080"
         android:layout_marginBottom="16dp"
-        android:background="#ffffff"
         android:textSize="16sp" />
 
     <!-- 게시판 만들기 버튼 -->
@@ -54,7 +60,8 @@
         android:text="게시판 만들기"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
-        android:textColor="@android:color/white"
+        android:backgroundTint="#464964"
+        android:textColor="#FFFFFF"
         android:padding="16dp" />
 
 </LinearLayout>

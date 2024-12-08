@@ -1,8 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="32dp"
+    android:background="#181829">
 
     <!-- 제목 입력 필드 -->
     <EditText
@@ -10,8 +13,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="제목"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:textColorHint="#808080"
         android:textSize="18sp"
         android:padding="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/postCreateImageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/ic_launcher_foreground"
+                android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_gravity="center_vertical"
+            android:text="이미지 선택"
+            android:backgroundTint="#464964"
+            android:textColor="#FFFFFF"
+            android:padding="10dp" />
+
+    </LinearLayout>
 
     <!-- 내용 입력 필드 -->
     <EditText
@@ -19,30 +59,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="내용"
+        android:background="@drawable/rounded_background"
+        android:textColor="#C4C4C4"
+        android:textColorHint="#808080"
         android:textSize="16sp"
         android:padding="8dp"
-        android:lines="4"
+        android:lines="5"
+        android:minLines="15"
         android:gravity="top" />
-
-
-    <!-- 이미지 선택 버튼 -->
-    <Button
-        android:id="@+id/selectImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이미지 선택"
-        android:padding="10dp"
-        android:layout_gravity="center" />
-
-    <!-- 선택한 이미지 미리보기 -->
-    <ImageView
-        android:id="@+id/postCreateImageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:contentDescription="선택한 이미지" />
 
     <!-- 게시글 업로드 버튼 -->
     <Button
@@ -50,6 +74,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="게시글 업로드"
+        android:backgroundTint="#464964"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="16dp"
-        android:padding="10dp" />
+        android:padding="20dp" />
 </LinearLayout>

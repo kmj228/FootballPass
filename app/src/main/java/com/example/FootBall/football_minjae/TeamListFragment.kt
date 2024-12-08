@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -20,6 +21,7 @@ class TeamListFragment : Fragment() {
 
     private val teamList = MainTeamList().getMainTeamList()
     private lateinit var teamContainer: LinearLayout
+    private var currentFilter: String = "K리그 1" // 초기 필터를 K리그1로 설정
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,23 +31,48 @@ class TeamListFragment : Fragment() {
 
         teamContainer = rootView.findViewById(R.id.teamListContainer)
 
-        // 초기 팀 목록 표시
-        displayTeams(teamList, inflater)
+        // 초기 팀 목록 표시 (K리그1 필터 적용)
+        filterAndDisplayTeams("", inflater)
 
         // 검색 입력 처리
         val searchBar: EditText = rootView.findViewById(R.id.searchBar)
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val filteredList = teamList.filter { team ->
-                    team.name.contains(s.toString(), ignoreCase = true)
-                }
-                displayTeams(filteredList, inflater) // 검색 결과 표시
+                filterAndDisplayTeams(s.toString(), inflater)
             }
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        // 필터 버튼 처리
+        val btnKLeague1: Button = rootView.findViewById(R.id.btnKLeague1)
+        val btnKLeague2: Button = rootView.findViewById(R.id.btnKLeague2)
+
+        btnKLeague1.setOnClickListener {
+            currentFilter = "K리그 1"
+            filterAndDisplayTeams(searchBar.text.toString(), inflater)
+        }
+
+        btnKLeague2.setOnClickListener {
+            currentFilter = "K리그 2"
+            filterAndDisplayTeams(searchBar.text.toString(), inflater)
+        }
+
         return rootView
+    }
+
+    // 팀 목록을 검색어 및 리그 필터에 맞춰 표시
+    private fun filterAndDisplayTeams(searchQuery: String, inflater: LayoutInflater) {
+        val filteredList = teamList.filter { team ->
+            val matchesSearch = team.name.contains(searchQuery, ignoreCase = true)
+            val matchesFilter = when (currentFilter) {
+                "K리그 1" -> team.league == "K리그 1"
+                "K리그 2" -> team.league == "K리그 2"
+                else -> team.league == "K리그 1"
+            }
+            matchesSearch && matchesFilter
+        }
+        displayTeams(filteredList, inflater)
     }
 
     // 팀 목록을 LinearLayout에 표시
@@ -68,7 +95,6 @@ class TeamListFragment : Fragment() {
 
             // 팀 항목 클릭 리스너 추가
             teamView.setOnClickListener {
-
                 // 다른 Activity로 이동하려면 Intent 추가
                 val intent = Intent(requireContext(), TeamDetailsActivity::class.java)
                 intent.putExtra("team", team) // 팀 객체 전달
