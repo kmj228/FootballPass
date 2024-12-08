@@ -1,7 +1,9 @@
 package com.example.FootBall.footBall_damyeong.boardAndPost
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.FootBall.FireStorageConnection
@@ -23,8 +25,8 @@ class PostActivity : AppCompatActivity() {
         val postTitle = binding.postTitle
         val postDate = binding.postDate
         val postAuther = binding.postAuther
-        val postContent = binding.postContent
-        val postImage = binding.postImageView
+        val postContent = binding.textView
+        val postImage = binding.imageView
 
         //인텐트대신 전역변수를 통해서 전달받음.
         var postRef: BoardActivity.PostRef =BoardActivity.postRef
@@ -85,16 +87,24 @@ class PostActivity : AppCompatActivity() {
         val formattedDate = dateFormat.format(date)
         postDate.text = formattedDate
 
+        // 이미지가 있는 경우
+        if (post.imagePath != null) {
+            postImage.visibility = View.VISIBLE
+            postImage.layoutParams = (postImage.layoutParams as LinearLayout.LayoutParams).apply {
+                weight = 1f // 이미지가 차지할 비율
+            }
+            postContent.layoutParams = (postContent.layoutParams as LinearLayout.LayoutParams).apply {
+                weight = 2f // 텍스트가 차지할 비율
+            }
 
-        //화면에 이미지 띄우기
-        if(post.imagePath != null)
-        {
             FireStorageConnection.bindImageByPath(this,post.imagePath!!,postImage)
+        } else {
+            // 이미지가 없는 경우
+            postImage.visibility = View.GONE
+            postContent.layoutParams = (postContent.layoutParams as LinearLayout.LayoutParams).apply {
+                weight = 1f // 텍스트가 전체를 차지
+            }
         }
-        else
-        //이미지가 없으면 이미지뷰를 안보이게한다.
-            postImage.visibility = ImageView.INVISIBLE
-
 
         //게시글 삭제버튼
         deleteButton.setOnClickListener{

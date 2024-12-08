@@ -5,31 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#181829" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="공통 게시판"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_margin="30dp"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:scrollbars="none">
-        <LinearLayout
+        android:scrollbars="none"
+        android:overScrollMode="never" >
+
+        <ListView
+            android:id="@+id/publicBoards_listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="공통 게시판"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp"
-                android:layout_margin="30dp"/>
-            <ListView
-                android:id="@+id/publicBoards_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:padding="16dp" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clipToPadding="false" />
 
     </ScrollView>
 </LinearLayout>

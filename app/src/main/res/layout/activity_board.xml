@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#181829">
+
     <TextView
         android:id="@+id/board_title"
         android:layout_width="match_parent"
@@ -12,28 +13,42 @@
         android:text="제목없는 게시판"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold"
-        android:layout_margin="30dp" />
-    <EditText
-        android:id="@+id/board_searchEditText"
+        android:layout_marginTop="30dp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:hint="게시글(내용,작성자) 검색"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"/>
-    <Button
-        android:id="@+id/board_searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#464964"
-        android:textColor="#FFFFFF"
-        android:text="검색"
-        android:layout_gravity="end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:weightSum="8"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/board_searchEditText"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint=" 게시글 검색"
+            android:padding="8dp"
+            android:background="@drawable/rounded_background"
+            android:textColor="#C4C4C4"
+            android:layout_margin="8dp"
+            android:textColorHint="#808080" />
+
+        <ImageView
+            android:id="@+id/board_searchButton"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/search"/>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/board_writePostButton"
         android:layout_width="wrap_content"

@@ -5,59 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#181829" >
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="유저 게시판"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_vertical"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_margin="12dp"/>
+
+            <Button
+                android:id="@+id/userBoards_deleteButtun"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
+                android:text="삭제"/>
+
+            <Button
+                android:id="@+id/userBoards_createButtun"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
+                android:layout_margin="8dp"
+                android:text="생성"/>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="유저 게시판"
-                    android:textColor="#FFFFFF"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:layout_margin="12dp"/>
-
-                <Button
-                    android:id="@+id/userBoards_deleteButtun"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:backgroundTint="#464964"
-                    android:textColor="#FFFFFF"
-                    android:layout_margin="8dp"
-                    android:text="게시판 삭제"/>
-                <Button
-                    android:id="@+id/userBoards_createButtun"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="8dp"
-                    android:backgroundTint="#464964"
-                    android:textColor="#FFFFFF"
-                    android:textSize="11sp"
-                    android:text="게시판 생성"/>
-            </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:weightSum="8"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/userBoards_editText"
-                android:layout_width="match_parent"
+                android:layout_weight="7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint=" 게시판 검색"
                 android:padding="8dp"
@@ -66,28 +71,30 @@
                 android:layout_margin="8dp"
                 android:textColorHint="#808080" />
 
-            <Button
+            <ImageView
                 android:id="@+id/userBoards_searchButtun"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="검색"
-                android:backgroundTint="#464964"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="end"
-                android:layout_margin="5dp"/>
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/search"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:overScrollMode="never" >
+
             <ListView
                 android:id="@+id/userBoards_listView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:padding="16dp" />
+                android:layout_margin="16dp"
+                android:clipToPadding="false" />
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp">
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
 </LinearLayout>

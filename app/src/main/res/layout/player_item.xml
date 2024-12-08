@@ -17,14 +17,14 @@
         android:background="@drawable/rounded_background">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
-            android:layout_marginEnd="16dp" >
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="6dp"
+            android:layout_marginEnd="10dp" >
             <ImageView
                 android:id="@+id/playerProfile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/ic_launcher_foreground"
                 android:scaleType="centerCrop" />
         </androidx.cardview.widget.CardView>
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:text="선수명"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
