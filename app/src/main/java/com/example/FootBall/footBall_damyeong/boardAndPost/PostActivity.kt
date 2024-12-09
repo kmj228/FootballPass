@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.FireStoreConnection
@@ -20,10 +21,25 @@ class PostActivity : AppCompatActivity() {
     lateinit var commentAdapter:CommentListAdapter
     val commnetList=ArrayList<CommentItem>()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
-
+    private lateinit var postRef:BoardActivity.PostRef
     fun refresh()
     {
         swipeRefreshLayout.isRefreshing = false // 새로고침 완료 후 종료
+        FireStoreConnection.onGetCollection(postRef.postPath+"/comments/")
+        {
+            documents ->
+            commnetList.clear()
+            for(document in documents)
+            {
+                val comment=document.toObject(CommentItem::class.java)
+                if(comment == null)
+                    continue
+                if(comment.name=="")
+                    continue
+                commnetList.add(comment)
+            }
+            commentAdapter.notifyDataSetChanged()
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +61,7 @@ class PostActivity : AppCompatActivity() {
         swipeRefreshLayout = binding.postSwipeRefreshLayout // SwipeRefreshLayout 초기화
 
         //인텐트대신 전역변수를 통해서 전달받음.
-        var postRef: BoardActivity.PostRef =BoardActivity.postRef
+        postRef =BoardActivity.postRef
 
         //코멘트 리스트뷰에 어댑터 등록
         commentList.adapter=commentAdapter
