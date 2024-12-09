@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/main_gradient2">
+    android:background="#181829">
 
     <TextView
         android:id="@+id/postTitle"
@@ -15,13 +15,11 @@
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -95,5 +93,18 @@
                 android:layout_gravity="end"/>
 
         </LinearLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/post_swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <ListView
+                android:id="@+id/post_ListView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="16dp" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </ScrollView>
 </LinearLayout>
