@@ -117,7 +117,9 @@ class MyProfileFragment : Fragment() {
                 Match(
                     cursor.getString(1) + " VS " + cursor.getString(2),
                     cursor.getString(0),
-                    cursor.getInt(5)
+                    cursor.getInt(5),
+                    cursor.getInt(3),
+                    cursor.getInt(4)
                 )
             )
         }
@@ -139,10 +141,42 @@ class MyProfileFragment : Fragment() {
         val matchImageView = itemView.findViewById<ImageView>(R.id.imageViewMatchIcon)
         val matchNameTextView = itemView.findViewById<TextView>(R.id.textViewMatchName)
         val matchDateTextView = itemView.findViewById<TextView>(R.id.textViewMatchDate)
+        val deleteButton = itemView.findViewById<ImageView>(R.id.buttonDeleteMatch)
 
         matchImageView.setImageResource(match.iconResId)
         matchNameTextView.text = match.name
         matchDateTextView.text = match.date
+
+        // 삭제 버튼 클릭 리스너
+        deleteButton.setOnClickListener {
+            // AlertDialog 생성
+            val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("삭제 확인")
+            builder.setMessage("정말로 이 경기를 삭제하시겠습니까?")
+
+            // 확인 버튼 클릭 시
+            builder.setPositiveButton("삭제") { _, _ ->
+                dbHelper = GameDBHelper(requireContext())
+                val db = dbHelper.writableDatabase
+
+                val deleteQuery = "DELETE FROM gameDataTBL WHERE gameId = ? AND meetSeq = ? AND date = ?"
+                db.execSQL(deleteQuery, arrayOf(match.gameId, match.meetSeq, match.date))
+
+                Toast.makeText(requireContext(), "경기 데이터가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+
+                // 삭제된 항목을 화면에서 제거
+                parent.removeView(itemView)
+            }
+
+            // 취소 버튼 클릭 시
+            builder.setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss() // 대화 상자 닫기
+            }
+
+            // 다이얼로그 표시
+            builder.show()
+        }
+
 
         return itemView
     }
@@ -151,6 +185,8 @@ class MyProfileFragment : Fragment() {
     data class Match(
         val name: String,
         val date: String,
-        val iconResId: Int
+        val iconResId: Int,
+        val gameId: Int,
+        val meetSeq: Int
     )
 }

@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
-import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
+import com.example.FootBall.ToMinjaeActivity
+import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 
 class PublicBoardsFragment : Fragment() {
     private val boardList = ArrayList<BoardListItem>()
@@ -25,25 +26,21 @@ class PublicBoardsFragment : Fragment() {
         val user = app.currentUser
 
         FireStoreConnection.onGetCollection("publicBoards/") { documents ->
-            boardList.clear() // 기존 데이터 초기화
+            boardList.clear()
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
                 if (board != null) {
                     if (user!!.team == "") {
                         boardList.add(board)
-                    } else if (board.boardName.equals(user.team)) {
-                        // 프로필에 등록한 팀 하나만 표시
+                    } else if (board.boardName == user.team) {
                         boardList.add(board)
                     }
-
-                    if (board.boardName.equals("모두의 풋볼")) {
+                    if (board.boardName == "모두의 풋볼") {
                         boardList.add(0, board)
                     }
                 }
             }
             adapter.notifyDataSetChanged()
-            // 스와이프 리프레시 애니메이션 종료
-            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -77,12 +74,6 @@ class PublicBoardsFragment : Fragment() {
             intent.putExtra("boardPath", "publicBoards/" + board.boardName)
             intent.putExtra("boardName", board.boardName)
             startActivity(intent)
-        }
-
-        // 스와이프 리프레시 동작 설정
-        val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshLayout.setOnRefreshListener {
-            refresh() // 새로고침
         }
     }
 

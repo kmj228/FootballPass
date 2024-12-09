@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
+
     <!-- 카메라 권한 -->
     <uses-feature
         android:name="android.hardware.camera"
@@ -9,30 +10,31 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 민재코드 -->
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--민재코드-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.example.FootBall.MyApplication"
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/Theme.FootBall"
-        tools:targetApi="31">
-        <activity
-            android:name=".ToMinjaeActivity"
-            android:exported="false" />
+        tools:targetApi="31" >
         <activity
             android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.BoardCreateActivity"
             android:exported="false" />
@@ -53,23 +55,27 @@
             android:exported="false" />
         <activity
             android:name=".footBall_damyeong.boardAndPost.CreatePostActivity"
-            android:exported="false" /> <!-- 민재코드 -->
-        <activity android:name=".football_minjae.SignUpActivity" />
-        <activity android:name=".football_minjae.TeamDetailsActivity" />
-        <activity android:name=".football_minjae.PlayerDetailsActivity" />
+            android:exported="false" />
+
+        <!--민재코드-->
+        <activity android:name="com.example.FootBall.football_minjae.SignUpActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.TeamDetailsActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.PlayerDetailsActivity" />
         <activity android:name=".MainViewActivity" />
-        <activity android:name=".football_minjae.EditActivity" />
+        <activity android:name="com.example.FootBall.football_minjae.EditActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity
-            android:name=".football_junsik.NewActivity"
+            android:name="com.example.FootBall.football_junsik.NewActivity"
             android:exported="false" />
+
         <activity
-            android:name=".football_minjae.MainActivity"
+            android:name="com.example.FootBall.football_minjae.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.FootBall">
+            android:theme="@style/Theme.FootBall" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
