@@ -71,6 +71,8 @@
             android:name="com.example.FootBall.football_junsik.NewActivity"
             android:exported="false" />
 
+        <activity android:name=".ToMinjaeActivity" />
+
         <activity
             android:name="com.example.FootBall.football_minjae.MainActivity"
             android:exported="true"
