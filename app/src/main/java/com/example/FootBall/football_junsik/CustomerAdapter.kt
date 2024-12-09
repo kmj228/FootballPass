@@ -7,10 +7,12 @@ import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +39,7 @@ class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<Cus
         val homeScoreTextView: TextView = itemView.findViewById(R.id.homeScore)
         val awayScoreTextView: TextView = itemView.findViewById(R.id.awayScore)
         val addPlane: ImageView = itemView.findViewById<ImageView>(R.id.addPlane)
+        val layout: LinearLayout = itemView.findViewById(R.id.linearLayout)
 
         init {
             // 경기 일정을 클릭했을 때 생기는 정보들
@@ -94,8 +97,16 @@ class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<Cus
             placeTextView.text = item.place
             homeTeamImageView.setImageResource(item.homeDraw) // 실제 이미지로 변경 필요
             awayTeamImageView.setImageResource(item.awayDraw) // 실제 이미지로 변경 필요
-            homeScoreTextView.text = item.homeScore.toString()
-            awayScoreTextView.text = item.awayScore.toString()
+
+            if (item.homeScore.isNullOrEmpty()){
+                homeScoreTextView.text = "N"
+                awayScoreTextView.text = "N"
+                layout.setBackgroundColor(Color.parseColor("#30add8e6"))
+            }
+            else{
+                homeScoreTextView.text = item.homeScore.toString()
+                awayScoreTextView.text = item.awayScore.toString()
+            }
         }
     }
 

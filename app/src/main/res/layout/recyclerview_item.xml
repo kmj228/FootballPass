@@ -5,7 +5,8 @@
     android:orientation="horizontal"
     android:layout_margin="10dp"
     android:weightSum="5"
-    android:background="@drawable/rounded_background">
+    android:background="@drawable/rounded_background"
+    android:id="@+id/linearLayout">
 
     <LinearLayout
         android:layout_weight="4"

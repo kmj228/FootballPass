@@ -271,6 +271,8 @@ class FirstTabContent : Fragment() {
                                 meetSeq
                             )
                         )
+
+                        games.reverse()
                     }
                 }
             }
