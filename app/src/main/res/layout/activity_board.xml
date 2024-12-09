@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/search"/>
+            android:src="@drawable/search" />
 
     </LinearLayout>
 
@@ -58,12 +58,20 @@
         android:text="게시물 작성"
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="6dp"/>
-    <ListView
-        android:id="@+id/board_ListView"
+        android:layout_marginBottom="6dp" />
+
+    <!-- SwipeRefreshLayout 추가 -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/board_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:padding="16dp" />
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/board_ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="16dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

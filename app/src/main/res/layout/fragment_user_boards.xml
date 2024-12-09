@@ -4,11 +4,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#181829" >
+    android:background="#181829">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -26,7 +26,7 @@
                 android:layout_gravity="center_vertical"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_margin="12dp"/>
+                android:layout_margin="12dp" />
 
             <Button
                 android:id="@+id/userBoards_deleteButtun"
@@ -36,7 +36,7 @@
                 android:textSize="11sp"
                 android:backgroundTint="#464964"
                 android:textColor="#FFFFFF"
-                android:text="삭제"/>
+                android:text="삭제" />
 
             <Button
                 android:id="@+id/userBoards_createButtun"
@@ -47,7 +47,7 @@
                 android:backgroundTint="#464964"
                 android:textColor="#FFFFFF"
                 android:layout_margin="8dp"
-                android:text="생성"/>
+                android:text="생성" />
 
         </LinearLayout>
 
@@ -77,24 +77,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/search"/>
+                android:src="@drawable/search" />
 
         </LinearLayout>
 
-        <ScrollView
+    </LinearLayout>
+
+    <!-- SwipeRefreshLayout으로 ListView를 감싸기 -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/userBoards_listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            android:overScrollMode="never" >
+            android:layout_margin="16dp"
+            android:clipToPadding="false" />
 
-            <ListView
-                android:id="@+id/userBoards_listView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:clipToPadding="false" />
-        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </LinearLayout>
 </LinearLayout>

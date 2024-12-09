@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#181829"
+    android:background="@drawable/rounded_background2"
     android:gravity="center">
     <!-- 설정 창에 들어갈 UI 요소들 -->
     <TextView
