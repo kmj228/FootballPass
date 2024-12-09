@@ -1,6 +1,8 @@
 package com.example.FootBall.football_minjae
 
+import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -19,6 +21,7 @@ import com.example.FootBall.MainTeamList
 import com.example.FootBall.MainViewActivity
 import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser
+import com.example.FootBall.football_junsik.GameDBHelper
 import com.yalantis.ucrop.UCrop
 import java.io.File
 
@@ -27,7 +30,7 @@ class EditActivity : AppCompatActivity() {
     private var croppedImageUri: Uri? = null
     private lateinit var profileImageView: ImageView
     private val teamList = MainTeamList().getMainTeamList()
-
+    //lateinit var dbHelper: GameDBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit)
@@ -97,6 +100,22 @@ class EditActivity : AppCompatActivity() {
                     saveUser(user, app)
                 }
             }
+            // 일단 폐기
+            /*
+            // TODO: 여기에 팀 경기 일정을 DB에 저장하는 곳
+            dbHelper = GameDBHelper(this)
+            val db = dbHelper.readableDatabase
+
+            val cursor: Cursor = db.rawQuery("SELECT ${teamEditText.text.toString()} FROM teamDataTBL ORDER BY date DESC;", null)
+            // 저장된 팀이 저장되지 않았을 때, 새로 저장함
+            if(cursor.count == 0){
+                //TODO: 이곳에서 크롤링해서 DB에 저장함
+                dbHelper.deleteTeamCalTable() // 삭제
+
+            }
+            cursor.close()
+
+             */
         }
     }
 

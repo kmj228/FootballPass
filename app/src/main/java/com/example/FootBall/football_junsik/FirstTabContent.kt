@@ -2,6 +2,7 @@ package com.example.FootBall.football_junsik
 
 
 import android.app.DatePickerDialog
+import android.database.Cursor
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,12 +18,14 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
+import com.example.FootBall.football_minjae.MyProfileFragment.Match
 import kotlinx.coroutines.async
 import org.jsoup.select.Elements
 import java.util.Calendar
@@ -71,6 +74,8 @@ class FirstTabContent : Fragment() {
     )
     val mainTeamList = MainTeamList()
 
+    lateinit var dbHelper: GameDBHelper
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,6 +97,38 @@ class FirstTabContent : Fragment() {
         //getUrl(1, 2024, 10)
         //refreshData(view)
 
+        dbHelper = GameDBHelper(view.context)
+        val db = dbHelper.readableDatabase
+        
+        // 이 코드는 핸드폰 DB에 일정을 저장했다 보여주는건데 일단 폐기
+        /*
+        val cursor: Cursor = db.rawQuery("SELECT * FROM teamDataTBL ORDER BY date DESC;", null)
+        while (cursor.moveToNext()) {
+            items.add(
+                Customer(
+                    cursor.getString(2),
+                    cursor.getString(9),
+                    cursor.getString(0),
+                    cursor.getString(1),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getInt(5),
+                    cursor.getInt(6),
+                    cursor.getInt(7),
+                    cursor.getInt(8)
+                )
+            )
+        }
+        cursor.close()
+
+        adapter.notifyDataSetChanged()
+        
+         */
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val selectedDate = String.format("%d-%02d-%02d", year, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH))
+
+        getInfo(selectedDate, year.toString(), 2)
 
         dateBtn.setOnClickListener {
             showDatePicker() // 날짜 선택 다이얼로그 표시
@@ -105,7 +142,7 @@ class FirstTabContent : Fragment() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val date = String.format("%d-%02d-%02d", year, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE))
-        getInfo(date, year.toString()) // 초기 데이터 로딩
+        getInfo(date, year.toString(), 1) // 초기 데이터 로딩
     }
 
     private fun showDatePicker() {
@@ -114,7 +151,7 @@ class FirstTabContent : Fragment() {
             requireContext(),
             { _, year, month, day ->
                 val selectedDate = String.format("%d-%02d-%02d", year, month + 1, day)
-                getInfo(selectedDate, year.toString()) // 선택된 날짜로 데이터 새로고침
+                getInfo(selectedDate, year.toString(), 1) // 선택된 날짜로 데이터 새로고침
             },
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
@@ -129,7 +166,7 @@ class FirstTabContent : Fragment() {
         }
     }
 
-    private fun getInfo(findDate: String, year: String) {
+    private fun getInfo(findDate: String, year: String, pos: Int) {
         val k1Url = "https://www.thesportsdb.com/season/4689-South-Korean-K-League-1/${year}?csv=1&all=1#csv"
         val k2Url = "https://www.thesportsdb.com/season/4822-South-Korean-K-League-2/${year}?csv=1&all=1#csv"
 
@@ -148,14 +185,14 @@ class FirstTabContent : Fragment() {
                 games.clear() // 기존 게임 정보 초기화
                 // K1 데이터 처리
                 if (k1ScheduleElements.isNotEmpty()) {
-                    processSchedule(k1ScheduleElements, findDate, 1)
+                    processSchedule(k1ScheduleElements, findDate, 1, pos)
                 } else {
                     Log.e("WebCrawl", "No K1 schedule elements found.")
                 }
 
                 // K2 데이터 처리
                 if (k2ScheduleElements.isNotEmpty()) {
-                    processSchedule(k2ScheduleElements, findDate, 2)
+                    processSchedule(k2ScheduleElements, findDate, 2, pos)
                 } else {
                     Log.e("WebCrawl", "No K2 schedule elements found.")
                 }
@@ -164,7 +201,7 @@ class FirstTabContent : Fragment() {
                     if (isAdded && isVisible) {
                         items.clear()
                         items.addAll(games.map { gameInfo ->
-                            Customer(gameInfo.date, "", gameInfo.homeTeam.home, gameInfo.homeTeam.name, gameInfo.awayTeam.name, gameInfo.homeScore, gameInfo.awayScore, gameInfo.homeTeam.profileImage, gameInfo.awayTeam.profileImage, gameInfo.gameId, gameInfo.meetSeq)
+                            Customer(gameInfo.date, gameInfo.homeTeam.home, gameInfo.homeTeam.name, gameInfo.awayTeam.name, gameInfo.homeScore, gameInfo.awayScore, gameInfo.homeTeam.profileImage, gameInfo.awayTeam.profileImage, gameInfo.gameId, gameInfo.meetSeq)
                         })
                         adapter.notifyDataSetChanged()
                     } else {
@@ -178,7 +215,7 @@ class FirstTabContent : Fragment() {
         }
     }
 
-    private fun processSchedule(scheduleElements: Elements, findDate: String, league: Int){
+    private fun processSchedule(scheduleElements: Elements, findDate: String, league: Int, pos: Int){
         val str = scheduleElements.outerHtml().toString().split(',')
         playOff.clear()
         var gameId = 0
@@ -204,62 +241,94 @@ class FirstTabContent : Fragment() {
 
                 meetSeq = 3
             }
+            if (pos == 1){
+                if (findDate == date) {
+                    //Log.d("date", date)
+                    val homeTeam = str[i + 2]
+                    val awayTeam = str[i + 4]
+                    val homeScore = str[i + 3]
+                    val awayScore = str[i + 5]
 
-            if (findDate == date) {
-                Log.d("date", date)
-                val homeTeam = str[i + 2]
-                val awayTeam = str[i + 4]
-                val homeScore = str[i + 3]
-                val awayScore = str[i + 5]
+                    val homeTeamId = mainTeamList.findTeamNameEngToId(homeTeam)
+                    val awayTeamId = mainTeamList.findTeamNameEngToId(awayTeam)
 
-                val homeTeamId = teamWithId[homeTeam]
-                val awayTeamId = teamWithId[awayTeam]
-                
-                // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
-                // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
+                    // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
+                    // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
 
 
-                if (homeTeamId != null && awayTeamId != null) {
-                    Log.d("gameId", gameId.toString()) // 1, 3
-                    Log.d("meetSeq", meetSeq.toString())
+                    if (homeTeamId != null && awayTeamId != null) {
+                        Log.d("gameId", gameId.toString()) // 1, 3
+                        Log.d("meetSeq", meetSeq.toString())
 
-                    games.add(
-                        GameInfo(
-                            date,
-                            mainTeamList.getByPosMainTeamList(homeTeamId),
-                            mainTeamList.getByPosMainTeamList(awayTeamId),
-                            homeScore,
-                            awayScore,
-                            gameId,
-                            meetSeq
+                        games.add(
+                            GameInfo(
+                                date,
+                                mainTeamList.getByPosMainTeamList(homeTeamId),
+                                mainTeamList.getByPosMainTeamList(awayTeamId),
+                                homeScore,
+                                awayScore,
+                                gameId,
+                                meetSeq
+                            )
                         )
-                    )
+                    }
                 }
             }
-        }
-    }
-    // 자신이 좋아하는 팀으로 저장
-    private fun refreshData(view:View){
-        val app = requireActivity().application as MyApplication
-        val user = app.currentUser
-
-        // 사용자 데이터 갱신
-        if (user != null) {
-
-            if (user.team != "없음")
-                userFavoritTeam = user.team
             else{
-                userFavoritTeam = "Suwon Samsung Bluewings"
+                // 자기가 좋아하는 팀의 일정을 리스트 형태로 반환
+                val app = requireActivity().application as MyApplication
+                val user = app.currentUser
+
+                // 사용자 데이터 갱신
+                if (user != null) {
+
+                    if (user.team != "없음")
+                        userFavoritTeam = mainTeamList.findTeamNameKorToEng(user.team).toString()
+                    else{
+                        userFavoritTeam = "Suwon Samsung Bluewings"
+                    }
+
+
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    userFavoritTeam = "Suwon Samsung Bluewings"
+                }
+
+
+                if (userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4]) {
+                    //Log.d("date", date)
+                    val homeTeam = str[i + 2]
+                    val awayTeam = str[i + 4]
+                    val homeScore = str[i + 3]
+                    val awayScore = str[i + 5]
+
+                    val homeTeamId = mainTeamList.findTeamNameEngToId(homeTeam)
+                    val awayTeamId = mainTeamList.findTeamNameEngToId(awayTeam)
+
+                    // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
+                    // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
+
+
+                    if (homeTeamId != null && awayTeamId != null) {
+
+                        games.add(
+                            GameInfo(
+                                date,
+                                mainTeamList.getByPosMainTeamList(homeTeamId),
+                                mainTeamList.getByPosMainTeamList(awayTeamId),
+                                homeScore,
+                                awayScore,
+                                gameId,
+                                meetSeq
+                            )
+                        )
+                    }
+                }
             }
-
-
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
-                Toast.LENGTH_SHORT
-            ).show()
-            userFavoritTeam = "Suwon Samsung Bluewings"
         }
     }
 }

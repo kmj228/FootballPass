@@ -25,10 +25,13 @@ class GameDBHelper(context: Context) : SQLiteOpenHelper(context, "gameDataDB", n
             homeTeamName VARCHAR(50),
             awayTeamName VARCHAR(50),
             date VARCHAR(30),
-            homeScore INTEGER,
-            awayScore INTEGER,
+            homeScore VARCHAR(10),
+            awayScore VARCHAR(10),
             homeImage INTEGER,
             awayImage INTEGER,
+            gameId INTEGER,
+            meetSeq INTEGER,
+            place VARCAHR(50),
             PRIMARY KEY (homeTeamName, date)
         );
     """.trimIndent()
@@ -66,7 +69,7 @@ class GameDBHelper(context: Context) : SQLiteOpenHelper(context, "gameDataDB", n
     }
 
     // 팀 정보 추가
-    fun addTeam(homeTeamName: String, awayTeamName: String,date: String, homeScore: Int, awayScore: Int, homeImage: Int, awayImage: Int) {
+    fun addTeam(homeTeamName: String, awayTeamName: String,date: String, homeScore: String, awayScore: String, homeImage: Int, awayImage: Int, gameId: Int, meetSeq: Int, place:String) {
         val db = this.writableDatabase
         val values = ContentValues().apply {
             put("homeTeamName", homeTeamName)
@@ -76,6 +79,9 @@ class GameDBHelper(context: Context) : SQLiteOpenHelper(context, "gameDataDB", n
             put("awayScore", awayScore)
             put("homeImage", homeImage)
             put("awayImage", awayImage)
+            put("gameId", gameId)
+            put("meetSeq", meetSeq)
+            put("place", place)
         }
         db.insert("teamDataTBL", null, values)
         db.close()
