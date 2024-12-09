@@ -3,23 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="#181829">
+    android:orientation="horizontal">
 
     <!-- 왼쪽 리스트 뷰 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leftRecyclerView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#181829" /> <!-- 배경 색상 조정 가능 -->
+        android:layout_weight="1" /> <!-- 배경 색상 조정 가능 -->
 
     <!-- 오른쪽 리스트 뷰 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rightRecyclerView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#181829" /> <!-- 배경 색상 조정 가능 -->
+        android:layout_weight="1" /> <!-- 배경 색상 조정 가능 -->
 
 </LinearLayout>

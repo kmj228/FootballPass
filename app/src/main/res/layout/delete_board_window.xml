@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#181829"
+    android:background="@drawable/main_gradient2"
     android:gravity="center">
 
     <!-- 설정 창에 들어갈 UI 요소들 -->
