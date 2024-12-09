@@ -13,11 +13,11 @@ project structure에서 안드로이드 API를 35로 설정
 
 공통게시판:publicBoards/게시판문서
 공통게시판안에 있는 게시글:publicBoards/게시판이름/posts/게시글문서
-공통게시판안에 있는 게시글들에 대한 참조문서(content를 제외한 문서)publicBoards/게시판이름/reference/참조문서
 
 유저게시판:userBoards/게시판문서
 유저게시판안에 있는 게시글:userBoards/게시판이름/posts/게시글문서
-유저게시판안에 있는 게시글들에 대한 참조문서(content를 제외한 문서):userBoards/게시판이름/reference/참조문서
+
+댓글리스트:~게시글문서/comments/댓글문서
 --스토리지 경로체계
 선수사진:teamData/팀이름/선수이름.png
 공통게시판 게시글에 올라간 사진들: publicBoards/게시판이름/

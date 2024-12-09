@@ -27,7 +27,7 @@ class PostActivity : AppCompatActivity() {
         val postAuther = binding.postAuther
         val postContent = binding.textView
         val postImage = binding.imageView
-
+        val commentList =binding.postCommentList
         //인텐트대신 전역변수를 통해서 전달받음.
         var postRef: BoardActivity.PostRef =BoardActivity.postRef
 
