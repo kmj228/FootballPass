@@ -67,6 +67,9 @@ class NewActivity : AppCompatActivity() {
             setupWebView()
             loadWebViewUrl("https://www.kleague.com/match.do?year=${dateOfPlay!!.split('-')[0]}&leagueId=${if (meetSeq % 2 == 0) { 2 } else { 1 }}&gameId=$gameId&meetSeq=$meetSeq&startTabNum=1")
         }
+        else{
+
+        }
 
         // Initialize camera
         camera = Camera(this)

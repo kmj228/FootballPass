@@ -6,6 +6,7 @@ import android.os.Parcelable
 
 data class Team(
     val id: Int, // 팀 ID
+    val kLeagueTeamId: String, // 사이트에서 사용되는 아이디
     val name: String, // 팀 이름
     val englishName: String, // 영문명
     val region: String, // 연고지
@@ -18,6 +19,7 @@ data class Team(
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
