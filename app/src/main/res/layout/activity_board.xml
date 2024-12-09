@@ -73,7 +73,7 @@
         <ListView
             android:id="@+id/board_ListView"
             android:divider="@android:color/transparent"
-            android:dividerHeight="4dp"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false" />
