@@ -2,24 +2,36 @@ package com.example.FootBall.footBall_damyeong.boardAndPost
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.databinding.ActivityPostBinding
 import com.example.FootBall.MyApplication
+import com.example.FootBall.R
+import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.CommentItem
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 class PostActivity : AppCompatActivity() {
 
+    lateinit var commentAdapter:CommentListAdapter
+    val commnetList=ArrayList<CommentItem>()
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
+
+    fun refresh()
+    {
+        swipeRefreshLayout.isRefreshing = false // 새로고침 완료 후 종료
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding=ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val app = application as MyApplication
+        val user = app.currentUser
 
         val deleteButton=binding.postDeleteButton
         val postTitle = binding.postTitle
@@ -28,8 +40,15 @@ class PostActivity : AppCompatActivity() {
         val postContent = binding.textView
         val postImage = binding.imageView
         val commentList =binding.postCommentList
+        val commentEnterButton=binding.postCommentButton
+        val commentEdit=binding.postCommentEdit
+        swipeRefreshLayout = binding.postSwipeRefreshLayout // SwipeRefreshLayout 초기화
+
         //인텐트대신 전역변수를 통해서 전달받음.
         var postRef: BoardActivity.PostRef =BoardActivity.postRef
+
+        //코멘트 리스트뷰에 어댑터 등록
+        commentList.adapter=commentAdapter
 
         /*
         // 인텐트를 통해 받은 데이터 표시
@@ -106,6 +125,8 @@ class PostActivity : AppCompatActivity() {
             }
         }
 
+        //댓글 새로고침
+        refresh()
         //게시글 삭제버튼
         deleteButton.setOnClickListener{
             val app = application as MyApplication
@@ -145,6 +166,29 @@ class PostActivity : AppCompatActivity() {
                     Toast.makeText(this,"게시글 삭제 실패",Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+        commentEnterButton.setOnClickListener{
+            if(commentEdit.text.equals(""))
+            {
+                Toast.makeText(this,"댓글 내용을 입력하시오",Toast.LENGTH_SHORT).show()
+            }
+            var comment= CommentItem(content=commentEdit.text.toString(),name=app.currentUser!!.name.toString(), email = app.currentUser!!.email)
+            FireStoreConnection.addDocument(postRef.postPath+"/comments/",comment)
+            {
+                success, docPath ->
+                if(success)
+                {
+                    Toast.makeText(this,"댓글 등록 성공",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(this,"댓글 등록 실패함."+postRef.postPath+"/comments/",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        // 스와이프 리프레시 설정
+        swipeRefreshLayout.setOnRefreshListener {
+            refresh() // 새로고침 호출
         }
     }
 
