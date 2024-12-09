@@ -70,6 +70,7 @@ class TeamDetailsActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         if (!isFinishing && !isDestroyed) {
+                            // FireStorageConnection 호출
                             FireStorageConnection.bindImageByPath(
                                 this,
                                 player.imagePath,
@@ -77,7 +78,6 @@ class TeamDetailsActivity : AppCompatActivity() {
                             )
                         }
                     }
-
 
                     playerView.setOnClickListener {
                         val intent = Intent(this, PlayerDetailsActivity::class.java)

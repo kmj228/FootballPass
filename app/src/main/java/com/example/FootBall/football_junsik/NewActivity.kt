@@ -25,7 +25,7 @@ import org.json.JSONObject
 class NewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewBinding
     private lateinit var camera: Camera
-    private val textList = arrayListOf("LineUp", "Info")
+    private val textList = arrayListOf("라인업", "세부 정보")
     private val matchDetailInfoShare: MatchDetailInfoShare by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

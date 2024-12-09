@@ -4,49 +4,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#181829"
     android:orientation="vertical">
-
 
     <WebView
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:id="@+id/webView"/>
+
     <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical">
+        android:padding="16dp">
 
         <TextView
-            android:id="@+id/gameInfo"
+            android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textColor="#FFFFFF"
             android:text="경기 정보"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
+            android:gravity="center_horizontal"
             android:id="@+id/cameraIcon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/photo_camera" />
     </LinearLayout>
 
     <!-- Game Information Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_margin="16dp"
+        android:weightSum="4"
+        android:gravity="center" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="100dp"
             android:orientation="vertical">
 
@@ -60,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="득점자"
+                android:textColor="#FFFFFF"
                 android:id="@+id/homeScorer"
                 android:textSize="10sp"
                 android:layout_gravity="center"/>
@@ -71,11 +75,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:textColor="#FFFFFF"
             android:text="0"
-            android:textSize="48sp" />
+            android:textSize="40sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
@@ -84,36 +90,36 @@
                 android:id="@+id/playDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
                 android:text="2024년 2월 2일"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/matchTime"
+                android:textColor="#FFFFFF"
                 android:text="16:00"
-                />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/playPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="수원월드컵경기장"
-                android:textSize="16sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text = "관중수: 12,329"
+                android:textColor="#FFFFFF"
                 android:id="@+id/audience"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="경기 종료"
-                android:id="@+id/status"/>
-
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -124,10 +130,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="0"
-            android:textSize="48sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="100dp"
             android:orientation="vertical">
 
@@ -141,6 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="득점자"
+                android:textColor="#FFFFFF"
                 android:id="@+id/awayScorer"
                 android:textSize="10sp"
                 android:layout_gravity="center"/>
@@ -157,8 +166,13 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
+            android:background="#222232"
+            app:tabRippleColor="#000000"
+            app:tabIndicatorColor="#FFFFFF"
+            app:tabTextColor="#FFFFFF"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"

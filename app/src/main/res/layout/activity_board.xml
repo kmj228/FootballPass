@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#181829" >
+    android:background="#181829">
+
     <TextView
         android:id="@+id/board_title"
         android:layout_width="match_parent"
@@ -12,48 +13,65 @@
         android:text="제목없는 게시판"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:layout_margin="30dp"/>
-    <EditText
-        android:id="@+id/board_searchEditText"
+        android:layout_marginTop="30dp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:hint="게시글(내용,작성자) 검색"
-        android:layout_margin="16dp"/>
-    <Button
-        android:id="@+id/board_searchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#464964"
-        android:textColor="#FFFFFF"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="6sp"
-        android:autoSizeMaxTextSize="12sp"
-        android:maxLines="1"
-        android:text="검색"
-        android:layout_gravity="end"
-        android:layout_margin="16dp"/>
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="10dp"
+        android:weightSum="8"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/board_searchEditText"
+            android:layout_weight="7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint=" 게시글 검색"
+            android:padding="8dp"
+            android:background="@drawable/rounded_background"
+            android:textColor="#C4C4C4"
+            android:layout_margin="8dp"
+            android:textColorHint="#808080" />
+
+        <ImageView
+            android:id="@+id/board_searchButton"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/search" />
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/board_writePostButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#464964"
         android:textColor="#FFFFFF"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="6sp"
-        android:autoSizeMaxTextSize="12sp"
-        android:maxLines="1"
         android:text="게시물 작성"
         android:layout_gravity="end"
-        android:layout_margin="16dp"/>
-    <ListView
-        android:id="@+id/board_ListView"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="6dp" />
+
+    <!-- SwipeRefreshLayout 추가 -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/board_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:padding="16dp" />
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/board_ListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="16dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

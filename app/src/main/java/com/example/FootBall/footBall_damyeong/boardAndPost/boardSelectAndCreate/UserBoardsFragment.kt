@@ -31,13 +31,13 @@ class UserBoardsFragment : Fragment() {
             boardList.clear()
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
-                Log.d("UserBoardsFragment", board!!.boardName)
-                if (board.boardName == "") { // 빈 문서 무시
-                    continue
+                if (board?.boardName.isNullOrEmpty()) continue
+                if (board != null) {
+                    boardList.add(board)
                 }
-                boardList.add(board)
             }
             adapter.notifyDataSetChanged()
+            binding.swipeRefreshLayout.isRefreshing = false // 새로고침 애니메이션 종료
         }
     }
 
@@ -58,18 +58,23 @@ class UserBoardsFragment : Fragment() {
         val deleteButton = binding.userBoardsDeleteButtun
         val createButton = binding.userBoardsCreateButtun
 
-        // 어댑터 만들기
+        // 어댑터 생성 및 연결
         adapter = BoardListAdapter(requireContext(), R.layout.item_board_preview, boardList, "userBoards/")
         listView.adapter = adapter
 
-        // 새로고침
+        // 리스트 새로고침
         refresh()
+
+        // 스와이프 리프레시 설정
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            refresh()
+        }
 
         // 리스트 아이템 클릭 시 게시글 화면으로 이동
         listView.setOnItemClickListener { _, _, position, _ ->
             val board = boardList[position]
             val intent = Intent(requireContext(), BoardActivity::class.java)
-            intent.putExtra("boardPath", "userBoards/" + board.boardName)
+            intent.putExtra("boardPath", "userBoards/${board.boardName}")
             intent.putExtra("boardName", board.boardName)
             startActivity(intent)
         }
@@ -77,7 +82,7 @@ class UserBoardsFragment : Fragment() {
         // 게시판 검색
         searchButton.setOnClickListener {
             val searchTxt = searchEditText.text.toString()
-            if (searchTxt == "") {
+            if (searchTxt.isEmpty()) {
                 refresh()
                 Toast.makeText(requireContext(), "검색어를 입력해주십시요", Toast.LENGTH_SHORT).show()
             } else {
@@ -85,8 +90,7 @@ class UserBoardsFragment : Fragment() {
                     if (success) {
                         boardList.clear()
                         val board = document!!.toObject(BoardListItem::class.java)
-                        Log.d("UserBoardsFragment", board!!.boardName)
-                        boardList.add(board)
+                        board?.let { boardList.add(it) }
                         adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(requireContext(), "검색된 내용이 없습니다.", Toast.LENGTH_SHORT).show()
@@ -95,7 +99,7 @@ class UserBoardsFragment : Fragment() {
             }
         }
 
-        // 게시판 삭제 버튼
+        // 게시판 삭제
         deleteButton.setOnClickListener {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.delete_board_window, null)
 
@@ -105,19 +109,20 @@ class UserBoardsFragment : Fragment() {
                 .create()
 
             val boardNameEditText = dialogView.findViewById<EditText>(R.id.deleteBoardWindow_EditText)
-            val deleteButton = dialogView.findViewById<Button>(R.id.deleteBoardWindow_deleteButton)
-            val cancelButton = dialogView.findViewById<Button>(R.id.deleteBoardWindow_cancelButton)
+            val deleteDialogButton = dialogView.findViewById<Button>(R.id.deleteBoardWindow_deleteButton)
+            val cancelDialogButton = dialogView.findViewById<Button>(R.id.deleteBoardWindow_cancelButton)
 
-            cancelButton.setOnClickListener { dialog.dismiss() }
+            cancelDialogButton.setOnClickListener { dialog.dismiss() }
 
-            deleteButton.setOnClickListener {
-                val boardNameEntered = boardNameEditText.text.toString()
-                if (boardNameEntered != "") {
-                    FireStoreConnection.documentDelete("userBoards/$boardNameEntered") { success ->
+            deleteDialogButton.setOnClickListener {
+                val boardName = boardNameEditText.text.toString()
+                if (boardName.isNotEmpty()) {
+                    FireStoreConnection.documentDelete("userBoards/$boardName") { success ->
                         if (success) {
-                            FireStorageConnection.deleteDirectory("userBoards/$boardNameEntered")
+                            FireStorageConnection.deleteDirectory("userBoards/$boardName")
                             Toast.makeText(requireContext(), "게시판 삭제완료.", Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
+                            refresh()
                         } else {
                             Toast.makeText(requireContext(), "게시판 삭제실패.", Toast.LENGTH_SHORT).show()
                         }
@@ -130,7 +135,7 @@ class UserBoardsFragment : Fragment() {
             dialog.show()
         }
 
-        // 게시판 생성 버튼
+        // 게시판 생성
         createButton.setOnClickListener {
             val intent = Intent(requireContext(), BoardCreateActivity::class.java)
             startActivity(intent)

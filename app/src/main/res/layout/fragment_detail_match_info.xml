@@ -3,32 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#181829"
+    android:padding="32dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="vertical"
-        >
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical" >
         <TextView
             android:gravity="center"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/possession"
+            android:layout_marginBottom="8dp"
+            android:textColor="#FFFFFF"
             android:text="점유율(%)"
             android:textSize="20sp"/>
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_gravity="center"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar_progressbar1"
             android:id="@+id/possessionProgress"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         >
         <TextView
@@ -36,34 +43,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/shooting"
+            android:layout_marginBottom="8dp"
+            android:textColor="#FFFFFF"
             android:text="슈팅"
             android:textStyle="bold"
             android:textSize="20sp"/>
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_gravity="center"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:progressDrawable="@drawable/progressbar_progressbar1"
             android:layout_height="wrap_content"
             android:id="@+id/shootingProgress"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
         android:orientation="vertical"
         >
         <TextView
             android:gravity="center"
             android:textStyle="bold"
+            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/validShot"
+            android:textColor="#FFFFFF"
             android:text="유효 슈팅"
             android:textSize="20sp"/>
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_gravity="center"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
+            android:progressDrawable="@drawable/progressbar_progressbar1"
             android:layout_height="wrap_content"
             android:id="@+id/validShotProgress"/>
 

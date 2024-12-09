@@ -27,7 +27,6 @@ class PostListAdapter
         // 데이터 바인딩
         val titleTextView: TextView = view.findViewById(R.id.itemPostPreview_title)
         val authorTextView: TextView = view.findViewById(R.id.itemPostPreview_auther)
-        val dateTextView: TextView = view.findViewById(R.id.itemPostPreview_date)
         val imageView: ImageView = view.findViewById(R.id.itemPostPreview_postImageView)
 
         //postListItem 객체 받아오기
@@ -36,16 +35,7 @@ class PostListAdapter
         // post화면에 제목띄우기
         titleTextView.text = postref.post.title
         // 화면에 작성자이름 띄우기
-        authorTextView.text = postref.post.author
-
-
-        // 화면에 날짜띄우기
-        // postListItem안에 있는 Timestamp를 Date 객체로 변환
-        val date = Date(postref.post.timestamp)
-        //val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault())
-        val formattedDate = dateFormat.format(date)
-        dateTextView.text=formattedDate
+        authorTextView.text = postref.post.content
 
         // 프리뷰이미지 있으면 이미지 띄우기
         if(postref.post.imagePath != null)

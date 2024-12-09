@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:layout_margin="10dp"
     android:weightSum="5"
-    android:background="#181829">
+    android:background="@drawable/rounded_background">
 
     <LinearLayout
         android:layout_weight="4"
@@ -57,7 +57,10 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="월드컵경기장이름"/>
+                android:text="월드컵경기장이름"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"/>
 
         </LinearLayout>
 

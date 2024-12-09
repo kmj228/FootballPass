@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
-import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
+import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 
 class PublicBoardsFragment : Fragment() {
     private val boardList = ArrayList<BoardListItem>()
     private lateinit var adapter: BoardListAdapter
     private var _binding: FragmentPublicBoardsBinding? = null
     private val binding get() = _binding!!
-
 
     private fun refresh() {
         val app = requireActivity().application as MyApplication
@@ -29,23 +29,21 @@ class PublicBoardsFragment : Fragment() {
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
                 if (board != null) {
-                    if(user!!.team=="")
-                    {
+                    if (user!!.team == "") {
                         boardList.add(board)
-                    }
-                    else if(board.boardName.equals(user.team))
-                    {
-                        //프로필에 등록한 팀 하나만 띄워줌.
+                    } else if (board.boardName.equals(user.team)) {
+                        // 프로필에 등록한 팀 하나만 표시
                         boardList.add(board)
                     }
 
-                    if(board.boardName.equals("모두의 풋볼"))
-                    {
-                        boardList.add(0,board)
+                    if (board.boardName.equals("모두의 풋볼")) {
+                        boardList.add(0, board)
                     }
                 }
             }
             adapter.notifyDataSetChanged()
+            // 스와이프 리프레시 애니메이션 종료
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -53,6 +51,7 @@ class PublicBoardsFragment : Fragment() {
         super.onStart()
         refresh()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,6 +79,11 @@ class PublicBoardsFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 스와이프 리프레시 동작 설정
+        val swipeRefreshLayout: SwipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener {
+            refresh() // 새로고침
+        }
     }
 
     override fun onDestroyView() {
