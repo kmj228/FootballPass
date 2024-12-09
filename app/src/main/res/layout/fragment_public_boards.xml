@@ -23,9 +23,10 @@
 
         <ListView
             android:id="@+id/publicBoards_listView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:clipToPadding="false" />
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

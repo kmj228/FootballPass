@@ -72,9 +72,10 @@
 
         <ListView
             android:id="@+id/board_ListView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="16dp" />
+            android:clipToPadding="false" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -91,9 +91,10 @@
 
         <ListView
             android:id="@+id/userBoards_listView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
             android:clipToPadding="false" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
