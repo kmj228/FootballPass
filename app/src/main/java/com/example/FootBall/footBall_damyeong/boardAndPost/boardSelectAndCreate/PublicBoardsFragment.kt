@@ -50,8 +50,6 @@ class PublicBoardsFragment : Fragment() {
         }
     }
 
-
-
     override fun onStart() {
         super.onStart()
         refresh()
@@ -87,6 +85,7 @@ class PublicBoardsFragment : Fragment() {
             startActivity(intent)
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
