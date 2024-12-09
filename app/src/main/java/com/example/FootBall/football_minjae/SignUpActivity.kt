@@ -63,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
                             name = thisnickname,
                             info = "자기소개 없음",
                             profile = "user/IMG_1393.jpeg",
-                            team = "팀 없음",
+                            team = "없음",
                             admin = false
                         )
 
