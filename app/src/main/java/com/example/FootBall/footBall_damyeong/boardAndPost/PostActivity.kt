@@ -64,6 +64,7 @@ class PostActivity : AppCompatActivity() {
         postRef =BoardActivity.postRef
 
         //코멘트 리스트뷰에 어댑터 등록
+        commentAdapter=CommentListAdapter(this,R.layout.item_post_comment,commnetList)
         commentList.adapter=commentAdapter
 
         /*
