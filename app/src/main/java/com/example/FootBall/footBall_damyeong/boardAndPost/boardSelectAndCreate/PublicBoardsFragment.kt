@@ -26,6 +26,7 @@ class PublicBoardsFragment : Fragment() {
         val user = app.currentUser
 
         FireStoreConnection.onGetCollection("publicBoards/") { documents ->
+            if (_binding == null) return@onGetCollection // 뷰가 파괴되었으면 작업 중단
             boardList.clear()
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
@@ -43,6 +44,7 @@ class PublicBoardsFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
     }
+
 
     override fun onStart() {
         super.onStart()

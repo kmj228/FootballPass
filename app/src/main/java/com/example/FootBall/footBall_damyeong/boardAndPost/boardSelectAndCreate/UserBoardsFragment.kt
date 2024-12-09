@@ -65,6 +65,7 @@ class UserBoardsFragment : Fragment() {
     private fun refreshBoards() {
         binding.swipeRefreshLayout.isRefreshing = true
         FireStoreConnection.onGetCollection("userBoards/") { documents ->
+            if (_binding == null) return@onGetCollection // 뷰가 파괴되었으면 아무 작업도 하지 않음
             boardList.clear()
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
@@ -78,6 +79,7 @@ class UserBoardsFragment : Fragment() {
             }
         }
     }
+
 
     private fun performSearch() {
         val searchTxt = binding.userBoardsEditText.text.toString()
