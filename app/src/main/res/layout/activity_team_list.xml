@@ -65,19 +65,10 @@
     </LinearLayout>
 
     <!-- 팀 리스트 -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none"
-        android:overScrollMode="never" >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:clipToPadding="false" />
-
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:clipToPadding="false" />
 </LinearLayout>

@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#181829"
     android:gravity="center">
+
     <!-- 설정 창에 들어갈 UI 요소들 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="게시판삭제하기"
+        android:text="게시판 삭제하기"
         android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp" />
 
     <EditText
         android:id="@+id/deleteBoardWindow_EditText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="30dp"
         android:padding="16dp"
         android:background="@drawable/rounded_background"
         android:textColor="#C4C4C4"
@@ -28,7 +31,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp">
 
         <Button
             android:id="@+id/deleteBoardWindow_deleteButton"
@@ -36,8 +41,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#464964"
             android:textColor="#FFFFFF"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
             android:text="삭제" />
 
         <Button
@@ -45,11 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#464964"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="30dp"
             android:textColor="#FFFFFF"
             android:text="취소" />
-
     </LinearLayout>
 
 </LinearLayout>

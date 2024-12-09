@@ -25,4 +25,5 @@ class MyPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(
             else -> TeamListFragment() // 기본 프래그먼트 반환
         }
     }
+
 }
