@@ -17,7 +17,11 @@ import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.MainTeamList
+import com.example.FootBall.MyApplication
 import com.example.FootBall.R
 import kotlinx.coroutines.async
 import org.jsoup.select.Elements
@@ -35,11 +39,7 @@ class FirstTabContent : Fragment() {
     // DB에서 불러와서 화면에 띄우기 위해 배열로 저장
     private var items = arrayListOf<Customer>()
 
-    val BASE_URL = "https://www.kleague.com/schedule.do"
-    val SELECT_LEAGUE = "?leagueId="
-    val SELECT_YEAR = "&year="
-    val SELECT_MONTH = "&month="
-    val TEST_DATE = "2024.10.18"
+    lateinit var userFavoritTeam: String
 
     var playOff = mutableListOf<String>()
 
@@ -90,13 +90,15 @@ class FirstTabContent : Fragment() {
         recyclerView.adapter = adapter
 
         //getUrl(1, 2024, 10)
+        //refreshData(view)
+
 
         dateBtn.setOnClickListener {
             showDatePicker() // 날짜 선택 다이얼로그 표시
         }
 
         // 데이터 목록 생성
-        loadInitialData()
+        //loadInitialData()
     }
 
     private fun loadInitialData() {
@@ -190,7 +192,6 @@ class FirstTabContent : Fragment() {
             gameId += 1
 
             var meetSeq = league
-            //TODO: 여기에 meetseq도 추가해줘야함
             if((league == 1 && gameId>228) || playOff.isNotEmpty()){
                 val awayTeam = str[i + 4]
                 // 홈팀이 다음 경기에서는 어웨이가 됨
@@ -235,6 +236,30 @@ class FirstTabContent : Fragment() {
                     )
                 }
             }
+        }
+    }
+    // 자신이 좋아하는 팀으로 저장
+    private fun refreshData(view:View){
+        val app = requireActivity().application as MyApplication
+        val user = app.currentUser
+
+        // 사용자 데이터 갱신
+        if (user != null) {
+
+            if (user.team != "없음")
+                userFavoritTeam = user.team
+            else{
+                userFavoritTeam = "Suwon Samsung Bluewings"
+            }
+
+
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
+                Toast.LENGTH_SHORT
+            ).show()
+            userFavoritTeam = "Suwon Samsung Bluewings"
         }
     }
 }

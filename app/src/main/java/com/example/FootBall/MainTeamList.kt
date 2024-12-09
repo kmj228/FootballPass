@@ -2,7 +2,7 @@ package com.example.FootBall
 
 class MainTeamList {
 
-    private val mainTeamList = listOf(
+    val mainTeamList = listOf(
         Team(1, "강원FC", "Gangwon FC", "강원특별자치도", "강릉종합운동장", "강원특별자치도 강릉시 종합운동장길 69", "나르샤", "https://youtu.be/cVupOGWY6Wg?si=atfEsuVQRjiaDOWc", "K리그 1", R.drawable.team01),
         Team(2, "김천 상무 프로축구단", "Sangju Sangmu", "경상북도 김천시", "김천종합운동장", "경상북도 김천시 운동장길 1 (삼락동)", "수사불패", "https://youtu.be/RH3UmiCfSSc?si=L3HVhpZrI08szUDB", "K리그 1", R.drawable.team02),
         Team(3, "울산 HD FC", "Ulsan Hyundai FC", "울산 광역시", "울산문수월드컵경기장", "울산광역시 남구 문수로 44 (옥동)", "울티메이트", "https://youtu.be/uffLROaITBs?si=qMzwi31s9UuViIJY", "K리그 1", R.drawable.team03),
