@@ -93,20 +93,35 @@
                 android:backgroundTint="#464964"
                 android:textColor="#FFFFFF"
                 android:layout_gravity="end"/>
-
-        </LinearLayout>
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/post_swipeRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ListView
-                android:id="@+id/post_ListView"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="16dp" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/post_commentEdit"
+                android:hint="여기에 댓글입력"
+                android:layout_marginTop="30dp"/>
+
+            <Button
+                android:layout_marginTop="8dp"
+                android:id="@+id/post_commentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="댓글 등록"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="end"/>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/post_swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ListView
+                    android:id="@+id/post_commentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="16dp" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
     </ScrollView>
 </LinearLayout>
