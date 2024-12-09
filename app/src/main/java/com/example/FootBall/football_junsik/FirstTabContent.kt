@@ -211,6 +211,7 @@ class FirstTabContent : Fragment() {
                 withContext(Dispatchers.Main) {
                     if (isAdded && isVisible) {
                         items.clear()
+                        games.sortByDescending { it.date }
                         items.addAll(games.map { gameInfo ->
                             Customer(gameInfo.date, gameInfo.homeTeam.home, gameInfo.homeTeam.name, gameInfo.awayTeam.name, gameInfo.homeScore, gameInfo.awayScore, gameInfo.homeTeam.profileImage, gameInfo.awayTeam.profileImage, gameInfo.gameId, gameInfo.meetSeq)
                         })
@@ -340,7 +341,7 @@ class FirstTabContent : Fragment() {
                                 meetSeq
                             )
                         )
-                        games.sortByDescending { it.date }
+
                     }
                 }
             }
