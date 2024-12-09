@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.MyApplication
@@ -21,7 +22,8 @@ import com.example.FootBall.football_junsik.GameDBHelper
 
 class MyProfileFragment : Fragment() {
 
-    lateinit var dbHelper: GameDBHelper
+    private lateinit var dbHelper: GameDBHelper
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,36 +37,14 @@ class MyProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val app = requireActivity().application as MyApplication
-        val user = app.currentUser
-        if (user != null) {
-            FireStorageConnection.bindImageByPath(
-                requireContext(), // 수정: Fragment의 Context를 전달
-                user.profile,
-                view.findViewById(R.id.imageViewProfile)
-            )
-
-            view.findViewById<TextView>(R.id.textViewName).text = user.name
-            view.findViewById<TextView>(R.id.textViewInfo).text = user.info
-            view.findViewById<TextView>(R.id.textViewTeamName).text = user.team
-
-            val teamList = MainTeamList()
-            val team = teamList.findTeamByName(user.team)
-
-            if (team != null) {
-                view.findViewById<ImageView>(R.id.imageViewTeamLogo).setImageResource(team.profileImage)
-            }
-
-        } else {
-            Toast.makeText(
-                requireContext(),
-                "사용자 데이터를 읽어오지 못하였습니다\n로그아웃 후 다시 로그인해주세요",
-                Toast.LENGTH_SHORT
-            ).show()
-            view.findViewById<TextView>(R.id.textViewName).text = "이름"
-            view.findViewById<TextView>(R.id.textViewInfo).text = "자기소개"
-            view.findViewById<TextView>(R.id.textViewTeamName).text = "팀"
+        // 스와이프 리프레시 설정
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
+        swipeRefreshLayout.setOnRefreshListener {
+            refreshData(view) // 새로고침 시 데이터 갱신
+            swipeRefreshLayout.isRefreshing = false // 새로고침 애니메이션 종료
         }
+
+        refreshData(view) // 초기 데이터 로드
 
         val editProfileButton = view.findViewById<Button>(R.id.btnEditProfile)
         val logoutButton = view.findViewById<Button>(R.id.logout)
@@ -90,22 +70,62 @@ class MyProfileFragment : Fragment() {
             // 현재 액티비티 종료
             requireActivity().finish()
         }
+    }
 
-        // 최근 방문 경기 리스트 (임의 데이터)
+    private fun refreshData(view: View) {
+        val app = requireActivity().application as MyApplication
+        val user = app.currentUser
+
+        // 사용자 데이터 갱신
+        if (user != null) {
+            FireStorageConnection.bindImageByPath(
+                requireContext(),
+                user.profile,
+                view.findViewById(R.id.imageViewProfile)
+            )
+
+            view.findViewById<TextView>(R.id.textViewName).text = user.name
+            view.findViewById<TextView>(R.id.textViewInfo).text = user.info
+            view.findViewById<TextView>(R.id.textViewTeamName).text = user.team
+
+            val teamList = MainTeamList()
+            val team = teamList.findTeamByName(user.team)
+
+            if (team != null) {
+                view.findViewById<ImageView>(R.id.imageViewTeamLogo).setImageResource(team.profileImage)
+            }
+
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요.",
+                Toast.LENGTH_SHORT
+            ).show()
+            view.findViewById<TextView>(R.id.textViewName).text = "이름"
+            view.findViewById<TextView>(R.id.textViewInfo).text = "자기소개"
+            view.findViewById<TextView>(R.id.textViewTeamName).text = "팀"
+        }
+
+        // 최근 방문 경기 데이터 갱신
         val recentMatches = mutableListOf<Match>()
         dbHelper = GameDBHelper(view.context)
         val db = dbHelper.readableDatabase
 
-        var cursor: Cursor
-
-        cursor = db.rawQuery("SELECT * FROM gameDataTBL ORDER BY date DESC;", null)
-        while (cursor.moveToNext()){
-            recentMatches.add(Match(cursor.getString(1) + "VS" + cursor.getString(2), cursor.getString(0), cursor.getInt(5)))
+        val cursor: Cursor = db.rawQuery("SELECT * FROM gameDataTBL ORDER BY date DESC;", null)
+        while (cursor.moveToNext()) {
+            recentMatches.add(
+                Match(
+                    cursor.getString(1) + " VS " + cursor.getString(2),
+                    cursor.getString(0),
+                    cursor.getInt(5)
+                )
+            )
         }
-
+        cursor.close()
 
         // 최근 방문 경기 추가
         val recentMatchesLayout = view.findViewById<LinearLayout>(R.id.layoutRecentMatches)
+        recentMatchesLayout.removeAllViews() // 이전 뷰 제거
         for (match in recentMatches) {
             val matchView = createMatchView(match, recentMatchesLayout)
             recentMatchesLayout.addView(matchView)

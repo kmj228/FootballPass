@@ -27,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -35,16 +36,15 @@
                 android:layout_height="wrap_content"
                 android:text="Match Name"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:paddingBottom="4dp" />
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewMatchDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Match Date"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="#C4C4C4"/>
         </LinearLayout>
     </LinearLayout>
