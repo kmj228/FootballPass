@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="32dp"
-    android:background="#181829">
+    android:background="@drawable/main_gradient2">
 
     <!-- 게시판 이름 입력 -->
     <TextView

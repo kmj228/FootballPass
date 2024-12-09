@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="#181829"
     android:paddingBottom="8dp">
 
     <LinearLayout

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_marginBottom="8dp"
-    android:background="#181829">
+    android:background="@drawable/main_gradient2">
 
     <androidx.cardview.widget.CardView
         android:layout_width="120dp"

@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#181829">
+    android:background="@drawable/main_gradient2">
 
+    <!-- 제목 -->
     <TextView
         android:id="@+id/board_title"
         android:layout_width="match_parent"
@@ -18,13 +19,12 @@
         android:textStyle="bold"
         android:layout_marginTop="30dp" />
 
+    <!-- 검색 영역 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="10dp"
-        android:weightSum="8"
         android:orientation="horizontal">
 
         <EditText
@@ -44,11 +44,14 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:src="@drawable/search"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/search" />
-
+            android:contentDescription="검색 버튼"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
+    <!-- 게시물 작성 버튼 -->
     <Button
         android:id="@+id/board_writePostButton"
         android:layout_width="wrap_content"
@@ -60,7 +63,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="6dp" />
 
-    <!-- SwipeRefreshLayout 추가 -->
+    <!-- 새로고침 및 목록 -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/board_swipeRefreshLayout"
         android:layout_width="match_parent"
@@ -69,9 +72,10 @@
 
         <ListView
             android:id="@+id/board_ListView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:padding="16dp" />
+            android:clipToPadding="false" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

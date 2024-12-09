@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="#181829"
     android:paddingBottom="8dp">
 
     <LinearLayout
@@ -50,11 +49,10 @@
 
         <ImageView
             android:id="@+id/buttonDeleteMatch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
             android:src="@drawable/backspace"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"/>
 

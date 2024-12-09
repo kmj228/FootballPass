@@ -4,7 +4,7 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#181829">
+    android:background="@drawable/main_gradient2">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,9 +23,10 @@
 
         <ListView
             android:id="@+id/publicBoards_listView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
             android:clipToPadding="false" />
     </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -177,7 +177,6 @@ class MyProfileFragment : Fragment() {
             builder.show()
         }
 
-
         return itemView
     }
 

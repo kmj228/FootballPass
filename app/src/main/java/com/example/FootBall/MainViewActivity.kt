@@ -16,12 +16,14 @@ class MainViewActivity : FragmentActivity() {
         R.drawable.person
     ) // 각 탭의 아이콘 리소스
 
+    private lateinit var viewPager: ViewPager2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_view) // 레이아웃 설정
 
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager = findViewById(R.id.viewPager)
 
         val adapter = MyPagerAdapter(this)
         viewPager.adapter = adapter
@@ -32,6 +34,17 @@ class MainViewActivity : FragmentActivity() {
 
         // Intent로 초기 페이지 전달받기
         val initialPage = intent.getIntExtra("INITIAL_PAGE", 0)
-        viewPager.setCurrentItem(initialPage, false) // 초기 페이지 설정 (애니메이션 없음)
+        goToPage(initialPage, false) // 초기 페이지 설정
     }
+
+    // 특정 페이지로 이동하는 함수
+    fun goToPage(position: Int, smoothScroll: Boolean = true) {
+        val itemCount = viewPager.adapter?.itemCount ?: 0
+        if (position >= 0 && position < itemCount) { // 유효 범위 확인
+            viewPager.setCurrentItem(position, smoothScroll)
+        } else {
+            throw IllegalArgumentException("Invalid page position: $position. Valid range is 0 to ${itemCount - 1}.")
+        }
+    }
+
 }
