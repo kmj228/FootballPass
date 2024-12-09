@@ -83,7 +83,7 @@ class PostActivity : AppCompatActivity() {
         val date = Date(post.timestamp ?: 0)
         // 날짜 포맷 설정
         //val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH:mm", Locale.getDefault())
         val formattedDate = dateFormat.format(date)
         postDate.text = formattedDate
 

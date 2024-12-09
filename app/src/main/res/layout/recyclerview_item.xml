@@ -57,7 +57,10 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="월드컵경기장이름"/>
+                android:text="월드컵경기장이름"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"/>
 
         </LinearLayout>
 
