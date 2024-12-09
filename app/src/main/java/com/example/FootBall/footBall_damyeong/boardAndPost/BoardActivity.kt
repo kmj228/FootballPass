@@ -89,7 +89,6 @@ class BoardActivity : AppCompatActivity() {
             val searchTxt = searchEditText.text.toString()
             if (searchTxt.isBlank()) {
                 refresh()
-                Toast.makeText(this, "검색어를 입력해주십시요", Toast.LENGTH_SHORT).show()
             } else {
                 postItemList.clear()
                 for (postRef in postList) {
@@ -101,7 +100,7 @@ class BoardActivity : AppCompatActivity() {
                 }
                 adapter.notifyDataSetChanged()
                 if (postItemList.isEmpty()) {
-                    Toast.makeText(this, "검색된 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "검색된 내용이 없습니다", Toast.LENGTH_SHORT).show()
                 }
             }
         }

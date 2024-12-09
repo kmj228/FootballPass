@@ -122,7 +122,6 @@ class PostActivity : AppCompatActivity() {
                 if(success){//현재문서 삭제에 성공했다면
                     //이미지 문서가 없는 경우엔 바로 게시글 삭제완료처리
                     if(post!!.imagePath==null || post!!.imagePath==""){
-                        Toast.makeText(this,"게시글 삭제완료",Toast.LENGTH_SHORT).show()
                         finish()
                     }
                     else
@@ -132,19 +131,18 @@ class PostActivity : AppCompatActivity() {
                                 success->
                             //이미지 삭제에 성공했다면
                             if(success){
-                                Toast.makeText(this,"게시글 삭제완료",Toast.LENGTH_SHORT).show()
                                 finish()
                             }
                             //이미지 삭제에 실패했다면
                             else{
-                                Toast.makeText(this,"이미지삭제오류",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this,"이미지 삭제 실패",Toast.LENGTH_SHORT).show()
                                 finish()
                             }
                         }
                     }
                 }
                 else{
-                    Toast.makeText(this,"게시글 삭제실페",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"게시글 삭제 실패",Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -89,7 +89,7 @@ class CreatePostActivity : AppCompatActivity() {
                     //파이어스토어에 올리기
                     uploadPost2(post)
                 } else {//파일 올리기에 실패했다면
-                    Toast.makeText(this, "이미지를 올리지 못했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "이미지 업로드 오류", Toast.LENGTH_SHORT).show()
                     return@addFile
                 }
             }
@@ -106,11 +106,10 @@ class CreatePostActivity : AppCompatActivity() {
         //post를 파이어스토어에 올림.
         FireStoreConnection.addDocument(boardPath+"/posts", post) { success, docPath ->
             if (success) {
-                Toast.makeText(this, "게시글올리기 성공.", Toast.LENGTH_SHORT).show()
                 finish()//게시가 완료되었으면 다시 돌아감.
             }
             else{
-                Toast.makeText(this, "게시글올리기 실패.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "게시글 작성 실패", Toast.LENGTH_SHORT).show()
                 //게시글 올리기를 실패했으면 앞서 스토리지에 올린 이미지를 삭제함
                 if(post.imagePath=="" ||post.imagePath==null){
                     return@addDocument

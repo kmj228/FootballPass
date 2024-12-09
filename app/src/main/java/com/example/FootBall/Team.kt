@@ -41,7 +41,6 @@ data class Team(
         parcel.writeString(league)
         parcel.writeInt(profileImage)
     }
-
     override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<Team> {
