@@ -4,6 +4,7 @@ package com.example.FootBall.football_junsik
 import android.app.DatePickerDialog
 import android.database.Cursor
 import android.os.Bundle
+import android.os.DeadObjectException
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -128,10 +129,20 @@ class FirstTabContent : Fragment() {
         val year = cal.get(Calendar.YEAR)
         val selectedDate = String.format("%d-%02d-%02d", year, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH))
 
-        getInfo(selectedDate, year.toString(), 2)
+        try{
+            getInfo(selectedDate, year.toString(), 2)
+        }
+        catch (e: DeadObjectException){
+            Log.e("Error", "Dead")
+        }
 
         dateBtn.setOnClickListener {
-            showDatePicker() // 날짜 선택 다이얼로그 표시
+            try{
+                showDatePicker()
+            }
+            catch (e: DeadObjectException){
+                Log.e("Error", "Dead")
+            }
         }
 
         // 데이터 목록 생성
@@ -209,8 +220,11 @@ class FirstTabContent : Fragment() {
                     }
                 }
 
+            } catch (e: DeadObjectException) {
+                Log.e("Error", "Dead object exception: ${e.message}")
+                // 사용자에게 알림
             } catch (e: Exception) {
-                Log.e("WebCrawl", "Error: ${e.message}")
+                Log.e("Error", "An error occurred: ${e.message}")
             }
         }
     }
@@ -326,7 +340,7 @@ class FirstTabContent : Fragment() {
                                 meetSeq
                             )
                         )
-                        games.reverse()
+                        games.sortByDescending { it.date }
                     }
                 }
             }
