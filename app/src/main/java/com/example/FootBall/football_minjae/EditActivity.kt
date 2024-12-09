@@ -156,7 +156,6 @@ class EditActivity : AppCompatActivity() {
     private fun saveUser(user: MyUser, app: MyApplication) {
         FireStoreConnection.setDocument("users/${user.email}", user) { success, _ ->
             if (success) {
-                Toast.makeText(this, "수정 성공", Toast.LENGTH_SHORT).show()
                 app.currentUser = user
                 val intent = Intent(this, MainViewActivity::class.java)
                 intent.putExtra("INITIAL_PAGE", 4) // 예: 2번째 페이지로 설정

@@ -84,7 +84,6 @@ class UserBoardsFragment : Fragment() {
             val searchTxt = searchEditText.text.toString()
             if (searchTxt.isEmpty()) {
                 refresh()
-                Toast.makeText(requireContext(), "검색어를 입력해주십시요", Toast.LENGTH_SHORT).show()
             } else {
                 FireStoreConnection.onGetDocument("userBoards/$searchTxt") { success, document ->
                     if (success) {
@@ -93,7 +92,7 @@ class UserBoardsFragment : Fragment() {
                         board?.let { boardList.add(it) }
                         adapter.notifyDataSetChanged()
                     } else {
-                        Toast.makeText(requireContext(), "검색된 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "검색된 내용이 없습니다", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -120,15 +119,14 @@ class UserBoardsFragment : Fragment() {
                     FireStoreConnection.documentDelete("userBoards/$boardName") { success ->
                         if (success) {
                             FireStorageConnection.deleteDirectory("userBoards/$boardName")
-                            Toast.makeText(requireContext(), "게시판 삭제완료.", Toast.LENGTH_SHORT).show()
                             dialog.dismiss()
                             refresh()
                         } else {
-                            Toast.makeText(requireContext(), "게시판 삭제실패.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "게시판 삭제 실패", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(requireContext(), "입력한 내용이 없습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "입력한 내용이 없습니다", Toast.LENGTH_SHORT).show()
                 }
             }
 

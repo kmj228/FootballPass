@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
 
                         // 자동 로그인 활성화 상태 확인
                         if (cbAutoLogin.isChecked) {
@@ -144,7 +143,6 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "자동 로그인 성공", Toast.LENGTH_SHORT).show()
                     fetchUserData(email)
                 } else {
                     Toast.makeText(this, "자동 로그인 실패: ${task.exception?.message}", Toast.LENGTH_SHORT).show()

@@ -98,7 +98,7 @@ class MyProfileFragment : Fragment() {
         } else {
             Toast.makeText(
                 requireContext(),
-                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요.",
+                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
                 Toast.LENGTH_SHORT
             ).show()
             view.findViewById<TextView>(R.id.textViewName).text = "이름"

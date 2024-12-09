@@ -39,7 +39,7 @@ class BoardCreateActivity : AppCompatActivity() {
                 }
                 //단 하나라도 같은 이름의 게시판이 있으면
                 if(isExists){
-                    Toast.makeText(this,"이미 같은 이름의 게시판이 존재합니다.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"동일한 이름의 게시판이 존재합니다",Toast.LENGTH_SHORT).show()
                     return@onGetCollection
                 }
                 else//이름이 겹치지 않으면 본격적으로 게시판 만들기
@@ -52,11 +52,10 @@ class BoardCreateActivity : AppCompatActivity() {
                         success, docPath ->
                         if(success)//게시판이 성공적으로 만들어짐.
                         {
-                            Toast.makeText(this,"게시판이 성공적으로 만들어짐.",Toast.LENGTH_SHORT).show()
                             finish()
                         }
                         else{//게시판 만들기 실패
-                            Toast.makeText(this,"게시판만들기 실패.",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this,"게시판 제작 실패",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
