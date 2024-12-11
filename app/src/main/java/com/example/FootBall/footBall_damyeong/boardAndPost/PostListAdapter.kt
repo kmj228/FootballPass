@@ -9,9 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.R
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class PostListAdapter
     (context: Context,

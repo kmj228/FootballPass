@@ -14,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityNewBinding
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONException
 import org.json.JSONObject

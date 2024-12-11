@@ -1,8 +1,6 @@
 package com.example.FootBall.football_minjae
 
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -21,7 +19,6 @@ import com.example.FootBall.MainTeamList
 import com.example.FootBall.MainViewActivity
 import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser
-import com.example.FootBall.football_junsik.GameDBHelper
 import com.yalantis.ucrop.UCrop
 import java.io.File
 

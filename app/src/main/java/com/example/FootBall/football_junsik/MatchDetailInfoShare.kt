@@ -1,6 +1,5 @@
 package com.example.FootBall.football_junsik
 
-
 // SharedViewModel.kt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

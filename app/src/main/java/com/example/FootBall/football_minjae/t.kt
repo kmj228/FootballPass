@@ -1,28 +1,22 @@
-package com.example.FootBall.football_minjae
+/*
+package com.example.soccer3
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.FootBall.R
-import com.example.FootBall.Team
-import kotlinx.coroutines.Dispatchers
+import com.bumptech.glide.Glide
+import com.example.FootBall.football_minjae.PlayerImageAdapter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 
 data class PlayerInfo(
     var imageUrl: String = "",
@@ -34,96 +28,42 @@ data class PlayerInfo(
     var weight: String = "",
     var birthDate: String = "",
     var playerId: String = ""
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        imageUrl = parcel.readString() ?: "",
-        name = parcel.readString() ?: "",
-        position = parcel.readString() ?: "",
-        nationality = parcel.readString() ?: "",
-        jerseyNumber = parcel.readString() ?: "",
-        height = parcel.readString() ?: "",
-        weight = parcel.readString() ?: "",
-        birthDate = parcel.readString() ?: "",
-        playerId = parcel.readString() ?: ""
-    )
+)
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(imageUrl)
-        parcel.writeString(name)
-        parcel.writeString(position)
-        parcel.writeString(nationality)
-        parcel.writeString(jerseyNumber)
-        parcel.writeString(height)
-        parcel.writeString(weight)
-        parcel.writeString(birthDate)
-        parcel.writeString(playerId)
-    }
 
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<PlayerInfo> {
-        override fun createFromParcel(parcel: Parcel): PlayerInfo {
-            return PlayerInfo(parcel)
-        }
-
-        override fun newArray(size: Int): Array<PlayerInfo?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
-class TeamDetailsActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
+    private lateinit var fetchButton: Button
+    private lateinit var leagueInput: EditText
+    private lateinit var teamInput: EditText
     private lateinit var adapter: PlayerImageAdapter
     private val players = ArrayList<PlayerInfo>() // PlayerInfo 리스트
+    private val hashMap: HashMap<String, String> = HashMap() // Key와 Value 타입 지정
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_team_details)
+        setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.my_list_view)
+        // UI 컴포넌트 초기화
+        listView = findViewById(R.id.resultListView)
+        fetchButton = findViewById(R.id.fetchButton)
+        leagueInput = findViewById(R.id.leagueInput)
+        teamInput = findViewById(R.id.teamInput)
 
-        val team = intent.getParcelableExtra<Team>("team") // Parcelable 사용 시
+        // 어댑터 생성
+        adapter = PlayerImageAdapter(this, R.layout.player_item, players)
+        listView.adapter = adapter
 
-        if (team != null) {
-            findViewById<ImageView>(R.id.teamProfile).setImageResource(team.profileImage)
-            findViewById<TextView>(R.id.teamName).text = team.name
-            findViewById<TextView>(R.id.teamDescription).text = "연고지 : ${team.region}"
-            findViewById<TextView>(R.id.teamHome).apply {
-                text = "홈구장 : ${team.home}"
+        // 버튼 클릭 이벤트 설정
+        fetchButton.setOnClickListener {
+            val leagueId = leagueInput.text.toString().trim()
+            val teamId = teamInput.text.toString().trim()
 
-                setOnClickListener {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-
-                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
-                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(chooser)
-                    } else {
-                        Toast.makeText(context, "지도 앱을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            findViewById<TextView>(R.id.teamLeague).text = "리그 : ${team.league}"
-            findViewById<TextView>(R.id.teamSupporters).text = "대표 서포터즈 : ${team.supporters}"
-
-            val teamCheerSongButton = findViewById<Button>(R.id.teamCheerSongButton)
-            teamCheerSongButton.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(team.cheerSong))
-                startActivity(intent)
-            }
-
-            adapter = PlayerImageAdapter(this, R.layout.player_list_item, players)
-            listView.adapter = adapter
-
-            if (team.league == "K리그 1") {
-                fetchPlayerData("1", team.kLeagueTeamId)
-            }
-            else {
-                fetchPlayerData("2", team.kLeagueTeamId)
+            if (leagueId.isNotEmpty() && teamId.isNotEmpty()) {
+                fetchPlayerData(leagueId, teamId)
+            } else {
+                Toast.makeText(this, "리그 ID와 팀 ID를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -137,10 +77,13 @@ class TeamDetailsActivity : AppCompatActivity() {
                 updateListView()
             } catch (e: Exception) {
                 Log.e("Fetch Error", "Error fetching data: ${e.message}")
-                Toast.makeText(this@TeamDetailsActivity, "데이터를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "데이터를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+
+
 
     private suspend fun fetchPlayerDetails() {
         for (player in players) {
@@ -207,6 +150,12 @@ class TeamDetailsActivity : AppCompatActivity() {
         }
     }
 
+
+
+
+
+
+
     private fun parseHtml(html: String) {
         val document = Jsoup.parse(html) // HTML 문서를 파싱
         val divdata = document.select("div.cont.active div.player.f-wrap")
@@ -260,6 +209,10 @@ class TeamDetailsActivity : AppCompatActivity() {
         Log.d("Parsed Players", "Total players parsed: ${players.size}")
     }
 
+
+
+
+
     private fun updateListView() {
         if (players.isEmpty()) {
             Toast.makeText(this, "선수 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
@@ -289,3 +242,5 @@ class TeamDetailsActivity : AppCompatActivity() {
             .create(ApiService::class.java)
     }
 }
+
+ */

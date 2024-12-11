@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.graphics.vector.addPathNodes
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.FireStoreConnection
@@ -16,6 +15,7 @@ import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
 class PostActivity : AppCompatActivity() {
 
     lateinit var commentAdapter:CommentListAdapter
