@@ -1,6 +1,7 @@
 package com.example.FootBall.football_minjae
 
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcel
@@ -86,12 +87,15 @@ class TeamDetailsActivity : AppCompatActivity() {
 
         val team = intent.getParcelableExtra<Team>("team") // Parcelable 사용 시
 
+        findViewById<ImageView>(R.id.teamLocation)
+
         if (team != null) {
             findViewById<ImageView>(R.id.teamProfile).setImageResource(team.profileImage)
             findViewById<TextView>(R.id.teamName).text = team.name
             findViewById<TextView>(R.id.teamDescription).text = "연고지 : ${team.region}"
             findViewById<TextView>(R.id.teamHome).apply {
                 text = "홈구장 : ${team.home}"
+                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
                 setOnClickListener {
                     val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
@@ -106,6 +110,22 @@ class TeamDetailsActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            findViewById<ImageView>(R.id.teamLocation).apply {
+                setOnClickListener {
+                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+
+                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
+                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
+                    if (mapIntent.resolveActivity(packageManager) != null) {
+                        startActivity(chooser)
+                    } else {
+                        showToast("지도 앱을 찾을 수 없습니다")
+                    }
+                }
+            }
+
 
             findViewById<TextView>(R.id.teamLeague).text = "리그 : ${team.league}"
             findViewById<TextView>(R.id.teamSupporters).text = "대표 서포터즈 : ${team.supporters}"
