@@ -151,9 +151,20 @@ class TeamDetailsActivity : AppCompatActivity() {
     private fun fetchPlayerData(leagueId: String, teamId: String) {
         lifecycleScope.launch {
             try {
-                val htmlContent = RetrofitClient.apiService.getPlayers("active", leagueId, teamId)
-                parseHtml(htmlContent)
-                fetchPlayerDetails() // 각 선수의 세부 정보를 가져온다.
+                var page = 1
+                var hasMorePages = true
+
+                while (hasMorePages) {
+                    // 각 페이지의 데이터를 가져온다
+                    val htmlContent = RetrofitClient.apiService.getPlayers("active", leagueId, teamId, page)
+                    val playerCount = parseHtml(htmlContent) // 현재 페이지의 선수 데이터를 파싱
+
+                    // 페이지에 데이터가 없거나 마지막 페이지에 도달한 경우 종료
+                    hasMorePages = playerCount > 0
+                    page++
+                }
+
+                fetchPlayerDetails() // 모든 페이지의 선수에 대한 세부 정보를 가져온다.
                 updateListView()
             } catch (e: Exception) {
                 Log.e("Fetch Error", "Error fetching data: ${e.message}")
@@ -161,6 +172,7 @@ class TeamDetailsActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private suspend fun fetchPlayerDetails() {
         for (player in players) {
@@ -219,26 +231,23 @@ class TeamDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun parseHtml(html: String) {
+    private fun parseHtml(html: String): Int {
         val document = Jsoup.parse(html) // HTML 문서를 파싱
         val divdata = document.select("div.cont.active div.player.f-wrap")
         val rows = divdata.select("div.cont-box.f-wrap.left.player-hover")
 
-        players.clear() // 기존 데이터를 지워줍니다.
+        var addedPlayers = 0
 
         for (row in rows) {
             val imgBox = row.selectFirst("div.img-box img")
             val txtBox = row.selectFirst("div.txt-box")
 
-            // 이미지 URL
             val imageUrl = imgBox?.attr("src") ?: ""
             val fullImageUrl =
                 if (imageUrl.startsWith("http")) imageUrl else "https://www.kleague.com$imageUrl"
 
-            // txt-box 내부 정보
             val jerseyNumber = txtBox?.selectFirst("span.num")?.text() ?: "No Number"
 
-            // 'No'가 포함되지 않으면 건너뛴다.
             if (!jerseyNumber.startsWith("No.")) {
                 Log.d("Filtered Out", "Skipped: $jerseyNumber")
                 continue
@@ -249,11 +258,9 @@ class TeamDetailsActivity : AppCompatActivity() {
             val position = txtBox?.selectFirst("span.position")?.text() ?: "Unknown Position"
             val nationality = txtBox?.selectFirst("span.nationality")?.text() ?: "Unknown Nationality"
 
-            // playerId 추출
-            val onclickAttr = row.attr("onclick") // onclick 속성 추출
+            val onclickAttr = row.attr("onclick")
             val playerId = Regex("""onPlayerClicked\((\d+)\)""").find(onclickAttr)?.groupValues?.get(1) ?: ""
 
-            // PlayerInfo 객체 추가
             players.add(
                 PlayerInfo(
                     imageUrl = fullImageUrl,
@@ -264,7 +271,10 @@ class TeamDetailsActivity : AppCompatActivity() {
                     playerId = playerId
                 )
             )
+            addedPlayers++
         }
+
+        return addedPlayers
     }
 
     private fun updateListView() {
@@ -281,9 +291,11 @@ class TeamDetailsActivity : AppCompatActivity() {
         suspend fun getPlayers(
             @Query("type") type: String,
             @Query("leagueId") leagueId: String,
-            @Query("teamId") teamId: String
+            @Query("teamId") teamId: String,
+            @Query("page") page: Int
         ): String
     }
+
 
     object RetrofitClient {
         private const val BASE_URL = "https://www.kleague.com/"
