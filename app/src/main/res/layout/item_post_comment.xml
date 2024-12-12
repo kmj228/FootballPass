@@ -26,6 +26,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <Button
+                android:id="@+id/itemPostComment_likeBtn"
                 android:layout_width="100dp"
                 android:layout_marginRight="4dp"
                 android:layout_height="wrap_content"

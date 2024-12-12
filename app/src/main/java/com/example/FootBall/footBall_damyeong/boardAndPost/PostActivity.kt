@@ -1,6 +1,7 @@
 package com.example.FootBall.footBall_damyeong.boardAndPost
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 class PostActivity : AppCompatActivity() {
 
@@ -188,11 +190,29 @@ class PostActivity : AppCompatActivity() {
             }
         }
         commentEnterButton.setOnClickListener{
+
             if(commentEdit.text.equals(""))
             {
                 Toast.makeText(this,"댓글 내용을 입력하시오",Toast.LENGTH_SHORT).show()
             }
-            var comment= CommentItem(content=commentEdit.text.toString(),name=app.currentUser!!.name.toString(), email = app.currentUser!!.email)
+            val uniqueID= UUID.randomUUID().toString()
+            val path=postRef.postPath+"/comments/"+uniqueID
+            var comment= CommentItem(content=commentEdit.text.toString(),
+                name=app.currentUser!!.name.toString(),
+                email = app.currentUser!!.email,
+                path=path)
+            FireStoreConnection.setDocument(path,comment)
+            {
+                success, docPath ->
+                if(success)
+                {
+                    Toast.makeText(this,"댓글 등록 성공",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(this,"댓글 등록 실패함."+postRef.postPath+"/comments/",Toast.LENGTH_SHORT).show()
+                }
+            }
+            /*
             FireStoreConnection.addDocument(postRef.postPath+"/comments/",comment)
             {
                 success, docPath ->
@@ -204,6 +224,8 @@ class PostActivity : AppCompatActivity() {
                     Toast.makeText(this,"댓글 등록 실패함."+postRef.postPath+"/comments/",Toast.LENGTH_SHORT).show()
                 }
             }
+
+             */
         }
 
         likeButton.setOnClickListener{
