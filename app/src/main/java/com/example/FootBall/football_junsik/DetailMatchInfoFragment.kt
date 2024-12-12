@@ -7,14 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import com.example.FootBall.R
 import org.json.JSONArray
 import org.json.JSONException
-import org.json.JSONObject
 
 class DetailMatchInfoFragment : Fragment() {
     private lateinit var matchDetailInfoShare: MatchDetailInfoShare

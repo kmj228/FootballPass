@@ -1,8 +1,7 @@
 package com.example.FootBall.football_minjae
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -21,7 +20,6 @@ import com.example.FootBall.MainTeamList
 import com.example.FootBall.MainViewActivity
 import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser
-import com.example.FootBall.football_junsik.GameDBHelper
 import com.yalantis.ucrop.UCrop
 import java.io.File
 
@@ -187,11 +185,28 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-        super.onBackPressed() // 기본 뒤로가기 동작만 수행
+        AlertDialog.Builder(this).apply {
+            setTitle("회원정보 수정")
+            setMessage("수정 정보를 폐기하시겠습니까?")
+
+            setPositiveButton("네") { _, _ ->
+                // 컨텍스트를 명시적으로 지정
+                val intent = Intent(this@EditActivity, MainViewActivity::class.java)
+                intent.putExtra("INITIAL_PAGE", 4) // 초기 페이지 전달
+                startActivity(intent)
+                finish() // 현재 Activity 종료
+            }
+            setNegativeButton("아니요") { dialog, _ ->
+                dialog.dismiss() // 다이얼로그 닫기
+            }
+            show()
+        }
     }
 
     companion object {
         private const val IMAGE_PICKER_REQUEST_CODE = 1001
     }
+
 }

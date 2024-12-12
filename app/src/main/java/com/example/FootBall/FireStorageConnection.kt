@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageException
 import java.util.UUID
 
 open class FireStorageConnection{

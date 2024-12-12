@@ -2,7 +2,6 @@ package com.example.FootBall.football_junsik
 
 
 import android.app.DatePickerDialog
-import android.database.Cursor
 import android.os.Bundle
 import android.os.DeadObjectException
 import android.util.Log
@@ -18,21 +17,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import com.example.FootBall.FireStorageConnection
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
-import com.example.FootBall.football_minjae.MyProfileFragment.Match
 import kotlinx.coroutines.async
 import org.jsoup.select.Elements
 import java.util.Calendar
-import org.jsoup.nodes.Document
-import org.jsoup.nodes.Element
-
 
 class FirstTabContent : Fragment() {
 

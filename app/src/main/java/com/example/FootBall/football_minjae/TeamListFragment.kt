@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
-import com.example.FootBall.Team
 
 class TeamListFragment : Fragment() {
 

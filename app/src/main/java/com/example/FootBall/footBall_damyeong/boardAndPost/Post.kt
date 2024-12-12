@@ -7,6 +7,7 @@ data class Post(
     var content:String="",
     var imagePath:String?=null,
     var email:String="",
-    var timestamp: Long=0
+    var timestamp: Long=0,
+    var like:Int=0  //좋아요 갯수
 )
 //현재 코드에선 안쓰이지만, 리스트에 ArrayAdapter를 넣어 사용한다면 항목표시를 위해 호출됨.

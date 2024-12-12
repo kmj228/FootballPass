@@ -1,29 +1,22 @@
-package com.example.FootBall.football_minjae
+/*
+package com.example.soccer3
 
-import android.content.Intent
-import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.FootBall.R
-import com.example.FootBall.Team
-import kotlinx.coroutines.Dispatchers
+import com.bumptech.glide.Glide
+import com.example.FootBall.football_minjae.PlayerImageAdapter
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 
 data class PlayerInfo(
     var imageUrl: String = "",
@@ -35,115 +28,42 @@ data class PlayerInfo(
     var weight: String = "",
     var birthDate: String = "",
     var playerId: String = ""
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        imageUrl = parcel.readString() ?: "",
-        name = parcel.readString() ?: "",
-        position = parcel.readString() ?: "",
-        nationality = parcel.readString() ?: "",
-        jerseyNumber = parcel.readString() ?: "",
-        height = parcel.readString() ?: "",
-        weight = parcel.readString() ?: "",
-        birthDate = parcel.readString() ?: "",
-        playerId = parcel.readString() ?: ""
-    )
+)
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(imageUrl)
-        parcel.writeString(name)
-        parcel.writeString(position)
-        parcel.writeString(nationality)
-        parcel.writeString(jerseyNumber)
-        parcel.writeString(height)
-        parcel.writeString(weight)
-        parcel.writeString(birthDate)
-        parcel.writeString(playerId)
-    }
 
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<PlayerInfo> {
-        override fun createFromParcel(parcel: Parcel): PlayerInfo {
-            return PlayerInfo(parcel)
-        }
-
-        override fun newArray(size: Int): Array<PlayerInfo?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
-class TeamDetailsActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
+    private lateinit var fetchButton: Button
+    private lateinit var leagueInput: EditText
+    private lateinit var teamInput: EditText
     private lateinit var adapter: PlayerImageAdapter
     private val players = ArrayList<PlayerInfo>() // PlayerInfo 리스트
+    private val hashMap: HashMap<String, String> = HashMap() // Key와 Value 타입 지정
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_team_details)
+        setContentView(R.layout.activity_main)
 
-        listView = findViewById(R.id.my_list_view)
+        // UI 컴포넌트 초기화
+        listView = findViewById(R.id.resultListView)
+        fetchButton = findViewById(R.id.fetchButton)
+        leagueInput = findViewById(R.id.leagueInput)
+        teamInput = findViewById(R.id.teamInput)
 
-        val team = intent.getParcelableExtra<Team>("team") // Parcelable 사용 시
+        // 어댑터 생성
+        adapter = PlayerImageAdapter(this, R.layout.player_item, players)
+        listView.adapter = adapter
 
-        findViewById<ImageView>(R.id.teamLocation)
+        // 버튼 클릭 이벤트 설정
+        fetchButton.setOnClickListener {
+            val leagueId = leagueInput.text.toString().trim()
+            val teamId = teamInput.text.toString().trim()
 
-        if (team != null) {
-            findViewById<ImageView>(R.id.teamProfile).setImageResource(team.profileImage)
-            findViewById<TextView>(R.id.teamName).text = team.name
-            findViewById<TextView>(R.id.teamDescription).text = "연고지 : ${team.region}"
-            findViewById<TextView>(R.id.teamHome).apply {
-                text = "홈구장 : ${team.home}"
-                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-
-                setOnClickListener {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-
-                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
-                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(chooser)
-                    } else {
-                        showToast("지도 앱을 찾을 수 없습니다")
-                    }
-                }
-            }
-
-            findViewById<ImageView>(R.id.teamLocation).apply {
-                setOnClickListener {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-
-                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
-                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(chooser)
-                    } else {
-                        showToast("지도 앱을 찾을 수 없습니다")
-                    }
-                }
-            }
-
-
-            findViewById<TextView>(R.id.teamLeague).text = "리그 : ${team.league}"
-            findViewById<TextView>(R.id.teamSupporters).text = "대표 서포터즈 : ${team.supporters}"
-
-            val teamCheerSongButton = findViewById<Button>(R.id.teamCheerSongButton)
-            teamCheerSongButton.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(team.cheerSong))
-                startActivity(intent)
-            }
-
-            adapter = PlayerImageAdapter(this, R.layout.player_list_item, players, team.name)
-            listView.adapter = adapter
-
-            if (team.league == "K리그 1") {
-                fetchPlayerData("1", team.kLeagueTeamId)
-            }
-            else {
-                fetchPlayerData("2", team.kLeagueTeamId)
+            if (leagueId.isNotEmpty() && teamId.isNotEmpty()) {
+                fetchPlayerData(leagueId, teamId)
+            } else {
+                Toast.makeText(this, "리그 ID와 팀 ID를 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -151,27 +71,18 @@ class TeamDetailsActivity : AppCompatActivity() {
     private fun fetchPlayerData(leagueId: String, teamId: String) {
         lifecycleScope.launch {
             try {
-                var page = 1
-                var hasMorePages = true
-
-                while (hasMorePages) {
-                    // 각 페이지의 데이터를 가져온다
-                    val htmlContent = RetrofitClient.apiService.getPlayers("active", leagueId, teamId, page)
-                    val playerCount = parseHtml(htmlContent) // 현재 페이지의 선수 데이터를 파싱
-
-                    // 페이지에 데이터가 없거나 마지막 페이지에 도달한 경우 종료
-                    hasMorePages = playerCount > 0
-                    page++
-                }
-
-                fetchPlayerDetails() // 모든 페이지의 선수에 대한 세부 정보를 가져온다.
+                val htmlContent = RetrofitClient.apiService.getPlayers("active", leagueId, teamId)
+                parseHtml(htmlContent)
+                fetchPlayerDetails() // 각 선수의 세부 정보를 가져온다.
                 updateListView()
             } catch (e: Exception) {
                 Log.e("Fetch Error", "Error fetching data: ${e.message}")
-                showToast("데이터를 가져오는데 실패했습니다")
+                Toast.makeText(this@MainActivity, "데이터를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+
 
 
     private suspend fun fetchPlayerDetails() {
@@ -179,11 +90,13 @@ class TeamDetailsActivity : AppCompatActivity() {
             try {
                 val detailHtml = withContext(Dispatchers.IO) {
                     val detailUrl = "https://www.kleague.com/record/playerDetail.do?playerId=${player.playerId}"
+                    Log.d("Detail URL", "Fetching: $detailUrl")
                     Jsoup.connect(detailUrl).get()
                 }
 
                 // HTML에서 모든 <tr> 태그를 선택
                 val rows = detailHtml.select("div.cont-box.right.player-rank table.style2.center tbody tr")
+                Log.d("Player Info Rows", "Rows found: ${rows.size}")
 
                 // 각 정보를 저장할 변수
                 var name = player.name
@@ -203,6 +116,8 @@ class TeamDetailsActivity : AppCompatActivity() {
                     for (i in headers.indices) {
                         val header = headers[i].text().trim()
                         val value = if (i < values.size) values[i].text().trim() else ""
+
+                        Log.d("Player Info Row", "Header: $header, Value: $value")
 
                         when (header) {
                             "이름" -> name = value
@@ -225,29 +140,43 @@ class TeamDetailsActivity : AppCompatActivity() {
                 player.weight = weight
                 player.birthDate = birthDate
 
+                Log.d(
+                    "Player Updated Info",
+                    "Name: $name, Position: $position, Jersey Number: $jerseyNumber, Nationality: $nationality, Height: $height, Weight: $weight, BirthDate: $birthDate"
+                )
             } catch (e: Exception) {
                 Log.e("Detail Fetch Error", "Error fetching details for player: ${player.name}, error: ${e.message}")
             }
         }
     }
 
-    private fun parseHtml(html: String): Int {
+
+
+
+
+
+
+    private fun parseHtml(html: String) {
         val document = Jsoup.parse(html) // HTML 문서를 파싱
         val divdata = document.select("div.cont.active div.player.f-wrap")
         val rows = divdata.select("div.cont-box.f-wrap.left.player-hover")
 
-        var addedPlayers = 0
+        Log.d("parseHtml", rows.size.toString())
+        players.clear() // 기존 데이터를 지워줍니다.
 
         for (row in rows) {
             val imgBox = row.selectFirst("div.img-box img")
             val txtBox = row.selectFirst("div.txt-box")
 
+            // 이미지 URL
             val imageUrl = imgBox?.attr("src") ?: ""
             val fullImageUrl =
                 if (imageUrl.startsWith("http")) imageUrl else "https://www.kleague.com$imageUrl"
 
+            // txt-box 내부 정보
             val jerseyNumber = txtBox?.selectFirst("span.num")?.text() ?: "No Number"
 
+            // 'No'가 포함되지 않으면 건너뛴다.
             if (!jerseyNumber.startsWith("No.")) {
                 Log.d("Filtered Out", "Skipped: $jerseyNumber")
                 continue
@@ -258,9 +187,13 @@ class TeamDetailsActivity : AppCompatActivity() {
             val position = txtBox?.selectFirst("span.position")?.text() ?: "Unknown Position"
             val nationality = txtBox?.selectFirst("span.nationality")?.text() ?: "Unknown Nationality"
 
-            val onclickAttr = row.attr("onclick")
+            // playerId 추출
+            val onclickAttr = row.attr("onclick") // onclick 속성 추출
             val playerId = Regex("""onPlayerClicked\((\d+)\)""").find(onclickAttr)?.groupValues?.get(1) ?: ""
 
+            Log.d("Player ID", "Extracted Player ID for $name: $playerId")
+
+            // PlayerInfo 객체 추가
             players.add(
                 PlayerInfo(
                     imageUrl = fullImageUrl,
@@ -271,18 +204,22 @@ class TeamDetailsActivity : AppCompatActivity() {
                     playerId = playerId
                 )
             )
-            addedPlayers++
         }
 
-        return addedPlayers
+        Log.d("Parsed Players", "Total players parsed: ${players.size}")
     }
+
+
+
+
 
     private fun updateListView() {
         if (players.isEmpty()) {
-            showToast("선수 정보를 찾을 수 없습니다")
+            Toast.makeText(this, "선수 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
         } else {
             // Adapter 업데이트 및 데이터 표시
             adapter.notifyDataSetChanged()
+            Log.d("updateListView", "List updated with ${players.size} players")
         }
     }
 
@@ -291,11 +228,9 @@ class TeamDetailsActivity : AppCompatActivity() {
         suspend fun getPlayers(
             @Query("type") type: String,
             @Query("leagueId") leagueId: String,
-            @Query("teamId") teamId: String,
-            @Query("page") page: Int
+            @Query("teamId") teamId: String
         ): String
     }
-
 
     object RetrofitClient {
         private const val BASE_URL = "https://www.kleague.com/"
@@ -306,9 +241,6 @@ class TeamDetailsActivity : AppCompatActivity() {
             .build()
             .create(ApiService::class.java)
     }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@TeamDetailsActivity, message, Toast.LENGTH_SHORT).show()
-    }
-
 }
+
+ */

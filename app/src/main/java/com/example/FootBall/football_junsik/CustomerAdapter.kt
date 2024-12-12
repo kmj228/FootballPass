@@ -2,11 +2,8 @@ package com.example.FootBall.football_junsik
 
 
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View

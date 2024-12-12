@@ -1,6 +1,5 @@
 package com.example.FootBall.football_minjae
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View

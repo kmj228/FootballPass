@@ -33,6 +33,7 @@ data class Team(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
+        parcel.writeString(kLeagueTeamId)
         parcel.writeString(name)
         parcel.writeString(englishName)
         parcel.writeString(region)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MyApplication
@@ -25,13 +26,17 @@ class PublicBoardsFragment : Fragment() {
         val app = requireActivity().application as MyApplication
         val user = app.currentUser
 
+        if (user == null) {
+            return
+        }
+
         FireStoreConnection.onGetCollection("publicBoards/") { documents ->
-            if (_binding == null) return@onGetCollection // 뷰가 파괴되었으면 작업 중단
+            if (_binding == null) return@onGetCollection
             boardList.clear()
             for (document in documents) {
                 val board = document.toObject(BoardListItem::class.java)
                 if (board != null) {
-                    if (user!!.team == "") {
+                    if (user.team == "") {
                         boardList.add(board)
                     } else if (board.boardName == user.team) {
                         boardList.add(board)
@@ -44,7 +49,6 @@ class PublicBoardsFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
     }
-
 
     override fun onStart() {
         super.onStart()
@@ -69,6 +73,9 @@ class PublicBoardsFragment : Fragment() {
         adapter = BoardListAdapter(requireContext(), R.layout.item_board_preview, boardList, "publicBoards/")
         listView.adapter = adapter
 
+        // 초기 데이터 로드
+        refresh()
+
         // 리스트 아이템 클릭 시 게시글 화면으로 이동
         listView.setOnItemClickListener { _, _, position, _ ->
             val board = boardList[position]
@@ -79,8 +86,11 @@ class PublicBoardsFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
+        adapter.clear() // 어댑터 리소스 정리 (예: 데이터 초기화)
         _binding = null
     }
+
 }
