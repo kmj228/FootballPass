@@ -49,28 +49,26 @@ class PlayerDetailsActivity : AppCompatActivity() {
         statsView.text = "신장/체중 : ${player.height}/${player.weight}"
 
         try {
-            FireStoreConnection.onGetCollection("/teamData/${teamName}/playerList/${player.name}") { documents ->
-                for (d in documents) {
-                    d.getString("song")?.let {
-                        val song = it
+            FireStoreConnection.onGetDocument("/teamData/${teamName}/playerList/${player.name}") { document ->
+                document.getString("song")?.let {
+                    val song = it
 
-                        val cheerSongButton = findViewById<Button>(R.id.cheerSongButton)
+                    val cheerSongButton = findViewById<Button>(R.id.cheerSongButton)
 
-                        if (song.isNullOrEmpty()) {
-                            cheerSongButton.setOnClickListener {
-                                Toast.makeText(this, "응원곡이 없습니다", Toast.LENGTH_SHORT).show()
-                            }
-                        } else if (song.contains("http")) {
-                            cheerSongButton.setOnClickListener {
-                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(song))
-                                startActivity(intent)
-                            }
-                        } else {
-                            findViewById<TextView>(R.id.playerSong).text = "응원곡 : ${song}"
+                    if (song.isNullOrEmpty()) {
+                        cheerSongButton.setOnClickListener {
+                            Toast.makeText(this, "응원곡이 없습니다", Toast.LENGTH_SHORT).show()
+                        }
+                    } else if (song.contains("http")) {
+                        cheerSongButton.setOnClickListener {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(song))
+                            startActivity(intent)
+                        }
+                    } else {
+                        findViewById<TextView>(R.id.playerSong).text = "응원곡 : ${song}"
 
-                            cheerSongButton.setOnClickListener {
-                                Toast.makeText(this, "응원곡이 링크가 없습니다", Toast.LENGTH_SHORT).show()
-                            }
+                        cheerSongButton.setOnClickListener {
+                            Toast.makeText(this, "응원곡 링크가 없습니다", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
