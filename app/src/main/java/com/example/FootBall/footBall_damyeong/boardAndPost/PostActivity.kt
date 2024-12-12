@@ -41,6 +41,7 @@ class PostActivity : AppCompatActivity() {
             commentAdapter.notifyDataSetChanged()
         }
     }
+    var likeBtnCherk:Boolean=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding=ActivityPostBinding.inflate(layoutInflater)
@@ -58,6 +59,7 @@ class PostActivity : AppCompatActivity() {
         val commentList =binding.postCommentList
         val commentEnterButton=binding.postCommentButton
         val commentEdit=binding.postCommentEdit
+        val likeButton=binding.postLikeBtn
         swipeRefreshLayout = binding.postSwipeRefreshLayout // SwipeRefreshLayout 초기화
 
         //인텐트대신 전역변수를 통해서 전달받음.
@@ -115,7 +117,8 @@ class PostActivity : AppCompatActivity() {
         postDate.text = post.title ?: ""
         postAuther.text = "작성자 : "+post.author ?: ""
         postContent.text = post.content ?: ""
-        // postListItem안에 있는 Timestamp를 date로 변환해 표기하기
+        likeButton.text="좋아요"+post.like.toString()
+        // postListItem안에 있는 Timestaㅅmp를 date로 변환해 표기하기
         val date = Date(post.timestamp ?: 0)
         // 날짜 포맷 설정
         //val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
@@ -199,6 +202,25 @@ class PostActivity : AppCompatActivity() {
                 }
                 else{
                     Toast.makeText(this,"댓글 등록 실패함."+postRef.postPath+"/comments/",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        likeButton.setOnClickListener{
+            if(likeBtnCherk){
+                Toast.makeText(this,"이미 좋아요를 눌렀습니다.",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            FireStoreConnection.fieldIncrement(postRef.postPath,"like",1)
+            {
+                success ->
+                if(success)
+                {
+                    likeButton.text="좋아요"+(post.like+1).toString()
+                    likeBtnCherk=true
+                }
+                else{
+                    Toast.makeText(this,"문서 업데이트 오류",Toast.LENGTH_SHORT).show()
                 }
             }
         }
