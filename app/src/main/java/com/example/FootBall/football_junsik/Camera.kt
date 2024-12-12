@@ -109,6 +109,7 @@ class Camera(private val activity: AppCompatActivity){
             recognizer.process(image)
                 .addOnSuccessListener { // 성공시
                     Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show() // Toast로 결과 표시
+
                 }
                 .addOnFailureListener { e->// 실패시
                     Toast.makeText(activity, "인식 실패: ${e.message}", Toast.LENGTH_SHORT).show()
