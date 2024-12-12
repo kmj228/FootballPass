@@ -1,6 +1,7 @@
 package com.example.FootBall
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -46,5 +47,20 @@ class MainViewActivity : FragmentActivity() {
             throw IllegalArgumentException("Invalid page position: $position. Valid range is 0 to ${itemCount - 1}.")
         }
     }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this).apply {
+            setTitle("앱 종료")
+            setMessage("정말로 종료하시겠습니까?")
+            setPositiveButton("네") { _, _ ->
+                super.onBackPressed() // 기본 뒤로 가기 동작 실행
+            }
+            setNegativeButton("아니요") { dialog, _ ->
+                dialog.dismiss() // 다이얼로그 닫기
+            }
+            show()
+        }
+    }
+
 
 }
