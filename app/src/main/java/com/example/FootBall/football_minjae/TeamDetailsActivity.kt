@@ -296,7 +296,6 @@ class TeamDetailsActivity : AppCompatActivity() {
         ): String
     }
 
-
     object RetrofitClient {
         private const val BASE_URL = "https://www.kleague.com/"
 
