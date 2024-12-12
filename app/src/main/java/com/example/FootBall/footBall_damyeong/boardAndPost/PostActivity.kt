@@ -19,11 +19,16 @@ import java.util.Locale
 import java.util.UUID
 
 class PostActivity : AppCompatActivity() {
+    companion object{
+        val likeCache= hashSetOf<String>()
 
+    }
     lateinit var commentAdapter:CommentListAdapter
     val commnetList=ArrayList<CommentItem>()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
     private lateinit var postRef:BoardActivity.PostRef
+
+    private var btnCherk:Boolean=false
     fun refresh()
     {
         swipeRefreshLayout.isRefreshing = false // 새로고침 완료 후 종료
@@ -229,22 +234,49 @@ class PostActivity : AppCompatActivity() {
         }
 
         likeButton.setOnClickListener{
-            if(likeBtnCherk){
+            //파이어베이스 작업이 종료되기 전까진 버튼 콜백을 무효화
+            if(btnCherk == true)
+                return@setOnClickListener
+            btnCherk=true
+
+            //이미 좋아요를 눌렀다면
+            if(likeCache.contains(postRef.postPath)){
+                /*
                 Toast.makeText(this,"이미 좋아요를 눌렀습니다.",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }
-            FireStoreConnection.fieldIncrement(postRef.postPath,"like",1)
-            {
-                success ->
-                if(success)
+
+                 */
+                FireStoreConnection.fieldIncrement(postRef.postPath,"like",-1)
                 {
-                    likeButton.text="좋아요"+(post.like+1).toString()
-                    likeBtnCherk=true
-                }
-                else{
-                    Toast.makeText(this,"문서 업데이트 오류",Toast.LENGTH_SHORT).show()
+                        success ->
+                    btnCherk=false
+                    if(success)
+                    {
+                        post.like-=1
+                        likeButton.text="좋아요"+(post.like).toString()
+                        likeCache.remove(postRef.postPath)
+                    }
+                    else
+                        Toast.makeText(this,"문서 업데이트 오류",Toast.LENGTH_SHORT).show()
                 }
             }
+            else
+            {
+                FireStoreConnection.fieldIncrement(postRef.postPath,"like",1)
+                {
+                        success ->
+                    btnCherk=false
+                    if(success)
+                    {
+                        post.like+=1
+                        likeButton.text="좋아요"+(post.like).toString()
+                        likeCache.add(postRef.postPath)
+                    }
+                    else
+                        Toast.makeText(this,"문서 업데이트 오류",Toast.LENGTH_SHORT).show()
+                }
+            }
+
         }
 
         // 스와이프 리프레시 설정
