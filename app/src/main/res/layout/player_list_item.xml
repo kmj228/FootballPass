@@ -74,22 +74,22 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/playerPosition"
+            android:id="@+id/playerHeightWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#C4C4C4"
-            android:text="포지션"
+            android:text="Height: 180cm / Weight: 75kg"
             android:textSize="12sp"
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_marginBottom="2dp" />
 
         <TextView
-            android:id="@+id/playerHeightWeight"
+            android:id="@+id/playerPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#C4C4C4"
-            android:text="Height: 180cm / Weight: 75kg"
+            android:text="포지션"
             android:textSize="12sp"
             android:ellipsize="end"
             android:maxLines="1"

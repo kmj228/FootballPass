@@ -16,7 +16,8 @@ import com.example.FootBall.R
 class PlayerImageAdapter(
     context: Context,
     private val resource: Int,
-    private val players: List<PlayerInfo>
+    private val players: List<PlayerInfo>,
+    private val teamName: String
 ) : ArrayAdapter<PlayerInfo>(context, resource, players) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -31,9 +32,9 @@ class PlayerImageAdapter(
         val heightWeightBirthDateView = view.findViewById<TextView>(R.id.playerHeightWeight)
 
         nameView.text = player?.name
-        positionView.text = player?.position
+        positionView.text = "포지션 : " + player?.position
         nationalityView.text = player?.nationality
-        jerseyNumberView.text = "No." + player?.jerseyNumber
+        jerseyNumberView.text = player?.jerseyNumber + "번"
 
         heightWeightBirthDateView.text = player?.height + "cm " + player?.weight + "kg "
         Glide.with(context).load(player?.imageUrl).into(imageView)
@@ -41,9 +42,11 @@ class PlayerImageAdapter(
         // 클릭 이벤트 추가
         view.setOnClickListener {
             val intent = Intent(context, PlayerDetailsActivity::class.java)
-            intent.putExtra("player", player)
+            intent.putExtra("player", player) // 기존에 PlayerInfo를 전달
+            intent.putExtra("teamName", teamName) // 추가: 팀 이름 전달
             context.startActivity(intent)
         }
+
 
         return view
     }

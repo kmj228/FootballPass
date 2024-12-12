@@ -102,7 +102,7 @@ class TeamDetailsActivity : AppCompatActivity() {
                     if (mapIntent.resolveActivity(packageManager) != null) {
                         startActivity(chooser)
                     } else {
-                        Toast.makeText(context, "지도 앱을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        showToast("지도 앱을 찾을 수 없습니다")
                     }
                 }
             }
@@ -116,7 +116,7 @@ class TeamDetailsActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            adapter = PlayerImageAdapter(this, R.layout.player_list_item, players)
+            adapter = PlayerImageAdapter(this, R.layout.player_list_item, players, team.name)
             listView.adapter = adapter
 
             if (team.league == "K리그 1") {
@@ -137,7 +137,7 @@ class TeamDetailsActivity : AppCompatActivity() {
                 updateListView()
             } catch (e: Exception) {
                 Log.e("Fetch Error", "Error fetching data: ${e.message}")
-                Toast.makeText(this@TeamDetailsActivity, "데이터를 가져오는데 실패했습니다.", Toast.LENGTH_SHORT).show()
+                showToast("데이터를 가져오는데 실패했습니다")
             }
         }
     }
@@ -147,13 +147,11 @@ class TeamDetailsActivity : AppCompatActivity() {
             try {
                 val detailHtml = withContext(Dispatchers.IO) {
                     val detailUrl = "https://www.kleague.com/record/playerDetail.do?playerId=${player.playerId}"
-                    Log.d("Detail URL", "Fetching: $detailUrl")
                     Jsoup.connect(detailUrl).get()
                 }
 
                 // HTML에서 모든 <tr> 태그를 선택
                 val rows = detailHtml.select("div.cont-box.right.player-rank table.style2.center tbody tr")
-                Log.d("Player Info Rows", "Rows found: ${rows.size}")
 
                 // 각 정보를 저장할 변수
                 var name = player.name
@@ -173,8 +171,6 @@ class TeamDetailsActivity : AppCompatActivity() {
                     for (i in headers.indices) {
                         val header = headers[i].text().trim()
                         val value = if (i < values.size) values[i].text().trim() else ""
-
-                        Log.d("Player Info Row", "Header: $header, Value: $value")
 
                         when (header) {
                             "이름" -> name = value
@@ -197,10 +193,6 @@ class TeamDetailsActivity : AppCompatActivity() {
                 player.weight = weight
                 player.birthDate = birthDate
 
-                Log.d(
-                    "Player Updated Info",
-                    "Name: $name, Position: $position, Jersey Number: $jerseyNumber, Nationality: $nationality, Height: $height, Weight: $weight, BirthDate: $birthDate"
-                )
             } catch (e: Exception) {
                 Log.e("Detail Fetch Error", "Error fetching details for player: ${player.name}, error: ${e.message}")
             }
@@ -212,7 +204,6 @@ class TeamDetailsActivity : AppCompatActivity() {
         val divdata = document.select("div.cont.active div.player.f-wrap")
         val rows = divdata.select("div.cont-box.f-wrap.left.player-hover")
 
-        Log.d("parseHtml", rows.size.toString())
         players.clear() // 기존 데이터를 지워줍니다.
 
         for (row in rows) {
@@ -242,8 +233,6 @@ class TeamDetailsActivity : AppCompatActivity() {
             val onclickAttr = row.attr("onclick") // onclick 속성 추출
             val playerId = Regex("""onPlayerClicked\((\d+)\)""").find(onclickAttr)?.groupValues?.get(1) ?: ""
 
-            Log.d("Player ID", "Extracted Player ID for $name: $playerId")
-
             // PlayerInfo 객체 추가
             players.add(
                 PlayerInfo(
@@ -256,17 +245,14 @@ class TeamDetailsActivity : AppCompatActivity() {
                 )
             )
         }
-
-        Log.d("Parsed Players", "Total players parsed: ${players.size}")
     }
 
     private fun updateListView() {
         if (players.isEmpty()) {
-            Toast.makeText(this, "선수 정보를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+            showToast("선수 정보를 찾을 수 없습니다")
         } else {
             // Adapter 업데이트 및 데이터 표시
             adapter.notifyDataSetChanged()
-            Log.d("updateListView", "List updated with ${players.size} players")
         }
     }
 
@@ -288,4 +274,9 @@ class TeamDetailsActivity : AppCompatActivity() {
             .build()
             .create(ApiService::class.java)
     }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@TeamDetailsActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
 }
