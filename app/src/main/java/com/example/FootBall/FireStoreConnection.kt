@@ -3,6 +3,7 @@ package com.example.FootBall
 import android.util.Log
 import com.google.firebase.firestore.AggregateSource
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 open class FireStoreConnection {
@@ -134,6 +135,18 @@ open class FireStoreConnection {
                     callBack(false,null)
                 }
         }
-
+        fun fieldIncrement(documentPath: String,field:String,increment:Long,callBack:(success:Boolean)->Unit)
+        {
+            val db = FirebaseFirestore.getInstance()
+            db.document(documentPath)
+                .update(field, FieldValue.increment(increment))
+                .addOnSuccessListener{
+                    callBack(true)
+                }
+                .addOnFailureListener{e->
+                    Log.d("fieldUpdate",e.toString())
+                    callBack(false)
+                }
+        }
     }
 }

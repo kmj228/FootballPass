@@ -13,8 +13,12 @@ class BoardActivity : AppCompatActivity() {
 
     private var boardPath: String? = ""
     private var boardName: String? = ""
+
+    //검색용
     private val postList = ArrayList<PostRef>()
+    //화면에 띄우는 용
     private val postItemList = ArrayList<PostRef>()
+
     private lateinit var adapter: PostListAdapter
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
 
@@ -29,6 +33,8 @@ class BoardActivity : AppCompatActivity() {
                     postItemList.add(PostRef(post, document.reference.path))
                 }
             }
+            //시간대별로 정렬
+            postItemList.sortBy { it.post.timestamp }
             adapter.notifyDataSetChanged()
             swipeRefreshLayout.isRefreshing = false // 새로고침 완료 후 종료
         }
