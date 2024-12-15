@@ -61,15 +61,6 @@
                 android:padding="16dp"
                 android:background="@drawable/rounded_background">
 
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/post_likeBtn"
-                    android:text="좋아요 0개" />
-
-
-
                 <!-- 텍스트 뷰 -->
                 <TextView
                     android:id="@+id/textView"
@@ -92,6 +83,13 @@
                     android:scaleType="fitCenter"
                     android:layout_margin="10dp" />
             </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_likeBtn"
+                android:text="좋아요 0개"
+                android:background="@android:color/transparent" />
 
             <Button
                 android:layout_marginTop="8dp"
