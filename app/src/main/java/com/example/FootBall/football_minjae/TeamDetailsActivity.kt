@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
 import com.example.FootBall.Team
 import kotlinx.coroutines.Dispatchers
@@ -85,7 +86,8 @@ class TeamDetailsActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.my_list_view)
 
-        val team = intent.getParcelableExtra<Team>("team") // Parcelable 사용 시
+        val teamname = intent.getStringExtra("team") // 팀의 이름을 가져온다.
+        val team = teamname?.let { MainTeamList().findTeamBySmallName(it) }
 
         findViewById<ImageView>(R.id.teamLocation)
 

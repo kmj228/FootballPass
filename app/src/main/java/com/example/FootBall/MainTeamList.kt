@@ -42,6 +42,14 @@ class MainTeamList {
         return mainTeamList.firstOrNull { it.name == teamName }
     }
 
+    // 팀의 일부 이름으로 찾기
+    fun findTeamBySmallName(teamName: String): Team? {
+        // 우선적으로 전체 이름이 "수원"으로 시작하는 팀을 찾음
+        val exactMatch = mainTeamList.firstOrNull { it.name.startsWith(teamName, ignoreCase = true) }
+        return exactMatch
+    }
+
+
     // 특정 인덱스를 넣으면 그 팀의 행 데이터가 반환됨
     fun getByPosMainTeamList(pos: Int): Team {
         return mainTeamList[pos-1]

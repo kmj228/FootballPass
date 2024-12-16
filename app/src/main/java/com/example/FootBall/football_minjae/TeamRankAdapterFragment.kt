@@ -1,5 +1,6 @@
 package com.example.FootBall.football_minjae
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -37,7 +38,10 @@ class TeamRankAdapterFragment(private val rankData: MutableList<MutableList<Stri
     inner class RankViewHolder(val binding: FragmentTeamRankAdapterBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
-                mListener?.onItemClick(itemView, adapterPosition)
+                val context = itemView.context
+                val intent = Intent(context, TeamDetailsActivity::class.java)
+                intent.putExtra("team", rankData[adapterPosition][1])
+                context.startActivity(intent)
             }
         }
     }
