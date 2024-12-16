@@ -86,8 +86,8 @@ class TeamDetailsActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.my_list_view)
 
-        val teamname = intent.getStringExtra("team") // 팀의 이름을 가져온다.
-        val team = teamname?.let { MainTeamList().findTeamBySmallName(it) }
+        val teamurl = intent.getStringExtra("team") // 팀의 이름을 가져온다.
+        val team = teamurl?.let { MainTeamList().findURLByName(it) }
 
         findViewById<ImageView>(R.id.teamLocation)
 

@@ -43,10 +43,10 @@ class MainTeamList {
     }
 
     // 팀의 일부 이름으로 찾기
-    fun findTeamBySmallName(teamName: String): Team? {
-        // 우선적으로 전체 이름이 "수원"으로 시작하는 팀을 찾음
-        val exactMatch = mainTeamList.firstOrNull { it.name.startsWith(teamName, ignoreCase = true) }
-        return exactMatch
+    fun findURLByName(url: String): Team? {
+        // 우선적으로 전체 이름이 "수원"을 비교한다.
+        val teamId = url.substringAfterLast('/').substringBefore('?').substringBefore('.')
+        return mainTeamList.firstOrNull { it.kLeagueTeamId.contains(teamId) }
     }
 
 
