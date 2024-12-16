@@ -134,6 +134,16 @@
                 android:textSize="14sp"
                 android:layout_marginBottom="16dp"/>
 
+            <Button
+                android:id="@+id/btnLogin2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#464964"
+                android:textColor="#FFFFFF"
+                android:text="로그인2"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp"/>
+
             <TextView
                 android:id="@+id/tvSignUp"
                 android:layout_width="match_parent"

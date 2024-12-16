@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         val tvSignUp: TextView = findViewById(R.id.tvSignUp)
         val tvForgotPassword: TextView = findViewById(R.id.tvForgotPassword)
         val cbAutoLogin: CheckBox = findViewById(R.id.cbAutoLogin) // 자동 로그인 체크박스
+        val btnLogin2: Button = findViewById(R.id.btnLogin2)
 
         // 자동 로그인 확인
         val savedEmail = sharedPreferences.getString("EMAIL", null)
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity() {
         if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
             performLogin(savedEmail, savedPassword)
         }
+
+        btnLogin2.setOnClickListener {
+            val intent = Intent(this, MainViewActivity::class.java)
+            intent.putExtra("INITIAL_PAGE", 2) // 예: 2번째 페이지로 설정
+            startActivity(intent)
+        }
+
 
         // 로그인 버튼 클릭 시
         btnLogin.setOnClickListener {
