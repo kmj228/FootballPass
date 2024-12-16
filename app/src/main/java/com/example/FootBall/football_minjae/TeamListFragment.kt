@@ -35,9 +35,7 @@ class TeamListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     //private lateinit var adapter: TeamAdapter
     private var currentFilter: String = "K리그 1" // 초기 필터 설정
-    lateinit var textView: TextView
     lateinit var webView: WebView
-    lateinit var viewPager: RecyclerView
     lateinit var adapter: TeamRankAdapterFragment
     var result: MutableList<List<String>> = mutableListOf()
     val rankOfKLeague =  mutableListOf<MutableList<String>>()
@@ -49,18 +47,25 @@ class TeamListFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.activity_team_list, container, false)
 
-        recyclerView = rootView.findViewById(R.id.recyclerView)
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         // 초기 어댑터 설정
         //adapter = TeamAdapter(teamList.filter { it.league == currentFilter })
         //recyclerView.adapter = adapter
         adapter = TeamRankAdapterFragment(rankOfKLeague)
-        viewPager.adapter = adapter
+        recyclerView.adapter = adapter
+
+        fetchHtml()
 
         // 필터 버튼 처리
-        val btnKLeague1: Button = rootView.findViewById(R.id.btnKLeague1)
-        val btnKLeague2: Button = rootView.findViewById(R.id.btnKLeague2)
+        val btnKLeague1: Button = view.findViewById(R.id.btnKLeague1)
+        val btnKLeague2: Button = view.findViewById(R.id.btnKLeague2)
 
         btnKLeague1.setOnClickListener {
             currentFilter = "K리그 1"
@@ -73,8 +78,6 @@ class TeamListFragment : Fragment() {
             league = 2
             fetchHtml()
         }
-
-        return rootView
     }
 
 
@@ -87,9 +90,9 @@ class TeamListFragment : Fragment() {
                 parseHtml(htmlContent)
             } catch (e: HttpException) {
                 // 오류 처리
-                textView.text = "Error: ${e.message()}"
+                //textView.text = "Error: ${e.message()}"
             } catch (e: Exception) {
-                textView.text = "Unexpected error: ${e.message}"
+                //textView.text = "Unexpected error: ${e.message}"
             }
         }
     }
@@ -138,7 +141,6 @@ class TeamListFragment : Fragment() {
                 // 선수 이름을 TextView에 설정
                 //textView.text = teamElements.joinToString("\n") { it.text() } // 각 행의 텍스트를 가져와서 표시
                 //Log.d("result", teamElements.joinToString("\n") { it.text() })
-                textView.text = rankOfKLeague.toString()
                 adapter.notifyDataSetChanged()
             }
         }
