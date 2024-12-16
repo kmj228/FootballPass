@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="1"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/teamProfile"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="4"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/teamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:text="울산"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="36"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="73"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamWinCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="15"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamDrewCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="10"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamLoseCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="12"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="50"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamConceded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="45"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamGLDiff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="22"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/teamHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#C4C4C4"
+        android:text="40"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+
+</LinearLayout>

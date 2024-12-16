@@ -7,10 +7,11 @@
         android:layout_width="1dp"
         android:layout_height="1dp"
         android:id="@+id/webView"/>
-    <androidx.viewpager2.widget.ViewPager2
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="570dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
