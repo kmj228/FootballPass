@@ -14,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityNewBinding
+import com.example.FootBall.football_minjae.TeamDetailsActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import org.json.JSONException
 import org.json.JSONObject
@@ -60,6 +62,28 @@ class NewActivity : AppCompatActivity() {
         binding.awayScore.text = awayScore?.ifEmpty { "N" } ?: "N"
         binding.homeTeamImage.setImageResource(homeImage)
         binding.awayTeamImage.setImageResource(awayImage)
+
+        binding.homeTeamImage.setOnClickListener {
+            val mainTeamList = MainTeamList()
+
+            val homeTeam = mainTeamList.findTeamByImageResource(homeImage)
+            val intent = Intent(this, TeamDetailsActivity::class.java).apply {
+                putExtra("team", homeTeam) // Parcelable 객체 전달
+            }
+
+            startActivity(intent)
+        }
+
+        binding.awayTeamImage.setOnClickListener {
+            val mainTeamList = MainTeamList()
+
+            val awayTeam = mainTeamList.findTeamByImageResource(homeImage)
+            val intent = Intent(this, TeamDetailsActivity::class.java).apply {
+                putExtra("team", awayTeam) // Parcelable 객체 전달
+            }
+
+            startActivity(intent)
+        }
 
         if (!homeScore.isNullOrEmpty()) {
             setupWebView()

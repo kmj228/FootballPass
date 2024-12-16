@@ -52,6 +52,6 @@
     </string-array>
 
     <string name="image_view">여기에 이미지 설명을 입력하세요</string>
-    <string name="app_name">사진자르기</string>
+    <string name="cut_photo">사진자르기</string>
 
 </resources>

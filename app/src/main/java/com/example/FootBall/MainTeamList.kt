@@ -58,5 +58,10 @@ class MainTeamList {
         return mainTeamList.firstOrNull { it.name == teamName }?.englishName
     }
 
+    fun findTeamByImageResource(imageResource: Int): Team? {
+        return mainTeamList.firstOrNull { it.profileImage == imageResource }
+    }
+
+
 
 }
