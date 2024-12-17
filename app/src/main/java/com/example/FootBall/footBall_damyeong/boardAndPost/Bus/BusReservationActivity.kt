@@ -1,6 +1,7 @@
 package com.example.FootBall.footBall_damyeong.boardAndPost.Bus
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -18,6 +19,7 @@ class BusReservationActivity : AppCompatActivity() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
     fun refresh()
     {
+        Log.d("dfdfdfdddffddf","publicBoards/"+teamName+"/bus");
         FireStoreConnection.onGetCollection("publicBoards/"+teamName+"/bus"){
             documents->
             itemList.clear()
@@ -25,10 +27,10 @@ class BusReservationActivity : AppCompatActivity() {
             {
                 val item=d.toObject(BusReservationItem::class.java)
                 if(item==null) continue
-                itemList.add(item!!)
+                itemList.add(item)
             }
+            adapater.notifyDataSetChanged()
         }
-        adapater.notifyDataSetChanged()
         swipeRefreshLayout.isRefreshing = false // 새로고침 완료 후 종료
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +56,9 @@ class BusReservationActivity : AppCompatActivity() {
         title.text=teamName+" 팀 버스예매"
         refresh()
 
-
+        swipeRefreshLayout.setOnRefreshListener {
+            refresh() // 새로고침 호출
+        }
 
     }
 }

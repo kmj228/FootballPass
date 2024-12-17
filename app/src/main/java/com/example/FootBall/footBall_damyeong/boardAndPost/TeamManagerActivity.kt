@@ -34,9 +34,7 @@ class TeamManagerActivity : AppCompatActivity() {
         val busInfoEnterBtn:Button=binding.teamManagerBusInfoEnterBtn
 
         val teamManager_busListView:ListView=binding.teamManagerBusListView
-        Log.d("TeamManagerActivity","0");
         boardEnterBtn.setOnClickListener{
-            Log.d("TeamManagerActivity","1");
             var temp:Boolean=false
             if(boardTitle.text.toString()=="")temp=true
             if(boardExplanation.text.toString()=="")temp=true
@@ -45,21 +43,17 @@ class TeamManagerActivity : AppCompatActivity() {
                 Toast.makeText(this,"정보를 다 입력하세요",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            Log.d("TeamManagerActivity","2");
             val boardItem=BoardListItem(
                 boardName = boardTitle.text.toString(),
                 boardExplanation = boardExplanation.text.toString(),
                 official = BoardActivity.user.team
             )
-            Log.d("TeamManagerActivity","3");
             var path="publicBoards/"+boardTitle.text.toString()
             FireStoreConnection.setDocument(path,boardItem)
             {
                 success, docPath ->
-                Log.d("TeamManagerActivity","4");
                 if(success)
                 {
-                    Log.d("TeamManagerActivity","5");
                     Toast.makeText(this,"성공",Toast.LENGTH_SHORT).show()
                     boardTitle.setText("")
                     boardExplanation.setText("")
