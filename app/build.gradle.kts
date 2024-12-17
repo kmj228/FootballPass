@@ -90,6 +90,7 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     implementation("org.jsoup:jsoup:1.15.3")
+    implementation("com.google.firebase:firebase-auth:22.3.1") // 최신 버전 확인
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")// 최신 버전으로 업데이트
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0") // 최신 버전으로 업데이
     implementation("com.google.mlkit:text-recognition-korean:16.0.1")

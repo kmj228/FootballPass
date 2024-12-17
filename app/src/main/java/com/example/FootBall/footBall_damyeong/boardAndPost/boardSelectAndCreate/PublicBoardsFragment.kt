@@ -34,10 +34,14 @@ class PublicBoardsFragment : Fragment() {
     var result: MutableList<List<String>> = mutableListOf()
 
     private fun refresh() {
+        val swipeRefreshLayout = binding.swipeRefreshLayout
+        swipeRefreshLayout.isRefreshing = true // 로딩 상태 시작
+
         val app = requireActivity().application as MyApplication
         val user = app.currentUser
 
         if (user == null) {
+            swipeRefreshLayout.isRefreshing = false
             return
         }
 
@@ -58,8 +62,10 @@ class PublicBoardsFragment : Fragment() {
                 }
             }
             adapter.notifyDataSetChanged()
+            swipeRefreshLayout.isRefreshing = false // 로딩 상태 종료
         }
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -79,6 +85,7 @@ class PublicBoardsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val listView: ListView = binding.publicBoardsListView
+        val swipeRefreshLayout = binding.swipeRefreshLayout // SwipeRefreshLayout 초기화
 
         // 어댑터 만들기
         adapter = BoardListAdapter(requireContext(), R.layout.item_board_preview, boardList, "publicBoards/")
@@ -86,11 +93,24 @@ class PublicBoardsFragment : Fragment() {
 
         // 초기 데이터 로드
         refresh()
+
+        // SwipeRefreshLayout 새로고침 동작
+        swipeRefreshLayout.setOnRefreshListener {
+            refresh() // 데이터 새로고침 함수 호출
+            swipeRefreshLayout.isRefreshing = false // 새로고침 완료 상태로 변경
+        }
+
         setupWebView()
         val cal = Calendar.getInstance()
-        val date = String.format("%d%02d%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH))
+        val date = String.format(
+            "%d%02d%02d",
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH) + 1,
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
 
         loadWebViewUrl("https://sports.news.naver.com/kfootball/news/index?date=${date}&isphoto=N&type=popular")
+
         // 리스트 아이템 클릭 시 게시글 화면으로 이동
         listView.setOnItemClickListener { _, _, position, _ ->
             val board = boardList[position]
@@ -100,6 +120,7 @@ class PublicBoardsFragment : Fragment() {
             startActivity(intent)
         }
     }
+
 
 
     override fun onDestroyView() {
