@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStoreConnection
+import com.example.FootBall.MyApplication
+import com.example.FootBall.MyUser
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityBoardBinding
 
@@ -40,8 +42,10 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 
+    //싱글톤...
     companion object {
         var postRef: PostRef = PostRef(Post(), "")
+        lateinit var user :MyUser
     }
 
     class PostRef(var post: Post, var postPath: String)
@@ -59,6 +63,9 @@ class BoardActivity : AppCompatActivity() {
         val listView = binding.boardListView
         swipeRefreshLayout = binding.boardSwipeRefreshLayout // SwipeRefreshLayout 초기화
 
+        //싱글톤 (지우면 안됨
+        val app = application as MyApplication
+        BoardActivity.user = app.currentUser!!
         // 현재 보드 경로 저장
         val intent = intent
         boardPath = intent.getStringExtra("boardPath")

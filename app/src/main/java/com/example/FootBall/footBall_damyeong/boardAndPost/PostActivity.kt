@@ -24,7 +24,7 @@ class PostActivity : AppCompatActivity() {
 
     }
     lateinit var commentAdapter:CommentListAdapter
-    val commnetList=ArrayList<CommentItem>()
+    val commentList=ArrayList<CommentItem>()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
     private lateinit var postRef:BoardActivity.PostRef
 
@@ -35,7 +35,7 @@ class PostActivity : AppCompatActivity() {
         FireStoreConnection.onGetCollection(postRef.postPath+"/comments/")
         {
             documents ->
-            commnetList.clear()
+            commentList.clear()
             for(document in documents)
             {
                 val comment=document.toObject(CommentItem::class.java)
@@ -43,7 +43,7 @@ class PostActivity : AppCompatActivity() {
                     continue
                 if(comment.name=="")
                     continue
-                commnetList.add(comment)
+                commentList.add(comment)
             }
             commentAdapter.notifyDataSetChanged()
         }
@@ -63,7 +63,7 @@ class PostActivity : AppCompatActivity() {
         val postAuther = binding.postAuther
         val postContent = binding.textView
         val postImage = binding.imageView
-        val commentList =binding.postCommentList
+        val commentListView =binding.postCommentList
         val commentEnterButton=binding.postCommentButton
         val commentEdit=binding.postCommentEdit
         val likeButton=binding.postLikeBtn
@@ -73,8 +73,8 @@ class PostActivity : AppCompatActivity() {
         postRef =BoardActivity.postRef
 
         //코멘트 리스트뷰에 어댑터 등록
-        commentAdapter=CommentListAdapter(this,R.layout.item_post_comment,commnetList)
-        commentList.adapter=commentAdapter
+        commentAdapter=CommentListAdapter(this,R.layout.item_post_comment,commentList)
+        commentListView.adapter=commentAdapter
 
         /*
         // 인텐트를 통해 받은 데이터 표시
@@ -212,6 +212,8 @@ class PostActivity : AppCompatActivity() {
                 if(success)
                 {
                     Toast.makeText(this,"댓글 등록 성공",Toast.LENGTH_SHORT).show()
+                    commentList.add(comment)
+                    commentAdapter.notifyDataSetChanged()
                 }
                 else{
                     Toast.makeText(this,"댓글 등록 실패함."+postRef.postPath+"/comments/",Toast.LENGTH_SHORT).show()
