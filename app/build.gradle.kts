@@ -108,6 +108,8 @@ dependencies {
     implementation(libs.material) // Material Components
     implementation("androidx.activity:activity-ktx:1.9.2") // Activity KTX
     implementation("androidx.constraintlayout:constraintlayout:2.1.4") // Stable version of ConstraintLayout
+    implementation ("com.github.SundeepK:CompactCalendarView:3.0.0")
+    implementation ("com.prolificinteractive:material-calendarview:2.0.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
