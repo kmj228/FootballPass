@@ -19,6 +19,7 @@ import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.example.FootBall.ToMinjaeActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 import com.example.FootBall.footBall_damyeong.SlideAdapter
+import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusReservationActivity
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.Calendar
@@ -86,7 +87,7 @@ class PublicBoardsFragment : Fragment() {
 
         val listView: ListView = binding.publicBoardsListView
         val swipeRefreshLayout = binding.swipeRefreshLayout // SwipeRefreshLayout 초기화
-
+        var busButton:Button=binding.publicBoardsBusBtn
         // 어댑터 만들기
         adapter = BoardListAdapter(requireContext(), R.layout.item_board_preview, boardList, "publicBoards/")
         listView.adapter = adapter
@@ -118,6 +119,12 @@ class PublicBoardsFragment : Fragment() {
             intent.putExtra("boardPath", "publicBoards/" + board.boardName)
             intent.putExtra("boardName", board.boardName)
             startActivity(intent)
+        }
+
+        //버스 예먜버튼
+        busButton.setOnClickListener{
+            val myIntent=Intent(requireContext(), BusReservationActivity::class.java)
+            startActivity(myIntent)
         }
     }
 
