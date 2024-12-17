@@ -24,9 +24,8 @@ class BusReservationActivity : AppCompatActivity() {
             for(d in documents)
             {
                 val item=d.toObject(BusReservationItem::class.java)
-                if(item==null)
-                    continue
-                itemList.add(item)
+                if(item==null) continue
+                itemList.add(item!!)
             }
         }
         adapater.notifyDataSetChanged()

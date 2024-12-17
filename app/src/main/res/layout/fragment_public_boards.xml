@@ -33,6 +33,13 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="관리자 페이지"
+            android:id="@+id/publicBoards_managerBtn"
+            android:visibility="gone"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="버스예매"
             android:id="@+id/publicBoards_busBtn"
             />

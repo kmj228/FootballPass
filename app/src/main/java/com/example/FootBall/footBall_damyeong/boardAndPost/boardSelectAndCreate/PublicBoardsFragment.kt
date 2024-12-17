@@ -20,6 +20,7 @@ import com.example.FootBall.ToMinjaeActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 import com.example.FootBall.footBall_damyeong.SlideAdapter
 import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusReservationActivity
+import com.example.FootBall.footBall_damyeong.boardAndPost.TeamManagerActivity
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.Calendar
@@ -54,12 +55,18 @@ class PublicBoardsFragment : Fragment() {
                 if (board != null) {
                     if (user.team == "") {
                         boardList.add(board)
-                    } else if (board.boardName == user.team) {
+                    }
+                    else if (board.boardName == user.team) {
                         boardList.add(board)
                     }
+                    else if(board.official.equals(user.team)){
+                        boardList.add(board)
+                    }
+
                     if (board.boardName == "모두의 풋볼") {
                         boardList.add(0, board)
                     }
+
                 }
             }
             adapter.notifyDataSetChanged()
@@ -88,6 +95,8 @@ class PublicBoardsFragment : Fragment() {
         val listView: ListView = binding.publicBoardsListView
         val swipeRefreshLayout = binding.swipeRefreshLayout // SwipeRefreshLayout 초기화
         var busButton:Button=binding.publicBoardsBusBtn
+        var managerPageButton:Button=binding.publicBoardsManagerBtn
+
         // 어댑터 만들기
         adapter = BoardListAdapter(requireContext(), R.layout.item_board_preview, boardList, "publicBoards/")
         listView.adapter = adapter
@@ -99,6 +108,18 @@ class PublicBoardsFragment : Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             refresh() // 데이터 새로고침 함수 호출
             swipeRefreshLayout.isRefreshing = false // 새로고침 완료 상태로 변경
+        }
+
+
+        //유저가 어드민이면 관리자페이지접속버튼을 표시
+        managerPageButton.setOnClickListener{
+            val myintent=Intent(requireContext(),TeamManagerActivity::class.java)
+            startActivity(myintent)
+        }
+        if(BoardActivity.user.admin==true)
+        {
+            binding.publicBoardsManagerBtn.visibility=View.VISIBLE
+
         }
 
         setupWebView()
@@ -123,7 +144,7 @@ class PublicBoardsFragment : Fragment() {
 
         //버스 예먜버튼
         busButton.setOnClickListener{
-            val myIntent=Intent(requireContext(), BusReservationActivity::class.java)
+            val myIntent=Intent(this.context, BusReservationActivity::class.java)
             startActivity(myIntent)
         }
     }
