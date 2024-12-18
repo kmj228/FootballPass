@@ -5,5 +5,8 @@ data class BusReservationItem (
     var busTime:String="",
     var price:String="",
     var startAddress:String="",
-    var endAddress:String=""
+    var endAddress:String="",
+    var completedReservationContent:String="",
+    var account:String="",
+    var path:String=""
 )

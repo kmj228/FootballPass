@@ -32,8 +32,10 @@ class TeamManagerActivity : AppCompatActivity() {
         val busEndEdit:EditText=binding.teamManagerBusEndEdit
         val busPriceEdit:EditText=binding.teamManagerBusPriceEdit
         val busInfoEnterBtn:Button=binding.teamManagerBusInfoEnterBtn
+        val account:EditText=binding.teamManagerAccount
 
         val teamManager_busListView:ListView=binding.teamManagerBusListView
+
         boardEnterBtn.setOnClickListener{
             var temp:Boolean=false
             if(boardTitle.text.toString()=="")temp=true
@@ -72,6 +74,7 @@ class TeamManagerActivity : AppCompatActivity() {
             if(busStartEdit.text.toString()=="")temp=true
             if(busEndEdit.text.toString()=="")temp=true
             if(busPriceEdit.text.toString()=="")temp=true
+            if(account.text.toString()=="")temp=true
             if(temp)
             {
                 Toast.makeText(this,"정보를 다 입력하세요",Toast.LENGTH_SHORT).show()
@@ -83,7 +86,8 @@ class TeamManagerActivity : AppCompatActivity() {
                 busTime=busTimeEdit.text.toString(),
                 price=busPriceEdit.text.toString(),
                 startAddress=busStartEdit.text.toString(),
-                endAddress=busEndEdit.text.toString()
+                endAddress=busEndEdit.text.toString(),
+                account=account.text.toString()
             )
             var path="publicBoards/"+BoardActivity.user.team+"/bus"
             FireStoreConnection.addDocument(path,busReservationItem){
@@ -96,6 +100,7 @@ class TeamManagerActivity : AppCompatActivity() {
                     busPriceEdit.setText("")
                     busStartEdit.setText("")
                     busEndEdit.setText("")
+                    account.setText("")
                 }
                 else
                 {

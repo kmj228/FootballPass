@@ -19,7 +19,7 @@ class BusReservationActivity : AppCompatActivity() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout // SwipeRefreshLayout 추가
     fun refresh()
     {
-        Log.d("dfdfdfdddffddf","publicBoards/"+teamName+"/bus");
+        Log.d("BusReservationActivity","publicBoards/"+teamName+"/bus");
         FireStoreConnection.onGetCollection("publicBoards/"+teamName+"/bus"){
             documents->
             itemList.clear()
@@ -27,6 +27,7 @@ class BusReservationActivity : AppCompatActivity() {
             {
                 val item=d.toObject(BusReservationItem::class.java)
                 if(item==null) continue
+                item.path=d.reference.path
                 itemList.add(item)
             }
             adapater.notifyDataSetChanged()

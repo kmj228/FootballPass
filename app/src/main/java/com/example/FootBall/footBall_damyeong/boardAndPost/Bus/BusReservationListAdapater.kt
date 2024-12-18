@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +25,9 @@ class BusReservationListAdapater
     : ArrayAdapter<BusReservationItem>(context, resource, ItemList)
 {
     private var btnCherk:Boolean=false
+    companion object{
+        var busReservationItem:BusReservationItem?=null
+    }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         // 재사용 가능한 View를 가져오기 (ViewHolder 패턴 사용)
@@ -35,9 +39,11 @@ class BusReservationListAdapater
         val price: TextView = view.findViewById(R.id.itemBusReservation_price)
         val startAddress: TextView = view.findViewById(R.id.itemBusReservation_startAddress)
         val endAddress: TextView = view.findViewById(R.id.itemBusReservation_endAddress)
+        val account: TextView = view.findViewById(R.id.itemBusReservation_account)
+        val ticketNum: EditText = view.findViewById(R.id.itemBusReservation_numEdit)
 
         val reservationButton:Button=view.findViewById(R.id.itemBusReservation_Button)
-        //commentItem 객체 받아오기
+        //Item 객체 받아오기
         val busReservationItem = ItemList[position]
 
         content.text=busReservationItem.content
@@ -45,12 +51,41 @@ class BusReservationListAdapater
         price.text=busReservationItem.price.toString()+" 원"
         startAddress.text=busReservationItem.startAddress
         endAddress.text=busReservationItem.endAddress
+        account.text=busReservationItem.account
 
-
-        //좋아요 버튼을 누를시에
         reservationButton.setOnClickListener{
 
+            var ticketN: Int=0
+            try {
+                ticketN = ticketNum.text.toString().toInt()
+            }
+            catch (e:NumberFormatException){
+                Toast.makeText(context,"숫자만입력하세요",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
+            val allPrice=busReservationItem.price.toString().toInt()*ticketN
+            if(allPrice==0){
+                Toast.makeText(context,"제대로 입력하세요",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            var ticket=Ticket(
+                busReservationpath = busReservationItem.path,
+                userEmail = BoardActivity.user.email,
+                price=allPrice.toString(),
+                busContent=busReservationItem.content
+            )
+            val path="publicBoards/"+BoardActivity.user.team+"/chart"
+            FireStoreConnection.addDocument(path,ticket){
+                success, docPath ->
+                if(success){
+                    Toast.makeText(context,"성공. 계좌로 입금하세요",Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    Toast.makeText(context,"예매실패",Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         //점세개 버튼을 누를시에
         return view
