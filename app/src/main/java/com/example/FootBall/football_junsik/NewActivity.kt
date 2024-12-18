@@ -63,26 +63,30 @@ class NewActivity : AppCompatActivity() {
         binding.homeTeamImage.setImageResource(homeImage)
         binding.awayTeamImage.setImageResource(awayImage)
 
+        val mainTeamList = MainTeamList()
+
         binding.homeTeamImage.setOnClickListener {
-            val mainTeamList = MainTeamList()
-
-            val homeTeam = mainTeamList.findTeamByImageResource(homeImage)
-            val intent = Intent(this, TeamDetailsActivity::class.java).apply {
-                putExtra("team", homeTeam) // Parcelable 객체 전달
+            val homeTeam = mainTeamList.findTeamByImageResource(homeImage) // Team 객체를 가져옴
+            if (homeTeam != null) {
+                val homeIntent = Intent(this, TeamDetailsActivity::class.java).apply {
+                    putExtra("team", homeTeam) // Team 객체 전달
+                }
+                startActivity(homeIntent) // TeamDetailsActivity 실행
+            } else {
+                Log.e("Team Error", "팀 정보를 찾을 수 없습니다")
             }
-
-            startActivity(intent)
         }
 
         binding.awayTeamImage.setOnClickListener {
-            val mainTeamList = MainTeamList()
-
-            val awayTeam = mainTeamList.findTeamByImageResource(homeImage)
-            val intent = Intent(this, TeamDetailsActivity::class.java).apply {
-                putExtra("team", awayTeam) // Parcelable 객체 전달
+            val awayTeam = mainTeamList.findTeamByImageResource(homeImage) // Team 객체를 가져옴
+            if (awayTeam != null) {
+                val awayIntent = Intent(this, TeamDetailsActivity::class.java).apply {
+                    putExtra("team", awayTeam) // Team 객체 전달
+                }
+                startActivity(awayIntent) // TeamDetailsActivity 실행
+            } else {
+                Log.e("Team Error", "팀 정보를 찾을 수 없습니다")
             }
-
-            startActivity(intent)
         }
 
         if (!homeScore.isNullOrEmpty()) {

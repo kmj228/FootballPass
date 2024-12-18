@@ -86,8 +86,20 @@ class TeamDetailsActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.my_list_view)
 
-        val teamurl = intent.getStringExtra("team") // 팀의 이름을 가져온다.
-        val team = teamurl?.let { MainTeamList().findURLByName(it) }
+        // Intent로 전달된 Parcelable 객체인지 확인
+        var team: Team? = intent.getParcelableExtra("team")
+
+        if (team != null) {
+            // Parcelable 객체로 전달된 경우 처리
+            Log.d("TeamDetailsActivity", "Team received via Parcelable: ${team.name}")
+        } else {
+
+            val teamurl = intent.getStringExtra("team") // 팀의 이름을 가져온다.
+            team = teamurl?.let { MainTeamList().findURLByName(it) }
+        }
+
+
+        Log.d("넘겨받은 팀", team.toString())
 
         findViewById<ImageView>(R.id.teamLocation)
 

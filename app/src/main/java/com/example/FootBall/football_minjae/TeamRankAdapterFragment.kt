@@ -41,6 +41,7 @@ class TeamRankAdapterFragment(private val rankData: MutableList<MutableList<Stri
                 val context = itemView.context
                 val intent = Intent(context, TeamDetailsActivity::class.java)
                 intent.putExtra("team", rankData[adapterPosition][12])
+
                 context.startActivity(intent)
             }
         }
