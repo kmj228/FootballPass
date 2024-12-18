@@ -34,8 +34,6 @@ class SlideFragment(private val newsData: List<String>) : Fragment() {
         // Glide를 사용하여 URL에서 이미지 로드
         Glide.with(view.context)
             .load(newsData[1]) // 뉴스 이미지 URL
-            .placeholder(R.drawable.team23)
-            .error(R.drawable.team09)
             .into(imageView)
 
         newsTitle.text = newsData[2] // 뉴스 제목
