@@ -91,7 +91,7 @@ class FirstTabContent : Fragment() {
 
         dbHelper = GameDBHelper(view.context)
         val db = dbHelper.readableDatabase
-        
+
         // 이 코드는 핸드폰 DB에 일정을 저장했다 보여주는건데 일단 폐기
         /*
         val cursor: Cursor = db.rawQuery("SELECT * FROM teamDataTBL ORDER BY date DESC;", null)
@@ -114,7 +114,7 @@ class FirstTabContent : Fragment() {
         cursor.close()
 
         adapter.notifyDataSetChanged()
-        
+
          */
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
