@@ -2,6 +2,8 @@ package com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +36,7 @@ class PublicBoardsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var adapter2: SlideAdapter
     var result: MutableList<List<String>> = mutableListOf()
+    private var autoSlideHandler: Handler? = null
 
     private fun refresh() {
         val swipeRefreshLayout = binding.swipeRefreshLayout
@@ -155,6 +158,8 @@ class PublicBoardsFragment : Fragment() {
         super.onDestroyView()
         adapter.clear() // 어댑터 리소스 정리 (예: 데이터 초기화)
         _binding = null
+        autoSlideHandler?.removeCallbacksAndMessages(null)
+        autoSlideHandler = null
     }
 
     private fun setupWebView() {
@@ -237,20 +242,19 @@ class PublicBoardsFragment : Fragment() {
     }
 
     private fun setupAutoSlide() {
-        Timer().scheduleAtFixedRate(object : TimerTask() {
+        autoSlideHandler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
             override fun run() {
-                requireActivity().runOnUiThread {
+                // Fragment가 Activity에 연결되어 있는지 확인
+                if (isAdded) {
                     val currentItem = binding.viewPager.currentItem
-                    // 마지막 슬라이드일 경우, 첫 번째 슬라이드로 즉시 이동
-                    if (currentItem == result.size - 1) {
-                        binding.viewPager.setCurrentItem(0, false) // false를 사용하여 애니메이션 없이 즉시 이동
-                    } else {
-                        val nextItem = currentItem + 1
-                        binding.viewPager.setCurrentItem(nextItem, true) // 다음 슬라이드로 전환
-                    }
+                    val nextItem = if (currentItem == result.size - 1) 0 else currentItem + 1
+                    binding.viewPager.setCurrentItem(nextItem, true)
+                    autoSlideHandler?.postDelayed(this, 5000) // 5초마다 전환
                 }
             }
-        }, 5000, 5000) // 5초마다 전환
+        }
+        autoSlideHandler?.postDelayed(runnable, 5000) // 처음 실행
     }
 
 }

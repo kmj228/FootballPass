@@ -18,7 +18,9 @@ import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
+import com.yalantis.ucrop.UCrop
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 
 
@@ -89,13 +91,45 @@ class Camera(private val activity: AppCompatActivity){
 
 
     // 찍은 사진 결과 표시
+//    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            // 사진 찍기 완료 후 결과 이미지를 ImageView에 설정
+//            val imageBitmap = data?.extras?.get("data") as Bitmap
+//            //imageView?.setImageBitmap(imageBitmap)
+//            imageToText(imageBitmap)
+//        }
+//    }
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // 사진 찍기 완료 후 결과 이미지를 ImageView에 설정
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == AppCompatActivity.RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            imageView?.setImageBitmap(imageBitmap)
-            imageToText(imageBitmap)
+            startCropActivity(imageBitmap)
+        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == AppCompatActivity.RESULT_OK) {
+            UCrop.getOutput(data!!)?.let { uri ->
+                val croppedBitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, uri)
+                imageToText(croppedBitmap)  // 이미지에서 텍스트 인식
+            }
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            val cropError = UCrop.getError(data!!)
+            Toast.makeText(activity, "이미지 크롭 실패: ${cropError?.message}", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun startCropActivity(bitmap: Bitmap) {
+        val tempUri = saveImageToCache(bitmap)
+        val destinationUri = Uri.fromFile(File(activity.cacheDir, "croppedImage.jpg"))
+
+        UCrop.of(tempUri, destinationUri)
+            .withAspectRatio(0.5f, 0.2f)
+            .withMaxResultSize(500, 500)
+            .start(activity)
+    }
+
+    private fun saveImageToCache(bitmap: Bitmap): Uri {
+        val file = File(activity.cacheDir, "tempImage.jpg")
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+        }
+        return Uri.fromFile(file)
     }
 
     private fun imageToText(img: Bitmap){
