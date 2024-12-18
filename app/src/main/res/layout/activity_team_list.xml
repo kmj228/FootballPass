@@ -19,6 +19,7 @@
         android:layout_marginEnd="16dp"
         android:textColorHint="#808080" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,10 +49,104 @@
             android:maxLines="1"
             android:text="K리그 2"
             android:layout_marginStart="10dp" />
-
     </LinearLayout>
 
+
+        <!-- 경기수, 승점, 승, 무, 패, 득, 실점, 득실, 도움 텍스트 -->
+
+
     <!-- 팀 리스트 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_marginStart="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="경기수"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="승점"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="승\u0020"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="무\u0020"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="패\u0020"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="득점"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="실점"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="득실"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도움"
+            android:textColor="#C4C4C4"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
