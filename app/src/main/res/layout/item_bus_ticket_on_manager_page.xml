@@ -13,32 +13,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-
         <TextView
-            android:id="@+id/itemBusReservationManagerview_content"
+            android:id="@+id/itemBusTicketOnManagerPage_userBankName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="천안-> 수원 버스"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/itemBusReservationManagerview_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1인당 10000원"
-            android:textSize="11sp"
+            android:text="입금자명"
+            android:textSize="17sp"
             android:textColor="#C4C4C4"/>
         <TextView
-            android:id="@+id/itemBusReservationManagerview_userEmail"
+            android:id="@+id/itemBusTicketOnManagerPage_userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="유저 이메일"
-            android:textSize="11sp"
+            android:textSize="17sp"
+            android:textColor="#C4C4C4"/>
+        <TextView
+            android:id="@+id/itemBusTicketOnManagerPage_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="입금금액"
+            android:textSize="17sp"
             android:textColor="#C4C4C4"/>
     </LinearLayout>
     <Button
-        android:id="@+id/itemBusReservationManagerview_Button"
+        android:id="@+id/itemBusTicketOnManagerPage_Button"
         android:layout_width="wrap_content"
         android:text="입금수락확인"
         android:layout_height="wrap_content"

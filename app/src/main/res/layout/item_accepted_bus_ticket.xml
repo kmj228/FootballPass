@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp"
+    android:padding="8dp"
+    android:background="@drawable/rounded_background">
+
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="천안-> 수원 버스"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_busTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="12:00 - 14:00"
+        android:textSize="17sp"
+        android:textColor="#C4C4C4" />
+
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="금액"
+        android:textSize="17sp"
+        android:textColor="#C4C4C4"/>
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_startAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="출발주소"
+        android:textSize="17sp"
+        android:textColor="#C4C4C4"/>
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_endAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="도착주소"
+        android:textSize="17sp"
+        android:textColor="#C4C4C4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemAcceptedBusTicket_num"
+        android:textColor="#C4C4C4"
+        android:hint="수량"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemAcceptedBusTicket_bankName"
+        android:textColor="#C4C4C4"
+        android:hint="입금자명"
+        />
+</LinearLayout>
+

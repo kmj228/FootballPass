@@ -4,6 +4,7 @@ data class Ticket(
     var busContent:String="",
     var busReservationpath:String="",
     var userEmail:String="",
+    var bankName:String="",
     var price:String="",
-    var isComplited:String="입금확인안됨"
+    var num:String=""
 )

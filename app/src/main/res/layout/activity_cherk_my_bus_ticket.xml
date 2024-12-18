@@ -7,21 +7,14 @@
     android:orientation="vertical"
     android:padding="6dp"
     android:background="@drawable/main_gradient2">
-
     <TextView
-        android:id="@+id/busPost_Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:text="내가 예매한 버스티켓"
         android:layout_marginBottom="16dp" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/busPost_goMyTicketBtn"
-        android:textSize="15sp"
-        android:text="내 예매내역보러가기"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,16 +28,16 @@
             android:orientation="vertical"
             android:background="@drawable/rounded_background">
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/busPost_swipeRefreshLayout"
+                android:id="@+id/cherkMyBus_swipeRefreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
-                <ListView
-                    android:id="@+id/busPost_ListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:padding="5dp" />
+            <ListView
+                android:id="@+id/cherkMyBus_myAcceptedTicketList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:padding="5dp" />
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </ScrollView>
