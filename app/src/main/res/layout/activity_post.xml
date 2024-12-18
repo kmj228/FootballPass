@@ -89,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/post_likeBtn"
                 android:text="좋아요 0개"
+
                 android:background="@android:color/transparent" />
 
             <Button
