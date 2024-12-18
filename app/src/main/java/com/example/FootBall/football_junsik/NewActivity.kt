@@ -78,7 +78,7 @@ class NewActivity : AppCompatActivity() {
         }
 
         binding.awayTeamImage.setOnClickListener {
-            val awayTeam = mainTeamList.findTeamByImageResource(homeImage) // Team 객체를 가져옴
+            val awayTeam = mainTeamList.findTeamByImageResource(awayImage) // Team 객체를 가져옴
             if (awayTeam != null) {
                 val awayIntent = Intent(this, TeamDetailsActivity::class.java).apply {
                     putExtra("team", awayTeam) // Team 객체 전달
