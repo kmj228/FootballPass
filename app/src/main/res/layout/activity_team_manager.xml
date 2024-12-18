@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="게시판 등록하기"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="게시판 이름등록"
+            android:id="@+id/teamManager_boardTitle"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="게시판 설명등록"
+            android:id="@+id/teamManager_boardExplanation"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamManager_BoardEnterBtn"
+            android:text="게시판 등록"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="버스예매 항목추가하기"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="버스운영 관련 정보등록"
+            android:id="@+id/teamManager_busContentEdit"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="버스시간등록"
+            android:id="@+id/teamManager_busTimeEdit"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="출발 주소"
+            android:id="@+id/teamManager_busStartEdit"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="도착주소"
+            android:id="@+id/teamManager_busEndEdit"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="1인당 버스가격"
+            android:id="@+id/teamManager_busPriceEdit"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="은행계좌"
+            android:id="@+id/teamManager_account"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamManager_busInfoEnterBtn"
+            android:text="버스 등록"
+            />
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamManager_busListView"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:clipToPadding="false" />
+    </LinearLayout>
+</ScrollView>

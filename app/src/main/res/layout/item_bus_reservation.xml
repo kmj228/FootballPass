@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginBottom="16dp"
+    android:padding="8dp"
+    android:background="@drawable/rounded_background">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/itemBusReservation_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="천안-> 수원 버스"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemBusReservation_busTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12:00 - 14:00"
+            android:textSize="11sp"
+            android:textColor="#C4C4C4" />
+
+        <TextView
+            android:id="@+id/itemBusReservation_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1인당 10000원"
+            android:textSize="11sp"
+            android:textColor="#C4C4C4"/>
+        <TextView
+            android:id="@+id/itemBusReservation_startAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1인당 10000원"
+            android:textSize="11sp"
+            android:textColor="#C4C4C4"/>
+        <TextView
+            android:id="@+id/itemBusReservation_endAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1인당 10000원"
+            android:textSize="11sp"
+            android:textColor="#C4C4C4"/>
+        <TextView
+            android:id="@+id/itemBusReservation_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="은행계좌"
+            android:textSize="11sp"
+            android:textColor="#C4C4C4"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemBusReservation_numEdit"
+            android:hint="수량"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/itemBusReservation_Button"
+        android:layout_width="wrap_content"
+        android:text="예약하기"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>
+

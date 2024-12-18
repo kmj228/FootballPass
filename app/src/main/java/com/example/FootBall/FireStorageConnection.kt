@@ -31,6 +31,10 @@ open class FireStorageConnection{
         }
         //정적함수. 파이어스토리지 상의 이미지 경로를 가지고 이미지뷰에 이미지표시하는 함수
         open fun bindImageByPath(context: Context, imagePath: String, imageView: ImageView) {
+            if(imagePath == ""){
+                Log.e("bindImageByPath","imagePath is empty")
+                return
+            }
             val storageReference = FirebaseStorage.getInstance().reference
             val imageRef = storageReference.child(imagePath)
 

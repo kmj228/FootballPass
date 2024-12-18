@@ -31,6 +31,12 @@
                 android:layout_marginRight="4dp"
                 android:layout_height="wrap_content"
                 android:text="좋아요 0개" />
+            <ImageButton
+                android:id="@+id/itemPostComment_dot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/dot3"
+                android:background="@drawable/rounded_background"/>
         </LinearLayout>
         <TextView
             android:id="@+id/itemPostComment_content"
@@ -39,6 +45,7 @@
             android:text="댓글 내용"
             android:textSize="11sp"
             android:textColor="#C4C4C4"/>
+
     </LinearLayout>
 </LinearLayout>
 

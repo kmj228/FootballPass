@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.FootBall.FireStoreConnection
+import com.example.FootBall.MyApplication
+import com.example.FootBall.MyUser
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityBoardBinding
 
@@ -40,8 +42,10 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 
+    //싱글톤...
     companion object {
         var postRef: PostRef = PostRef(Post(), "")
+        lateinit var user :MyUser
     }
 
     class PostRef(var post: Post, var postPath: String)

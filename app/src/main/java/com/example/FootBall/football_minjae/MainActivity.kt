@@ -9,6 +9,7 @@ import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MainViewActivity
 import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser
+import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -134,6 +135,9 @@ class MainActivity : AppCompatActivity() {
                     team = player.team,
                     admin = player.admin
                 )
+
+                //싱글톤
+                BoardActivity.user = app.currentUser!!
 
                 val intent = Intent(this, MainViewActivity::class.java)
                 intent.putExtra("INITIAL_PAGE", 2) // 예: 2번째 페이지로 설정
