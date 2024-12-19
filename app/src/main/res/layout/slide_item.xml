@@ -25,6 +25,9 @@
             android:layout_weight="1"
             android:id="@+id/newsTitle"
             android:textColor="#FFFFFF"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
             android:text="뉴스 제목"/>
 
         <TextView
@@ -40,6 +43,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:id="@+id/newsPublisher"
+            android:textColor="#FFFFFF"
             android:text="출판사"/>
 
 
