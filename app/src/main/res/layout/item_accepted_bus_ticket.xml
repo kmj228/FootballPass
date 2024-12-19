@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="16dp"
-    android:padding="8dp"
-    android:background="@drawable/rounded_background">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
+
 
     <TextView
         android:id="@+id/itemAcceptedBusTicket_content"
@@ -22,8 +20,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="12:00 - 14:00"
+        android:textColor="#C4C4C4"
         android:textSize="17sp"
-        android:textColor="#C4C4C4" />
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/itemAcceptedBusTicket_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="입금 안됨"
+        android:textSize="19sp"
+        android:textColor="#C4C4C4"/>
 
     <TextView
         android:id="@+id/itemAcceptedBusTicket_price"
@@ -61,4 +67,3 @@
         android:hint="입금자명"
         />
 </LinearLayout>
-
