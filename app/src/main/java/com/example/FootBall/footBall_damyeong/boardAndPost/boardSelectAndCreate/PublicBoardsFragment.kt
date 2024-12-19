@@ -67,6 +67,9 @@ class PublicBoardsFragment : Fragment() {
                     if (board.boardName == "모두의 풋볼") {
                         boardList.add(0, board)
                     }
+                    else if (board.boardName == "정품문의 게시판") {
+                        boardList.add(1, board)
+                    }
 
                 }
             }
