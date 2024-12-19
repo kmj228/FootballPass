@@ -12,22 +12,18 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ListView
 import android.widget.Button
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
 import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
-import com.example.FootBall.ToMinjaeActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 import com.example.FootBall.footBall_damyeong.SlideAdapter
 import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusReservationActivity
-import com.example.FootBall.footBall_damyeong.boardAndPost.TeamManagerActivity
+import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusManagerActivity
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.Calendar
-import java.util.Timer
-import java.util.TimerTask
 
 class PublicBoardsFragment : Fragment() {
     private val boardList = ArrayList<BoardListItem>()
@@ -116,7 +112,7 @@ class PublicBoardsFragment : Fragment() {
 
         //유저가 어드민이면 관리자페이지접속버튼을 표시
         managerPageButton.setOnClickListener{
-            val myintent=Intent(requireContext(),TeamManagerActivity::class.java)
+            val myintent=Intent(requireContext(), BusManagerActivity::class.java)
             startActivity(myintent)
         }
         if(BoardActivity.user.admin==true)

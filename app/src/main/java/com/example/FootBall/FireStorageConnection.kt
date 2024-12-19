@@ -36,6 +36,10 @@ open class FireStorageConnection{
                 return
             }
             val storageReference = FirebaseStorage.getInstance().reference
+            if(imagePath==""){
+                Log.e("bindImageByPath","imagePath is empty")
+                return;
+            }
             val imageRef = storageReference.child(imagePath)
 
             imageRef.downloadUrl.addOnSuccessListener { uri ->

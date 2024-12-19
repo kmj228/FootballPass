@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_gradient2">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,28 +11,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="게시판 등록하기"
+            android:textColor="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="게시판 이름등록"
             android:id="@+id/teamManager_boardTitle"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="게시판 설명등록"
             android:id="@+id/teamManager_boardExplanation"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/teamManager_BoardEnterBtn"
+            android:textColor="#C4C4C4"
             android:text="게시판 등록"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#C4C4C4"
             android:text="버스예매 항목추가하기"
             />
         <EditText
@@ -39,49 +47,62 @@
             android:layout_height="wrap_content"
             android:hint="버스운영 관련 정보등록"
             android:id="@+id/teamManager_busContentEdit"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="버스시간등록"
             android:id="@+id/teamManager_busTimeEdit"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="출발 주소"
             android:id="@+id/teamManager_busStartEdit"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="도착주소"
             android:id="@+id/teamManager_busEndEdit"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="1인당 버스가격"
             android:id="@+id/teamManager_busPriceEdit"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="은행계좌"
             android:id="@+id/teamManager_account"
+            android:textColor="#C4C4C4"
+            android:textColorHint="#C4C4C4"
             />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/teamManager_busInfoEnterBtn"
+            android:textColor="#C4C4C4"
             android:text="버스 등록"
             />
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/teamManager_busListView"
+            android:id="@+id/teamManager_userTicketAccept"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
+            android:textColor="#C4C4C4"
             android:clipToPadding="false" />
     </LinearLayout>
 </ScrollView>

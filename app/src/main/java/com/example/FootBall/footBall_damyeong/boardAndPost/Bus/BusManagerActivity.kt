@@ -1,25 +1,39 @@
-package com.example.FootBall.footBall_damyeong.boardAndPost
+package com.example.FootBall.footBall_damyeong.boardAndPost.Bus
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.R
-import com.example.FootBall.databinding.ActivityTeamManagerBinding
-import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusReservationItem
+import com.example.FootBall.databinding.ActivityBusManagerBinding
+import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.example.FootBall.footBall_damyeong.boardAndPost.boardSelectAndCreate.BoardListItem
+import com.google.firebase.firestore.DocumentSnapshot
 
-class TeamManagerActivity : AppCompatActivity() {
+class BusManagerActivity : AppCompatActivity() {
+    val notAcceptedUserTicketList=ArrayList<DocumentSnapshot>()
+    lateinit var adaptar:NotAcceptTicketListAdapater
+    fun notAcceptTicketRefresh()
+    {
+        FireStoreConnection.onGetCollection("publicBoards/"+ BoardActivity.user.team+"/notAcceptedTicket")
+        {
+            documents->
+            notAcceptedUserTicketList.clear()
+            for(d in documents)
+            {
+                val ticket:Ticket?=d.toObject(Ticket::class.java)
+                if(ticket == null)continue
+                notAcceptedUserTicketList.add(d)
+            }
+            adaptar.notifyDataSetChanged()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding=ActivityTeamManagerBinding.inflate(layoutInflater)
+        val binding= ActivityBusManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val boardTitle:EditText=binding.teamManagerBoardTitle
@@ -34,8 +48,12 @@ class TeamManagerActivity : AppCompatActivity() {
         val busInfoEnterBtn:Button=binding.teamManagerBusInfoEnterBtn
         val account:EditText=binding.teamManagerAccount
 
-        val teamManager_busListView:ListView=binding.teamManagerBusListView
+        val userTicketAcceptListView:ListView=binding.teamManagerUserTicketAccept
+        adaptar= NotAcceptTicketListAdapater(this, R.layout.item_bus_ticket_on_manager_page,notAcceptedUserTicketList)
 
+        userTicketAcceptListView.adapter=adaptar
+
+        notAcceptTicketRefresh()
         boardEnterBtn.setOnClickListener{
             var temp:Boolean=false
             if(boardTitle.text.toString()=="")temp=true
@@ -75,13 +93,21 @@ class TeamManagerActivity : AppCompatActivity() {
             if(busEndEdit.text.toString()=="")temp=true
             if(busPriceEdit.text.toString()=="")temp=true
             if(account.text.toString()=="")temp=true
+            var price:Int=0;
+            try {
+                price=busPriceEdit.text.toString().toInt()
+            }
+            catch (e:NumberFormatException){
+                Toast.makeText(this,"가격에 숫자만 입력",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if(temp)
             {
                 Toast.makeText(this,"정보를 다 입력하세요",Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val busReservationItem=BusReservationItem(
+            val busReservationItem=BusItem(
                 content=busContentEdit.text.toString(),
                 busTime=busTimeEdit.text.toString(),
                 price=busPriceEdit.text.toString(),
@@ -89,7 +115,7 @@ class TeamManagerActivity : AppCompatActivity() {
                 endAddress=busEndEdit.text.toString(),
                 account=account.text.toString()
             )
-            var path="publicBoards/"+BoardActivity.user.team+"/bus"
+            var path="publicBoards/"+ BoardActivity.user.team+"/bus"
             FireStoreConnection.addDocument(path,busReservationItem){
                 success, docPath ->
                 if(success)
