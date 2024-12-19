@@ -10,12 +10,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
 import com.example.FootBall.databinding.FragmentTeamRankAdapterBinding
 import com.example.FootBall.football_minjae.TeamRankAdapterFragment.OnItemClickListener
 
 class TeamRankAdapterFragment(private val rankData: MutableList<MutableList<String>>) : RecyclerView.Adapter<TeamRankAdapterFragment.RankViewHolder>() {
     var mListener: com.example.FootBall.football_minjae.TeamRankAdapterFragment.OnItemClickListener? = null
+
+    val mainTeamList = MainTeamList()
 
     // View Binding 변수 선언
     private var _binding: FragmentTeamRankAdapterBinding? = null
@@ -54,11 +57,10 @@ class TeamRankAdapterFragment(private val rankData: MutableList<MutableList<Stri
 
     override fun onBindViewHolder(holder: RankViewHolder, position: Int) {
         val currentPlayer = rankData[position]
-        Glide.with(holder.itemView.context)
-            .load(currentPlayer[12]) // 현재 플레이어의 이미지 URL
-            .placeholder(R.drawable.team23)
-            .error(R.drawable.team09)
-            .into(holder.binding.teamProfile) // 바인딩 객체 사용
+        val teamImage = mainTeamList.findURLByName(currentPlayer[1])
+        if (teamImage != null) {
+            holder.binding.teamProfile.setImageResource(teamImage.profileImage)
+        }
         holder.binding.rank.text = currentPlayer[0]
         holder.binding.teamName.text = currentPlayer[1]
         holder.binding.teamMatch.text = currentPlayer[2]
