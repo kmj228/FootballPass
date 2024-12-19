@@ -114,7 +114,7 @@ class PublicBoardsFragment : Fragment() {
 
         //유저가 어드민이면 관리자페이지접속버튼을 표시
         managerPageButton.setOnClickListener{
-            val myintent=Intent(requireContext(), BusManagerActivity::class.java)
+            val myintent=Intent(requireContext(), TeamManagerActivity::class.java)
             startActivity(myintent)
         }
         if(BoardActivity.user.admin==true)
@@ -145,7 +145,7 @@ class PublicBoardsFragment : Fragment() {
 
         //팀 매니저 화면으로 이동
         busButton.setOnClickListener{
-            val myIntent=Intent(this.context, TeamManagerActivity::class.java)
+            val myIntent=Intent(this.context, BusReservationActivity::class.java)
             startActivity(myIntent)
         }
     }

@@ -20,7 +20,7 @@ class TeamManagerActivity : AppCompatActivity() {
         val goBoardManagerPageBtn=binding.teamManagerGoBoardManagerPage
         val goBusManagerPageBtn=binding.teamManagerGoBusManagerPage
 
-        goBusManagerPageBtn.setOnClickListener{
+        goBoardManagerPageBtn.setOnClickListener{
             val myintent= Intent(applicationContext,BoardManagerActivity::class.java)
             startActivity(myintent)
         }
