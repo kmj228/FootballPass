@@ -78,14 +78,15 @@ class FirstTabContent : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Fragment의 레이아웃을 설정
-        return inflater.inflate(R.layout.activity_first_tab_content, container, false)
+        _binding = ActivityFirstTabContentBinding.inflate(inflater, container, false)
+        return binding.root // Return the root view of the binding
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
 
         adapter = CustomerAdapter(items)
@@ -96,7 +97,6 @@ class FirstTabContent : Fragment() {
 
         dbHelper = GameDBHelper(view.context)
         val db = dbHelper.readableDatabase
-
 
         val app = requireActivity().application as MyApplication
         val user = app.currentUser
@@ -119,8 +119,6 @@ class FirstTabContent : Fragment() {
             ).show()
             userFavoritTeam = "Suwon Samsung Bluewings"
         }
-
-        binding.todayGame.text = "오늘 "+mainTeamList.findTeamNameEngToKor(userFavoritTeam).toString() + "의 경기"
 
         // 이 코드는 핸드폰 DB에 일정을 저장했다 보여주는건데 일단 폐기
         /*
@@ -174,7 +172,7 @@ class FirstTabContent : Fragment() {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val date = String.format("%d-%02d-%02d", year, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DATE))
-        getInfo(date, year.toString(), 1) // 초기 데이터 로딩
+        getInfo(date, year.toString(), 2) // 초기 데이터 로딩
     }
 
     private fun showDatePicker() {
@@ -259,13 +257,13 @@ class FirstTabContent : Fragment() {
             val date = str[i]
 
             // 만약 다음 경기가 이번 경기와 같은 날짜이며, 같은 팀끼리 한다면 카운트 안함
-            if((i + 9 < str.size)&&(((str[i+2] == str[i+9]) || (str[i+4] == str[i+9])) && date == str[i+7])){
+            if ((i + 9 < str.size) && (((str[i + 2] == str[i + 9]) || (str[i + 4] == str[i + 9])) && date == str[i + 7])) {
                 continue
             }
             gameId += 1
 
             var meetSeq = league
-            if((league == 1 && gameId>228) || playOff.isNotEmpty()){
+            if ((league == 1 && gameId > 228) || playOff.isNotEmpty()) {
                 val awayTeam = str[i + 4]
                 // 홈팀이 다음 경기에서는 어웨이가 됨
                 gameId = if (awayTeam in playOff) {
@@ -277,7 +275,7 @@ class FirstTabContent : Fragment() {
 
                 meetSeq = 3
             }
-            if (pos == 1){
+            if (pos == 1) {
                 if (findDate == date) {
                     //Log.d("date", date)
                     val homeTeam = str[i + 2]
@@ -290,23 +288,22 @@ class FirstTabContent : Fragment() {
 
                     // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
                     // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
-
-                    if ((userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4])) {
-                        //Log.d("date", date)
-
-                        mainTeamList.findTeamNameByImageResource(homeTeam)
-                            ?.let { binding.homeTeamImage.setImageResource(it) }
-
-                        mainTeamList.findTeamNameByImageResource(awayTeam)
-                            ?.let { binding.homeTeamImage.setImageResource(it) }
-
-                        binding.homeScore.text = homeScore
-                        binding.awayScore.text = awayScore
-                        binding.playDay.text = findDate
-                        binding.playPlace.text = mainTeamList.findHomePlace(homeTeam)
-
-                    }
-                    else if (homeTeamId != null && awayTeamId != null) {
+                    if (userFavoritTeam == str[i + 2] || userFavoritTeam == str[i + 4]) {
+                        requireActivity().runOnUiThread {
+                            binding.versus.visibility = View.VISIBLE
+                            mainTeamList.findTeamNameByImageResource(homeTeam)
+                                ?.let { binding.homeTeamImage.setImageResource(it) }
+                            mainTeamList.findTeamNameByImageResource(awayTeam)
+                                ?.let { binding.awayTeamImage.setImageResource(it) }
+                            binding.homeScore.text = homeScore
+                            binding.awayScore.text = awayScore
+                            binding.playDay.text = findDate
+                            binding.playPlace.text = mainTeamList.findHomePlace(homeTeam)
+                            binding.todayGame.text =
+                                date + " " + mainTeamList.findTeamNameEngToKor(userFavoritTeam)
+                                    .toString() + "의 경기"
+                        }
+                    } else if (homeTeamId != null && awayTeamId != null) {
                         Log.d("gameId", gameId.toString()) // 1, 3
                         Log.d("meetSeq", meetSeq.toString())
 
@@ -321,62 +318,6 @@ class FirstTabContent : Fragment() {
                                 meetSeq
                             )
                         )
-                    }
-                }
-            }
-            else{
-                // 자기가 좋아하는 팀의 일정을 리스트 형태로 반환
-                val app = requireActivity().application as MyApplication
-                val user = app.currentUser
-
-                // 사용자 데이터 갱신
-                if (user != null) {
-
-                    if (user.team != "없음")
-                        userFavoritTeam = mainTeamList.findTeamNameKorToEng(user.team).toString()
-                    else{
-                        userFavoritTeam = "Suwon Samsung Bluewings"
-                    }
-
-
-                } else {
-                    Toast.makeText(
-                        requireContext(),
-                        "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    userFavoritTeam = "Suwon Samsung Bluewings"
-                }
-
-
-                if ((userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4]) && findDate == date) {
-                    //Log.d("date", date)
-                    val homeTeam = str[i + 2]
-                    val awayTeam = str[i + 4]
-                    val homeScore = str[i + 3]
-                    val awayScore = str[i + 5]
-
-                    val homeTeamId = mainTeamList.findTeamNameEngToId(homeTeam)
-                    val awayTeamId = mainTeamList.findTeamNameEngToId(awayTeam)
-
-                    // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
-                    // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
-
-
-                    if (homeTeamId != null && awayTeamId != null) {
-
-                        games.add(
-                            GameInfo(
-                                date,
-                                mainTeamList.getByPosMainTeamList(homeTeamId),
-                                mainTeamList.getByPosMainTeamList(awayTeamId),
-                                homeScore,
-                                awayScore,
-                                gameId,
-                                meetSeq
-                            )
-                        )
-
                     }
                 }
             }
