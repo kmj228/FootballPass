@@ -112,23 +112,18 @@ class TeamDetailsActivity : AppCompatActivity() {
                 paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
                 setOnClickListener {
-                    try {
-                        val naverMapUri = Uri.parse("nmap://search?query=${Uri.encode(team.address)}&appname=${applicationContext.packageName}")
-                        val naverMapIntent = Intent(Intent.ACTION_VIEW, naverMapUri)
+                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
 
-                        if (naverMapIntent.resolveActivity(packageManager) != null) {
-                            startActivity(naverMapIntent)
-                        } else {
-                            val webUri = Uri.parse("https://map.naver.com/v5/search/${Uri.encode(team.address)}")
-                            val webIntent = Intent(Intent.ACTION_VIEW, webUri)
-                            startActivity(webIntent)
-                        }
-                    } catch (e: Exception) {
-                        showToast("지도를 열 수 없습니다: ${e.message}")
+                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
+                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
+                    if (mapIntent.resolveActivity(packageManager) != null) {
+                        startActivity(chooser)
+                    } else {
+                        showToast("지도 앱을 찾을 수 없습니다")
                     }
                 }
             }
-
 
             findViewById<ImageView>(R.id.teamLocation).apply {
                 setOnClickListener {
@@ -164,6 +159,18 @@ class TeamDetailsActivity : AppCompatActivity() {
             else {
                 fetchPlayerData("2", team.kLeagueTeamId)
             }
+        }
+
+        //경기장 시야 화면 가는 버튼
+        val goFieldViewBtn:Button=findViewById(R.id.FieldViewButton)
+        goFieldViewBtn.setOnClickListener{
+            val myintent=Intent(applicationContext,FieldViewActivity::class.java)
+            if(team == null){
+                Log.e("TeamDetailsActivity","team is null")
+                return@setOnClickListener
+            }
+            myintent.putExtra("team",team.name)
+            startActivity(myintent)
         }
     }
 
