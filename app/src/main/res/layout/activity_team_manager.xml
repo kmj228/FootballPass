@@ -18,5 +18,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/teamManager_goBoardManagerPage"
         android:textSize="18sp"
-        android:text="내 예매내역보러가기"/>
+        android:text="게시판 추가하기"/>
 </LinearLayout>
