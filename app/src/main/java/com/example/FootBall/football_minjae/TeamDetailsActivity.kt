@@ -112,18 +112,25 @@ class TeamDetailsActivity : AppCompatActivity() {
                 paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
                 setOnClickListener {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    try {
+                        val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
 
-                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
-                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(chooser)
-                    } else {
-                        showToast("지도 앱을 찾을 수 없습니다")
+                        // Google Maps 앱 우선 설정 (선택 사항)
+                        mapIntent.setPackage("com.google.android.apps.maps")
+
+                        val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
+                        if (mapIntent.resolveActivity(context.packageManager) != null) {
+                            startActivity(chooser)
+                        } else {
+                            showToast("지도 앱을 찾을 수 없습니다")
+                        }
+                    } catch (e: Exception) {
+                        showToast("지도를 열 수 없습니다: ${e.message}")
                     }
                 }
             }
+
 
             findViewById<ImageView>(R.id.teamLocation).apply {
                 setOnClickListener {

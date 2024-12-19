@@ -8,6 +8,8 @@
     <!-- 검색 바 -->
     <EditText
         android:id="@+id/searchBar"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint=" 팀 검색"
