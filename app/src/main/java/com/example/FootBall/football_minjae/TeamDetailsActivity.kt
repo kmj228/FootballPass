@@ -112,15 +112,19 @@ class TeamDetailsActivity : AppCompatActivity() {
                 paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
                 setOnClickListener {
-                    val gmmIntentUri = Uri.parse("geo:0,0?q=${Uri.encode(team.address)}")
-                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    try {
+                        val naverMapUri = Uri.parse("nmap://search?query=${Uri.encode(team.address)}&appname=${applicationContext.packageName}")
+                        val naverMapIntent = Intent(Intent.ACTION_VIEW, naverMapUri)
 
-                    // Intent Chooser를 통해 사용자에게 앱 선택을 제공
-                    val chooser = Intent.createChooser(mapIntent, "지도 앱 선택")
-                    if (mapIntent.resolveActivity(packageManager) != null) {
-                        startActivity(chooser)
-                    } else {
-                        showToast("지도 앱을 찾을 수 없습니다")
+                        if (naverMapIntent.resolveActivity(packageManager) != null) {
+                            startActivity(naverMapIntent)
+                        } else {
+                            val webUri = Uri.parse("https://map.naver.com/v5/search/${Uri.encode(team.address)}")
+                            val webIntent = Intent(Intent.ACTION_VIEW, webUri)
+                            startActivity(webIntent)
+                        }
+                    } catch (e: Exception) {
+                        showToast("지도를 열 수 없습니다: ${e.message}")
                     }
                 }
             }
