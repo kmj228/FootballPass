@@ -31,10 +31,13 @@
         android:theme="@style/Theme.FootBall"
         tools:targetApi="31">
         <activity
-            android:name=".footBall_damyeong.boardAndPost.Bus.CherkMyBusTicketActivity"
+            android:name=".footBall_damyeong.boardAndPost.boardSelectAndCreate.BoardManagerActivity"
             android:exported="false"/>
         <activity
             android:name=".footBall_damyeong.boardAndPost.TeamManagerActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".footBall_damyeong.boardAndPost.Bus.CherkMyBusTicketActivity"
             android:exported="false" />
         <activity
             android:name=".footBall_damyeong.boardAndPost.Bus.BusManagerActivity"
