@@ -21,9 +21,11 @@ import android.widget.Toast
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
+import com.example.FootBall.databinding.ActivityFirstTabContentBinding
 import kotlinx.coroutines.async
 import org.jsoup.select.Elements
 import java.util.Calendar
+
 
 class FirstTabContent : Fragment() {
 
@@ -68,6 +70,10 @@ class FirstTabContent : Fragment() {
 
     lateinit var dbHelper: GameDBHelper
 
+    private var _binding: ActivityFirstTabContentBinding? = null
+    private val binding get() = _binding!!
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,18 +85,42 @@ class FirstTabContent : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        dateBtn = view.findViewById(R.id.dateBtn)
+
 
         adapter = CustomerAdapter(items)
-        recyclerView.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
         //getUrl(1, 2024, 10)
         //refreshData(view)
 
         dbHelper = GameDBHelper(view.context)
         val db = dbHelper.readableDatabase
+
+
+        val app = requireActivity().application as MyApplication
+        val user = app.currentUser
+
+        // 사용자 데이터 갱신
+        if (user != null) {
+
+            if (user.team != "없음")
+                userFavoritTeam = mainTeamList.findTeamNameKorToEng(user.team).toString()
+            else{
+                userFavoritTeam = "Suwon Samsung Bluewings"
+            }
+
+
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "사용자 데이터를 읽어오지 못하였습니다. 로그아웃 후 다시 로그인해주세요",
+                Toast.LENGTH_SHORT
+            ).show()
+            userFavoritTeam = "Suwon Samsung Bluewings"
+        }
+
+        binding.todayGame.text = "오늘 "+mainTeamList.findTeamNameEngToKor(userFavoritTeam).toString() + "의 경기"
 
         // 이 코드는 핸드폰 DB에 일정을 저장했다 보여주는건데 일단 폐기
         /*
@@ -121,13 +151,13 @@ class FirstTabContent : Fragment() {
         val selectedDate = String.format("%d-%02d-%02d", year, cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH))
 
         try{
-            getInfo(selectedDate, year.toString(), 2)
+            getInfo("2024-11-03", year.toString(), 1)
         }
         catch (e: DeadObjectException){
             Log.e("Error", "Dead")
         }
 
-        dateBtn.setOnClickListener {
+        binding.dateBtn.setOnClickListener {
             try{
                 showDatePicker()
             }
@@ -261,8 +291,22 @@ class FirstTabContent : Fragment() {
                     // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
                     // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
 
+                    if ((userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4])) {
+                        //Log.d("date", date)
 
-                    if (homeTeamId != null && awayTeamId != null) {
+                        mainTeamList.findTeamNameByImageResource(homeTeam)
+                            ?.let { binding.homeTeamImage.setImageResource(it) }
+
+                        mainTeamList.findTeamNameByImageResource(awayTeam)
+                            ?.let { binding.homeTeamImage.setImageResource(it) }
+
+                        binding.homeScore.text = homeScore
+                        binding.awayScore.text = awayScore
+                        binding.playDay.text = findDate
+                        binding.playPlace.text = mainTeamList.findHomePlace(homeTeam)
+
+                    }
+                    else if (homeTeamId != null && awayTeamId != null) {
                         Log.d("gameId", gameId.toString()) // 1, 3
                         Log.d("meetSeq", meetSeq.toString())
 
@@ -305,7 +349,7 @@ class FirstTabContent : Fragment() {
                 }
 
 
-                if (userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4]) {
+                if ((userFavoritTeam == str[i+2] || userFavoritTeam == str[i+4]) && findDate == date) {
                     //Log.d("date", date)
                     val homeTeam = str[i + 2]
                     val awayTeam = str[i + 4]
@@ -337,5 +381,10 @@ class FirstTabContent : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

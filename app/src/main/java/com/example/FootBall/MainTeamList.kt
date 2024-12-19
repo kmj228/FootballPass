@@ -60,6 +60,9 @@ class MainTeamList {
         return mainTeamList.firstOrNull { it.englishName == teamName }?.id
     }
 
+    fun findTeamNameEngToKor(teamName: String): String? {
+        return mainTeamList.firstOrNull { it.englishName == teamName }?.name
+    }
 
     // 한국어로된 팀 이름을 영어로
     fun findTeamNameKorToEng(teamName: String): String? {
@@ -70,6 +73,12 @@ class MainTeamList {
         return mainTeamList.firstOrNull { it.profileImage == imageResource }
     }
 
+    fun findTeamNameByImageResource(teamName: String): Int? {
+        return mainTeamList.firstOrNull { it.englishName == teamName }?.profileImage
+    }
 
+    fun findHomePlace(teamName: String): String?{
+        return mainTeamList.firstOrNull { it.englishName == teamName }?.home
+    }
 
 }

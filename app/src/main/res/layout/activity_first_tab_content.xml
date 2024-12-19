@@ -9,9 +9,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
+        android:orientation="vertical"
         >
 
         <Button
@@ -23,16 +24,100 @@
             android:textColor="#FFFFFF"
             android:text="달력 보기" />
 
+        <TextView
+            android:id="@+id/todayGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="오늘 경기"
+            android:textStyle="bold"/>
 
+
+        <LinearLayout
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="6dp">
+
+            <ImageView
+                android:id="@+id/homeTeamImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/homeScore"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="0"
+                android:textSize="28sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/playDay"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:text="2024년 2월 2일"/>
+
+                <TextView
+                    android:id="@+id/playPlace"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="월드컵경기장이름"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/awayScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:layout_marginEnd="2dp"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"/>
+
+            <ImageView
+                android:id="@+id/awayTeamImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
 
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="4"
         android:id="@+id/recyclerView"
         />
 

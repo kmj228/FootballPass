@@ -121,4 +121,8 @@ class CustomerAdapter(val items: ArrayList<Customer>) : RecyclerView.Adapter<Cus
         return items.size
     }
 
+    fun clear() {
+        TODO("Not yet implemented")
+    }
+
 }
