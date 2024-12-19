@@ -57,7 +57,7 @@ class TeamRankAdapterFragment(private val rankData: MutableList<MutableList<Stri
 
     override fun onBindViewHolder(holder: RankViewHolder, position: Int) {
         val currentPlayer = rankData[position]
-        val teamImage = mainTeamList.findURLByName(currentPlayer[1])
+        val teamImage = mainTeamList.findURLByName(currentPlayer[12])
         if (teamImage != null) {
             holder.binding.teamProfile.setImageResource(teamImage.profileImage)
         }
