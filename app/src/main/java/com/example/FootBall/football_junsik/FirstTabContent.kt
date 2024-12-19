@@ -2,6 +2,7 @@ package com.example.FootBall.football_junsik
 
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.DeadObjectException
 import android.util.Log
@@ -35,6 +36,8 @@ class FirstTabContent : Fragment() {
     private lateinit var dateBtn: Button
     // DB에서 불러와서 화면에 띄우기 위해 배열로 저장
     private var items = arrayListOf<Customer>()
+
+    private lateinit var versusItem: Customer
 
     lateinit var userFavoritTeam: String
 
@@ -164,6 +167,24 @@ class FirstTabContent : Fragment() {
             }
         }
 
+        binding.versus.setOnClickListener{
+
+            val intent = Intent(context, NewActivity::class.java).apply {
+                putExtra("DATE", versusItem.date)
+                putExtra("PLACE", versusItem.place)
+                putExtra("HOME_SCORE", versusItem.homeScore)
+                putExtra("AWAY_SCORE", versusItem.awayScore)
+                putExtra("HOME_TEAM", versusItem.homeTeam)
+                putExtra("AWAY_TEAM", versusItem.awayTeam)
+                putExtra("HOME_IMAGE", versusItem.homeDraw)
+                putExtra("AWAY_IMAGE", versusItem.awayDraw)
+                putExtra("GAMEID", versusItem.gameId)
+                putExtra("MEETSEQ", versusItem.meetSeq)
+            }
+            Log.d("SEE", versusItem.gameId.toString())
+            context?.startActivity(intent)
+        }
+
         // 데이터 목록 생성
         //loadInitialData()
     }
@@ -288,24 +309,36 @@ class FirstTabContent : Fragment() {
 
                     // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
                     // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
-                    if (userFavoritTeam == str[i + 2] || userFavoritTeam == str[i + 4]) {
+                    if ((userFavoritTeam == homeTeam || userFavoritTeam == awayTeam) && (homeTeamId != null && awayTeamId != null)) {
+
+                        val homeInfo = mainTeamList.getByPosMainTeamList(homeTeamId)
+                        val awayInfo = mainTeamList.getByPosMainTeamList(awayTeamId)
+
+                        versusItem = Customer(date,
+                            homeInfo.home,
+                            homeInfo.name,
+                            awayInfo.name,
+                            homeScore,
+                            awayScore,
+                            homeInfo.profileImage,
+                            awayInfo.profileImage,
+                            gameId,
+                            meetSeq)
+
                         requireActivity().runOnUiThread {
                             binding.versus.visibility = View.VISIBLE
-                            mainTeamList.findTeamNameByImageResource(homeTeam)
-                                ?.let { binding.homeTeamImage.setImageResource(it) }
-                            mainTeamList.findTeamNameByImageResource(awayTeam)
-                                ?.let { binding.awayTeamImage.setImageResource(it) }
+                            binding.homeTeamImage.setImageResource(homeInfo.profileImage)
+                            binding.awayTeamImage.setImageResource(awayInfo.profileImage)
                             binding.homeScore.text = homeScore
                             binding.awayScore.text = awayScore
                             binding.playDay.text = findDate
-                            binding.playPlace.text = mainTeamList.findHomePlace(homeTeam)
+                            binding.playPlace.text = homeInfo.home
                             binding.todayGame.text =
                                 date + " " + mainTeamList.findTeamNameEngToKor(userFavoritTeam)
                                     .toString() + "의 경기"
                         }
                     } else if (homeTeamId != null && awayTeamId != null) {
-                        Log.d("gameId", gameId.toString()) // 1, 3
-                        Log.d("meetSeq", meetSeq.toString())
+
 
                         games.add(
                             GameInfo(

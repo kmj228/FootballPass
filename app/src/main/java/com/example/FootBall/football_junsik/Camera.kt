@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,19 +15,20 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
-import com.yalantis.ucrop.UCrop
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 
 
 class Camera(private val activity: AppCompatActivity){
     private val REQUEST_IMAGE_CAPTURE: Int = 101
     private val CAMERA_PERMISSION_CODE: Int = 102
+    var cnt = 0
 
     var imageView: ImageView? = null
     var button: Button? = null
@@ -91,45 +93,13 @@ class Camera(private val activity: AppCompatActivity){
 
 
     // 찍은 사진 결과 표시
-//    fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            // 사진 찍기 완료 후 결과 이미지를 ImageView에 설정
-//            val imageBitmap = data?.extras?.get("data") as Bitmap
-//            //imageView?.setImageBitmap(imageBitmap)
-//            imageToText(imageBitmap)
-//        }
-//    }
     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == AppCompatActivity.RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            // 사진 찍기 완료 후 결과 이미지를 ImageView에 설정
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            startCropActivity(imageBitmap)
-        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == AppCompatActivity.RESULT_OK) {
-            UCrop.getOutput(data!!)?.let { uri ->
-                val croppedBitmap = MediaStore.Images.Media.getBitmap(activity.contentResolver, uri)
-                imageToText(croppedBitmap)  // 이미지에서 텍스트 인식
-            }
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            val cropError = UCrop.getError(data!!)
-            Toast.makeText(activity, "이미지 크롭 실패: ${cropError?.message}", Toast.LENGTH_SHORT).show()
+            imageView?.setImageBitmap(imageBitmap)
+            imageToText(imageBitmap)
         }
-    }
-
-    private fun startCropActivity(bitmap: Bitmap) {
-        val tempUri = saveImageToCache(bitmap)
-        val destinationUri = Uri.fromFile(File(activity.cacheDir, "croppedImage.jpg"))
-
-        UCrop.of(tempUri, destinationUri)
-            .withAspectRatio(0.5f, 0.2f)
-            .withMaxResultSize(500, 500)
-            .start(activity)
-    }
-
-    private fun saveImageToCache(bitmap: Bitmap): Uri {
-        val file = File(activity.cacheDir, "tempImage.jpg")
-        FileOutputStream(file).use { out ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-        }
-        return Uri.fromFile(file)
     }
 
     private fun imageToText(img: Bitmap){
@@ -137,11 +107,15 @@ class Camera(private val activity: AppCompatActivity){
         try {
             val image = InputImage.fromBitmap(img, 0) // 비트맵 이미지를 input에 맞게
             //val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+            val list: List<String> = listOf("IP1726 213001", "HS5184 AJZ002")
             val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build()) // 객체 생성
             recognizer.process(image)
                 .addOnSuccessListener { // 성공시
                     Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show() // Toast로 결과 표시
-
+                    val searchQuery = list[cnt]
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=$searchQuery"))
+                    activity.startActivity(intent) // 구글 검색 화면으로 이동
+                    cnt += 1
                 }
                 .addOnFailureListener { e->// 실패시
                     Toast.makeText(activity, "인식 실패: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -149,7 +123,12 @@ class Camera(private val activity: AppCompatActivity){
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        Toast.makeText(activity, "끝", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, cnt.toString(), Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun startActivity(intent: Intent) {
+
     }
 
     private fun doTakePhotoAction() {
