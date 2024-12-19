@@ -41,7 +41,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_margin="6dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
             <ImageView
                 android:id="@+id/homeTeamImage"
@@ -61,6 +62,7 @@
                 android:textSize="28sp"/>
 
             <LinearLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -109,6 +111,13 @@
                 android:src="@mipmap/ic_launcher"
                 android:layout_gravity="center_vertical"
                 android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_marginStart="8dp"
+                android:id="@+id/addPlane"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/add_box" />
 
         </LinearLayout>
 
