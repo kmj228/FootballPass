@@ -2,6 +2,8 @@ package com.example.FootBall.footBall_damyeong.boardAndPost
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -70,6 +72,13 @@ class BoardActivity : AppCompatActivity() {
 
         // 보드 이름을 화면에 띄우기
         title.text = "$boardName 게시판"
+
+        // 타이틀이 정품문의 포함 여부 확인 후 이미지뷰 표시 설정
+        if (title.text.toString().contains("정품문의")) {
+            findViewById<ImageView>(R.id.cameraIcon).visibility = View.VISIBLE
+        } else {
+            findViewById<ImageView>(R.id.cameraIcon).visibility = View.GONE
+        }
 
         // 어댑터 만들기
         adapter = PostListAdapter(this, R.layout.item_post_preview, postItemList)

@@ -51,17 +51,49 @@
             android:focusable="true" />
     </LinearLayout>
 
-    <!-- 게시물 작성 버튼 -->
-    <Button
-        android:id="@+id/board_writePostButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#464964"
-        android:textColor="#FFFFFF"
-        android:text="게시물 작성"
-        android:layout_gravity="end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="6dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
+            <!-- 좌측 카메라 아이콘 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start">
+
+                <ImageView
+                    android:id="@+id/cameraIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/photo_camera"
+                    android:contentDescription="Camera Icon"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- 우측 게시물 작성 버튼 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/board_writePostButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#464964"
+                    android:textColor="#FFFFFF"
+                    android:text="게시물 작성"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="6dp" />
+            </LinearLayout>
+        </LinearLayout>
 
     <!-- 새로고침 및 목록 -->
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
