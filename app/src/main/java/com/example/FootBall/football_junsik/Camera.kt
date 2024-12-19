@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -33,10 +34,16 @@ class Camera(private val activity: AppCompatActivity){
     var imageView: ImageView? = null
     var button: Button? = null
     var textView: TextView? = null
+    var select = 0
 
     private lateinit var mImageCaptureUri: Uri
-    fun startCamera(){
+
+    lateinit var callBack:()->Unit
+    fun startCamera(selected: Int, _callBack:()->Unit){
+        this.select = selected
         checkCameraPermission()
+
+        callBack=_callBack
     }
 
     // 카메라 권한 확인 및 요청
@@ -97,8 +104,16 @@ class Camera(private val activity: AppCompatActivity){
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // 사진 찍기 완료 후 결과 이미지를 ImageView에 설정
             val imageBitmap = data?.extras?.get("data") as Bitmap
-            imageView?.setImageBitmap(imageBitmap)
-            imageToText(imageBitmap)
+
+            Log.d("SELECT", select.toString())
+            if(select == 0) {
+                imageToText(imageBitmap)
+                Log.d("SELECT2", select.toString())
+            }
+            else {
+                Log.d("SELECT3", select.toString())
+                callBack()
+            }
         }
     }
 
@@ -124,10 +139,6 @@ class Camera(private val activity: AppCompatActivity){
             e.printStackTrace()
         }
         Toast.makeText(activity, cnt.toString(), Toast.LENGTH_SHORT).show()
-
-    }
-
-    private fun startActivity(intent: Intent) {
 
     }
 

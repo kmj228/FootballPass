@@ -2,6 +2,7 @@ package com.example.FootBall.football_minjae
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +46,8 @@ class PlayerImageAdapter(
             intent.putExtra("player", player) // 기존에 PlayerInfo를 전달
             intent.putExtra("teamName", teamName) // 추가: 팀 이름 전달
             context.startActivity(intent)
+
+            Log.d("Player", player.toString())
         }
 
 

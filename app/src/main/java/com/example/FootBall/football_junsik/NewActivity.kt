@@ -14,11 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.FootBall.MainTeamList
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityNewBinding
+import com.example.FootBall.football_minjae.PlayerDetailsActivity
+import com.example.FootBall.football_minjae.PlayerInfo
 import com.example.FootBall.football_minjae.TeamDetailsActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -98,7 +103,31 @@ class NewActivity : AppCompatActivity() {
         // Initialize camera
         camera = Camera(this)
         binding.cameraIcon.setOnClickListener {
-            camera.startCamera()
+            camera.startCamera(1){
+
+                lifecycleScope.launch {
+                    delay(2000)
+
+                    val player = PlayerInfo(
+                        imageUrl="https://kleague-admin-test.s3.ap-northeast-2.amazonaws.com/v1/player/2024/K29/player_20130322.png",
+                        name="박배종",
+                        position="GK",
+                        nationality="한국",
+                        jerseyNumber="1",
+                        height="185",
+                        weight="78",
+                        birthDate="1989/10/23",
+                        playerId="20130322"
+                    )
+
+                    val teamName = "수원FC"
+
+                    val intent = Intent(this@NewActivity, PlayerDetailsActivity::class.java)
+                    intent.putExtra("player", player) // PlayerInfo 객체 전달
+                    intent.putExtra("teamName", teamName) // 팀 이름 전달
+                    startActivity(intent)
+                }
+            }
         }
     }
 

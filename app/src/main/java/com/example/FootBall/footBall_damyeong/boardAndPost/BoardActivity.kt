@@ -12,11 +12,13 @@ import com.example.FootBall.MyApplication
 import com.example.FootBall.MyUser
 import com.example.FootBall.R
 import com.example.FootBall.databinding.ActivityBoardBinding
+import com.example.FootBall.football_junsik.Camera
 
 class BoardActivity : AppCompatActivity() {
 
     private var boardPath: String? = ""
     private var boardName: String? = ""
+    private lateinit var camera: Camera
 
     //검색용
     private val postList = ArrayList<PostRef>()
@@ -76,6 +78,12 @@ class BoardActivity : AppCompatActivity() {
         // 타이틀이 정품문의 포함 여부 확인 후 이미지뷰 표시 설정
         if (title.text.toString().contains("정품문의")) {
             findViewById<ImageView>(R.id.cameraIcon).visibility = View.VISIBLE
+
+            camera = Camera(this)
+
+            binding.cameraIcon.setOnClickListener {
+                camera.startCamera(0) {}
+            }
         } else {
             findViewById<ImageView>(R.id.cameraIcon).visibility = View.GONE
         }
@@ -128,6 +136,16 @@ class BoardActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             refresh() // 새로고침 호출
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        camera.onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        camera.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {
