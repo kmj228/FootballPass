@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="6dp"
+    android:padding="20dp"
     android:background="@drawable/main_gradient2">
 
     <TextView
@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/busPost_goMyTicketBtn"
         android:textSize="15sp"
+        android:backgroundTint="#464964"
+        android:textColor="#FFFFFF"
         android:text="내 예매내역보러가기"/>
     <ScrollView
         android:layout_width="match_parent"

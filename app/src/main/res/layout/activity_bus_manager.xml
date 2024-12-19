@@ -6,7 +6,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="20dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +66,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/busManager_busInfoEnterBtn"
-            android:textColor="#C4C4C4"
+            android:backgroundTint="#464964"
+            android:textColor="#FFFFFF"
             android:text="버스 등록"
             />
         <ListView

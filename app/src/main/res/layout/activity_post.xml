@@ -84,28 +84,51 @@
                     android:layout_margin="10dp" />
             </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_likeBtn"
-                android:text="좋아요 0개"
+                android:orientation="horizontal" >
 
-                android:background="@android:color/transparent" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
 
-            <Button
-                android:layout_marginTop="8dp"
-                android:id="@+id/post_deleteButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="게시글 삭제"
-                android:backgroundTint="#464964"
-                android:textColor="#FFFFFF"
-                android:layout_gravity="end"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/post_likeBtn"
+                        android:text="좋아요 0개"
+                        android:background="@android:color/transparent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end">
+
+                    <Button
+                        android:gravity=""
+                        android:id="@+id/post_deleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="게시글 삭제"
+                        android:textSize="11sp"
+                        android:backgroundTint="#464964"
+                        android:textColor="#FFFFFF"
+                        android:layout_gravity="end"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/post_commentEdit"
                 android:hint="여기에 댓글입력"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textColorHint="#C4C4C4"
                 android:layout_marginTop="30dp"/>
 
             <Button
@@ -117,6 +140,7 @@
                 android:backgroundTint="#464964"
                 android:textColor="#FFFFFF"
                 android:layout_gravity="end"/>
+
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/post_swipeRefreshLayout"
                 android:layout_width="match_parent"
