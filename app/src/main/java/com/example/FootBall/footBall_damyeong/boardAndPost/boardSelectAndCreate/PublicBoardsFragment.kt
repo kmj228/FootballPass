@@ -16,11 +16,13 @@ import androidx.fragment.app.Fragment
 import com.example.FootBall.FireStoreConnection
 import com.example.FootBall.MyApplication
 import com.example.FootBall.R
+import com.example.FootBall.Team
 import com.example.FootBall.footBall_damyeong.boardAndPost.BoardActivity
 import com.example.FootBall.databinding.FragmentPublicBoardsBinding
 import com.example.FootBall.footBall_damyeong.SlideAdapter
 import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusReservationActivity
 import com.example.FootBall.footBall_damyeong.boardAndPost.Bus.BusManagerActivity
+import com.example.FootBall.footBall_damyeong.boardAndPost.TeamManagerActivity
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.Calendar
@@ -141,9 +143,9 @@ class PublicBoardsFragment : Fragment() {
             startActivity(intent)
         }
 
-        //버스 예먜버튼
+        //팀 매니저 화면으로 이동
         busButton.setOnClickListener{
-            val myIntent=Intent(this.context, BusReservationActivity::class.java)
+            val myIntent=Intent(this.context, TeamManagerActivity::class.java)
             startActivity(myIntent)
         }
     }

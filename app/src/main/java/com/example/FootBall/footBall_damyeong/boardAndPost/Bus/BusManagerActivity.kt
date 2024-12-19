@@ -36,55 +36,20 @@ class BusManagerActivity : AppCompatActivity() {
         val binding= ActivityBusManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val boardTitle:EditText=binding.teamManagerBoardTitle
-        val boardExplanation:EditText=binding.teamManagerBoardExplanation
-        val boardEnterBtn:Button=binding.teamManagerBoardEnterBtn
+        val busContentEdit:EditText=binding.busManagerBusContentEdit
+        val busTimeEdit:EditText=binding.busManagerBusTimeEdit
+        val busStartEdit:EditText=binding.busManagerBusStartEdit
+        val busEndEdit:EditText=binding.busManagerBusEndEdit
+        val busPriceEdit:EditText=binding.busManagerBusPriceEdit
+        val busInfoEnterBtn:Button=binding.busManagerBusInfoEnterBtn
+        val account:EditText=binding.busManagerAccount
 
-        val busContentEdit:EditText=binding.teamManagerBusContentEdit
-        val busTimeEdit:EditText=binding.teamManagerBusTimeEdit
-        val busStartEdit:EditText=binding.teamManagerBusStartEdit
-        val busEndEdit:EditText=binding.teamManagerBusEndEdit
-        val busPriceEdit:EditText=binding.teamManagerBusPriceEdit
-        val busInfoEnterBtn:Button=binding.teamManagerBusInfoEnterBtn
-        val account:EditText=binding.teamManagerAccount
-
-        val userTicketAcceptListView:ListView=binding.teamManagerUserTicketAccept
+        val userTicketAcceptListView:ListView=binding.busManagerUserTicketAccept
         adaptar= NotAcceptTicketListAdapater(this, R.layout.item_bus_ticket_on_manager_page,notAcceptedUserTicketList)
 
         userTicketAcceptListView.adapter=adaptar
 
         notAcceptTicketRefresh()
-        boardEnterBtn.setOnClickListener{
-            var temp:Boolean=false
-            if(boardTitle.text.toString()=="")temp=true
-            if(boardExplanation.text.toString()=="")temp=true
-            if(temp)
-            {
-                Toast.makeText(this,"정보를 다 입력하세요",Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            val boardItem=BoardListItem(
-                boardName = boardTitle.text.toString(),
-                boardExplanation = boardExplanation.text.toString(),
-                official = BoardActivity.user.team
-            )
-            var path="publicBoards/"+boardTitle.text.toString()
-            FireStoreConnection.setDocument(path,boardItem)
-            {
-                success, docPath ->
-                if(success)
-                {
-                    Toast.makeText(this,"성공",Toast.LENGTH_SHORT).show()
-                    boardTitle.setText("")
-                    boardExplanation.setText("")
-                }
-                else
-                {
-                    Toast.makeText(this,"실패",Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        }
         busInfoEnterBtn.setOnClickListener{
             var temp:Boolean=false
             if(busContentEdit.text.toString()=="")temp=true
