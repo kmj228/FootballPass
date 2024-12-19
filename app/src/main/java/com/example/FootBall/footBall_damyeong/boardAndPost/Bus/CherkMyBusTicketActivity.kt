@@ -38,7 +38,7 @@ class CherkMyBusTicketActivity : AppCompatActivity() {
                 val ticket=d.toObject(Ticket::class.java)
                 if(ticket==null)continue
                 if(ticket.busReservationpath=="")continue
-                if(ticket.userEmail.equals(BoardActivity.user.email)==false)continue
+                if(ticket.userEmail!=BoardActivity.user.email)continue
                 Log.d("BusReservationActivity",ticket.userEmail)
                 FireStoreConnection.onGetDocument(ticket.busReservationpath){
                         document ->
@@ -62,7 +62,7 @@ class CherkMyBusTicketActivity : AppCompatActivity() {
                 val ticket=d.toObject(Ticket::class.java)
                 if(ticket==null)continue
                 if(ticket.busReservationpath=="")continue
-                if(ticket.userEmail.equals(BoardActivity.user.email)==false)continue
+                if(ticket.userEmail!=BoardActivity.user.email)continue
                 Log.d("BusReservationActivity",ticket.userEmail)
                 FireStoreConnection.onGetDocument(ticket.busReservationpath){
                         document ->

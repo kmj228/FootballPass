@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="오늘 경기"
+            android:textColor="#C4C4C4"
             android:textStyle="bold"/>
 
 
