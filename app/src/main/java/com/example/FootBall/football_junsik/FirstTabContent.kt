@@ -2,7 +2,9 @@ package com.example.FootBall.football_junsik
 
 
 import android.app.DatePickerDialog
+import android.content.ContentValues
 import android.content.Intent
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
 import android.os.DeadObjectException
 import android.util.Log
@@ -42,6 +44,7 @@ class FirstTabContent : Fragment() {
     lateinit var userFavoritTeam: String
 
     var playOff = mutableListOf<String>()
+
 
     var teamWithId = mapOf("Gangwon FC" to 1,
         "Sangju Sangmu" to 2,
@@ -185,6 +188,23 @@ class FirstTabContent : Fragment() {
             context?.startActivity(intent)
         }
 
+        binding.addPlane.setOnClickListener{
+            // TODO: 0번째부터 시작임
+            dbHelper = GameDBHelper(view.context)
+            val db = dbHelper.writableDatabase
+            val values = ContentValues().apply {
+                put("date", versusItem.date)
+                put("homeTeamName", versusItem.homeTeam)
+                put("awayTeamName", versusItem.awayTeam)
+                put("gameId", versusItem.gameId)
+                put("meetSeq", versusItem.meetSeq)
+                put("homeTeamImage", versusItem.homeDraw)
+                put("awayTeamImage", versusItem.awayDraw)
+            }
+            db.insert("gameDataTBL", null, values)
+            Toast.makeText(view.context, "성공적으로 저장됨", Toast.LENGTH_SHORT).show()
+        }
+
         // 데이터 목록 생성
         //loadInitialData()
     }
@@ -309,6 +329,8 @@ class FirstTabContent : Fragment() {
 
                     // 승강 플레이오프는 먼저 경기를 한 순서로 ID가 주어지지 않고
                     // 먼저 붙은 팀은 1이고, 먼저 붙은 팀들이 다른 팀들보다 먼저 2번째 경기를 해도 3번째 경기로 친다.
+
+
                     if ((userFavoritTeam == homeTeam || userFavoritTeam == awayTeam) && (homeTeamId != null && awayTeamId != null)) {
 
                         val homeInfo = mainTeamList.getByPosMainTeamList(homeTeamId)

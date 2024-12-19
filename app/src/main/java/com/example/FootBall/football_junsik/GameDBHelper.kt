@@ -41,7 +41,7 @@ class GameDBHelper(context: Context) : SQLiteOpenHelper(context, "gameDataDB", n
         // 날짜, 홈팀 이름, 어웨이팀 이름, gameId, meetSeq, 홈팀 이미지, 어웨이팀 이미지
         // gameId는 승강PO를 할 때 1부터 세기때문에 시즌 초반과 중복될 수 있어서 meetSeq도 추가함
         // ++ date는 시즌마다 gameId를 1부터 세기 때문에 년도는 다른데 gameId와 meetSeq가 같을 수 있어서 기본키에 추가함
-        
+
         // 테이블 이름은 gameDataTBL로 통일
         if (p0 != null) {
             if (!isTableExists(p0, "gameDataTBL")) {
@@ -52,6 +52,8 @@ class GameDBHelper(context: Context) : SQLiteOpenHelper(context, "gameDataDB", n
             }
         }
     }
+
+
 
     // 테이블 존재 여부 확인
     private fun isTableExists(db: SQLiteDatabase, tableName: String): Boolean {
